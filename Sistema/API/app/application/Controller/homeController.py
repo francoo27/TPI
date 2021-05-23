@@ -10,6 +10,6 @@ home_bp = Blueprint(
 
 @home_bp.route('/home', methods=['GET'])
 def home():
-    return Response("home",headers=dict({
+    return Response('{"data": "JSON string example"}',headers=dict({
   "HeaderExample": "HeaderContent"
-}))
+}),mimetype="application/json")
