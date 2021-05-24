@@ -3,6 +3,7 @@ from flask.globals import request
 from ..Logic import paisService
 import json
 from types import SimpleNamespace
+from ..Model.Serializer import Serializer
 
 # Parse JSON into an object with attributes corresponding to dict keys.
 
@@ -14,12 +15,12 @@ pais_bp = Blueprint(
 
 @pais_bp.route('/pais/<id>', methods=['GET'])
 def get_pais(id):
-    pais = paisService.get_pais(id)
+    pais =  Serializer.serialize(paisService.get_pais(id))
     return jsonify(pais)
 
 @pais_bp.route('/pais', methods=['GET'])
 def query_pais():
-    pais = paisService.query_pais()
+    pais = Serializer.serialize_list(paisService.query_pais())
     return jsonify(pais)
     # Response( body,headers=dict({
     #                 "HeaderExample": "HeaderContent"
@@ -29,7 +30,7 @@ def query_pais():
 def pais_create():
     print(str(request.data))
     pais = json.loads(request.data, object_hook=lambda d: SimpleNamespace(**d))
-    paisService.pais_create(pais.nombre)
+    paisService.pais_create(pais)
     return Response(headers=dict({
   "HeaderExample": "HeaderContent"
 }),mimetype="application/json")

@@ -12,7 +12,7 @@ def pais_update(id, nombre):
     session.commit()
 
 def get_pais(id):
-    pais = session.query(Pais).filter(Pais.id == id)
+    pais = session.query(Pais).filter(Pais.id == id).first()
     return pais
 
 def query_pais():
