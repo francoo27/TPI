@@ -3,9 +3,7 @@ from ..connection_manager import SessionManager
 from ..Model.PaisModel import Pais
 
 session = SessionManager.getInstance()
-def pais_create(nombre):
-    pais = Pais(nombre,None)
-    pais.nombre = nombre
+def pais_create(pais):
     session.add(pais)
     session.commit()
 
