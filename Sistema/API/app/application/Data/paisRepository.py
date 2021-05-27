@@ -1,14 +1,15 @@
 from sqlalchemy.orm import session
 from ..connection_manager import SessionManager
-from ..Model.PaisModel import Pais
+from ..Model.PaisModel import Pais,PaisSchema
+paisSchema = PaisSchema()
 
 session = SessionManager.getInstance()
 def pais_create(pais):
     session.add(pais)
     session.commit()
 
-def pais_update(id, nombre):
-    session.query(Pais).filter(Pais.id == id).update({"nombre": nombre})
+def pais_update(pais):
+    session.query(Pais).filter(Pais.id == pais.id).update(paisSchema.dump(pais))
     session.commit()
 
 def get_pais(id):

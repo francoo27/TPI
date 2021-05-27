@@ -1,48 +1,64 @@
+from ..Model.PaisModel import PaisSchema
 from flask import Blueprint , Response , jsonify ,current_app as app
 from flask.globals import request
 from ..Logic import paisService
-import json
-from types import SimpleNamespace
-from ..Model.Serializer import Serializer
+from marshmallow import Schema, fields, ValidationError
 
-# Parse JSON into an object with attributes corresponding to dict keys.
 
 # Blueprint Configuration
 pais_bp = Blueprint(
     'pais_bp', __name__
 )
+paisSchema = PaisSchema()
+paisesSchema = PaisSchema(many=True)
 
 
 @pais_bp.route('/pais/<id>', methods=['GET'])
 def get_pais(id):
-    pais =  Serializer.serialize(paisService.get_pais(id))
-    return jsonify(pais)
+    pais =  paisService.get_pais(id)
+    output = paisSchema.dump(pais)
+    return jsonify(output)
+
 
 @pais_bp.route('/pais', methods=['GET'])
 def query_pais():
-    pais = Serializer.serialize_list(paisService.query_pais())
-    return jsonify(pais)
-    # Response( body,headers=dict({
-    #                 "HeaderExample": "HeaderContent"
-    #               }),mimetype="application/json")
+    pais = paisService.query_pais()
+    output = paisesSchema.dump(pais)
+    return jsonify(output)
+
 
 @pais_bp.route('/pais', methods=['POST'])
 def pais_create():
-    print(str(request.data))
-    pais = json.loads(request.data, object_hook=lambda d: SimpleNamespace(**d))
-    paisService.pais_create(pais)
+    json_data = request.get_json()
+    if not json_data:
+        return {"message": "No input data provided"}, 400
+    # Validate and deserialize input
+    try:
+        data = paisSchema.load(json_data)
+    except:
+        return {"message": "Error"}, 422
+    paisService.pais_create(data)
     return Response(headers=dict({
   "HeaderExample": "HeaderContent"
 }),mimetype="application/json")
 
+
 @pais_bp.route('/pais/<id>', methods=['PUT'])
 def pais_update(id):
-    print(str(request.data))
-    pais = json.loads(request.data, object_hook=lambda d: SimpleNamespace(**d))
-    paisService.pais_update(id,pais.nombre)
+    json_data = request.get_json()
+    if not json_data:
+        return {"message": "No input data provided"}, 400
+    # Validate and deserialize input
+    try:
+        data = paisSchema.load(json_data)
+        data.id = id
+    except:
+        return {"message": "Error"}, 422
+    paisService.pais_update(data)
     return Response(headers=dict({
   "HeaderExample": "HeaderContent"
 }),mimetype="application/json")
+
 
 @pais_bp.route('/pais/<id>', methods=['DELETE'])
 def pais_delete(id):

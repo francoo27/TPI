@@ -10,7 +10,7 @@ from config import DevConfig
 from datetime import datetime
 import os
 from . import alert_manager as am
-from .Shared import db ,r ,migrateObj
+from .Shared import db ,r ,migrateObj,ma
 
 
 # Globally accessible libraries
@@ -26,6 +26,7 @@ def init_app():
     db.init_app(app)
     r.init_app(app)
     migrateObj.init_app(app, db)
+    ma.init_app(app)
 
 
     with app.app_context():
