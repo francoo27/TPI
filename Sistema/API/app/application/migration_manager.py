@@ -12,7 +12,10 @@ class MigrationManager():
     def validate_database():
         engine = connection_engine
         newDataBase = False
-        from .Model import PaisModel ,AudioModel, ClasificacionModel, GeneroModel, TecnologiaProyeccionModel, PeliculaModel #Register all database models
+        #Register all database models
+        from .Model import PaisModel , AudioModel, ClasificacionModel, GeneroModel
+        from .Model import TecnologiaProyeccionModel, PeliculaModel, CiudadModel, ComplejoModel
+        from .Model import SalaModel ,FuncionModel
         if not database_exists(engine.url): # Checks for the first time  
             create_database(engine.url)     # Create new DB
             am.alert_ok(f'New Schema {DevConfig.DATABASE_SCHEMA} Created')

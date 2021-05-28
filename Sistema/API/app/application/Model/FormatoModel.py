@@ -1,6 +1,6 @@
 from .BaseModel import BaseModel
-from .AudioModel import Audio
-from .TecnologiaProyeccionModel import TecnologiaProyeccion
+from .AudioModel import AudioSchema
+from .TecnologiaProyeccionModel import TecnologiaProyeccionSchema
 from ..Shared import db
 from ..Shared import ma
 
@@ -16,4 +16,6 @@ class FormatoSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Formato
         load_instance = True
+    audio = ma.Nested(AudioSchema())
+    tecnologiaProyeccion = ma.Nested(TecnologiaProyeccionSchema())
 
