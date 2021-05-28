@@ -4,7 +4,10 @@ from .Model.AudioModel import Audio
 from .Model.TecnologiaProyeccionModel import TecnologiaProyeccion
 from .Model.ClasificacionModel import Clasificacion
 from .Model.FormatoModel import Formato
+from .Model.GeneroModel import Genero
+from .Model.PeliculaModel import Pelicula
 from .connection_manager import SessionManager
+from datetime import date
 
 session = SessionManager.getInstance()
 
@@ -13,16 +16,21 @@ class EntityManager():
     def seed_database():
         # connection_engine.execute(f"INSERT INTO {DevConfig.DATABASE_SCHEMA}.pais (nombre) VALUES ('Argentina');")
         # Pais
-        session.add(Pais(nombre = 'Argentina'))
+        # BORRAR CUANDO SE ELIMINEN LAS ENTIDADES PARA TESTEAR
+        pais = Pais(nombre = 'Argentina')
+        session.add(pais) # session.add(Pais(nombre = 'Argentina'))
         session.add(Pais(nombre = 'Uruguay'))
+        session.add(Pais(nombre = 'Estados Unidos'))
         # Pais
         # Audio
         espanol = Audio(nombre = 'Español')
         session.add(espanol)
-        espanolLatino = Audio(nombre = 'Español Latino')
+        espanolLatino = Audio(nombre = 'Español Latino') # BORRAR CUANDO SE ELIMINEN LAS ENTIDADES PARA TESTEAR
         session.add(espanolLatino)
-        ingles = Audio(nombre = 'Ingles')
+        # session.add(Audio(nombre = 'Español Latino'))
+        ingles = Audio(nombre = 'Ingles') # BORRAR CUANDO SE ELIMINEN LAS ENTIDADES PARA TESTEAR
         session.add(ingles)
+        # session.add(Audio(nombre = 'Ingles'))
         session.add(Audio(nombre = 'Ingles (Subtitulado)'))
         session.add(Audio(nombre = 'Frances'))
         session.add(Audio(nombre = 'Frances (Subtitulado)'))
@@ -30,11 +38,17 @@ class EntityManager():
         threeD = TecnologiaProyeccion(nombre = '3D')
         session.add(twoD)
         session.add(threeD)
-        session.add(Formato(nombre = f'{twoD.nombre} {espanol.nombre}',audio = espanol , tecnologiaProyeccion = twoD))
-        session.add(Clasificacion(identificador ='ATP' ,
+        formato = Formato(nombre = f'{twoD.nombre} {espanol.nombre}',audio = espanol , tecnologiaProyeccion = twoD) # BORRAR CUANDO SE ELIMINEN LAS ENTIDADES PARA TESTEAR
+        # session.add(Formato(nombre = f'{twoD.nombre} {espanol.nombre}',audio = espanol , tecnologiaProyeccion = twoD))
+        session.add(formato)
+        clasificacion = Clasificacion(identificador ='ATP' ,
                     edadMinima = 'Apto para todo el público',
                     recomendacion='Apto para todo el público',
-                    definicion ='Todas las edades pueden ver. No hay desnudez ni sangre y/o alcohol. El lenguaje es cortés sin el uso de insultos o con ofensas muy suaves que caen en lo gracioso.' ))
+                    definicion ='Todas las edades pueden ver. No hay desnudez ni sangre y/o alcohol. El lenguaje es cortés sin el uso de insultos o con ofensas muy suaves que caen en lo gracioso.' ) # BORRAR CUANDO SE ELIMINEN LAS ENTIDADES PARA TESTEAR
+        # session.add(Clasificacion(identificador ='ATP' ,
+        #             edadMinima = 'Apto para todo el público',
+        #             recomendacion='Apto para todo el público',
+        #             definicion ='Todas las edades pueden ver. No hay desnudez ni sangre y/o alcohol. El lenguaje es cortés sin el uso de insultos o con ofensas muy suaves que caen en lo gracioso.' ))
         session.add(Clasificacion(identificador ='+13' ,
                     edadMinima = '+13 años',
                     recomendacion='Apta para mayores de 13 años.',
@@ -54,5 +68,19 @@ class EntityManager():
                             recomendacion='Exhibición condicionada.',
                             definicion ='Adecuado para mayores de 18 años. Restringido a lugares especialmente autorizados. Los menores de edad no están destinados a ver la película. Los mayores de edad tampoco están destinados a ver esto en cines autorizados.' ))
 
+        genero = Genero(nombre='comedia')
+        session.add(genero)
+        # session.add(Genero(nombre='comedia')) BORRAR CUANDO SE ELIMINEN LAS ENTIDADES PARA TESTEAR
+        pelicula = Pelicula(
+            tituloOriginal = 'Original',
+            tituloPais = 'Pais',
+            fechaEstreno = date.today(),
+            duracion=108,
+            sinopsis='sinopsis',
+            formatos = [formato],
+            clasificacion = clasificacion,
+            genero = genero,
+            pais = pais )
+        session.add(pelicula)
         # Audio
         session.commit()
