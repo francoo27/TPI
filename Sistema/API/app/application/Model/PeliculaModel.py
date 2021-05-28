@@ -25,7 +25,7 @@ class Pelicula(BaseModel):
     clasificacion = db.relationship("Clasificacion", backref=db.backref("clasificacion", uselist=False))
     # Pais
     id_pais = db.Column(db.Integer, db.ForeignKey('pais.id'))
-    pais = db.relationship("Pais", backref=db.backref("pais", uselist=False))
+    pais = db.relationship("Pais", backref=db.backref("pais_pelicula", uselist=False))
     # Genero
     id_genero = db.Column(db.Integer, db.ForeignKey('genero.id'))
     genero = db.relationship("Genero", backref=db.backref("genero", uselist=False))

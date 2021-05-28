@@ -1,4 +1,3 @@
-from config import DevConfig
 from .Model.PaisModel import Pais
 from .Model.AudioModel import Audio
 from .Model.TecnologiaProyeccionModel import TecnologiaProyeccion
@@ -6,8 +5,12 @@ from .Model.ClasificacionModel import Clasificacion
 from .Model.FormatoModel import Formato
 from .Model.GeneroModel import Genero
 from .Model.PeliculaModel import Pelicula
+from .Model.ComplejoModel import Complejo
+from .Model.SalaModel import Sala
+from .Model.FuncionModel import Funcion
+from .Model.CiudadModel import Ciudad
 from .connection_manager import SessionManager
-from datetime import date
+from datetime import date, datetime
 
 session = SessionManager.getInstance()
 
@@ -21,7 +24,15 @@ class EntityManager():
         session.add(pais) # session.add(Pais(nombre = 'Argentina'))
         session.add(Pais(nombre = 'Uruguay'))
         session.add(Pais(nombre = 'Estados Unidos'))
-        # Pais
+        # Ciudad
+        ciudad = Ciudad(nombre = 'Rosario',pais = pais)
+        session.add(ciudad)
+        session.add(Ciudad(nombre = 'Buenos Aires',pais = pais))
+        # Complejo
+        complejo=Complejo(nombre = 'Complejo Rosario Centro',ciudad = ciudad,gerente='GerenteNombre')
+        session.add(complejo)
+
+
         # Audio
         espanol = Audio(nombre = 'Español')
         session.add(espanol)
@@ -41,6 +52,9 @@ class EntityManager():
         formato = Formato(nombre = f'{twoD.nombre} {espanol.nombre}',audio = espanol , tecnologiaProyeccion = twoD) # BORRAR CUANDO SE ELIMINEN LAS ENTIDADES PARA TESTEAR
         # session.add(Formato(nombre = f'{twoD.nombre} {espanol.nombre}',audio = espanol , tecnologiaProyeccion = twoD))
         session.add(formato)
+        # Sala
+        sala=Sala(numero = 1,complejo = complejo,formatos=[formato])
+        session.add(sala)
         clasificacion = Clasificacion(identificador ='ATP' ,
                     edadMinima = 'Apto para todo el público',
                     recomendacion='Apto para todo el público',
@@ -82,5 +96,6 @@ class EntityManager():
             genero = genero,
             pais = pais )
         session.add(pelicula)
-        # Audio
+
+        session.add(Funcion(pelicula=pelicula,sala=sala,formato=formato,fechaInicio=datetime.now().date(),horaInicio=datetime.now().time()))
         session.commit()

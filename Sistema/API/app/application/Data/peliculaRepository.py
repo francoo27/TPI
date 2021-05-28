@@ -18,7 +18,6 @@ def get_pelicula(id):
 
 def query_pelicula():
     pelicula = session.query(Pelicula).all()
-    print(pelicula[0].clasificacion)
     return pelicula
 
 def pelicula_delete(id):

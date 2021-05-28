@@ -7,6 +7,8 @@ class Complejo(BaseModel):
     __tablename__ = 'complejo'
     nombre = db.Column(db.String(128), nullable=False)
     gerente = db.Column(db.String(128), nullable=False)
+    id_ciudad = db.Column(db.Integer, db.ForeignKey('ciudad.id'), nullable=False)
+    ciudad = db.relationship("Ciudad", backref=db.backref("ciudad", uselist=False))
 
 
 class ComplejoSchema(ma.SQLAlchemyAutoSchema):
