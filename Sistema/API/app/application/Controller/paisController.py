@@ -13,21 +13,21 @@ paisSchema = PaisSchema()
 paisesSchema = PaisSchema(many=True)
 
 
-@pais_bp.route('/pais/<id>', methods=['GET'])
+@pais_bp.route('/api/pais/<id>', methods=['GET'])
 def get_pais(id):
     pais =  paisService.get_pais(id)
     output = paisSchema.dump(pais)
     return jsonify(output)
 
 
-@pais_bp.route('/pais', methods=['GET'])
+@pais_bp.route('/api/pais', methods=['GET'])
 def query_pais():
     pais = paisService.query_pais()
     output = paisesSchema.dump(pais)
     return jsonify(output)
 
 
-@pais_bp.route('/pais', methods=['POST'])
+@pais_bp.route('/api/pais', methods=['POST'])
 def pais_create():
     json_data = request.get_json()
     if not json_data:
@@ -43,7 +43,7 @@ def pais_create():
 }),mimetype="application/json")
 
 
-@pais_bp.route('/pais/<id>', methods=['PUT'])
+@pais_bp.route('/api/pais/<id>', methods=['PUT'])
 def pais_update(id):
     json_data = request.get_json()
     if not json_data:
