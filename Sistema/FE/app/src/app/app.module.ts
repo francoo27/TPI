@@ -7,6 +7,13 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { CineArEntityModule } from './entities/entity.module';
 import { HttpClientModule } from '@angular/common/http';
+import {ListboxModule} from 'primeng/listbox';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { ToastModule } from 'primeng/toast';
+import {MenubarModule} from 'primeng/menubar';
+import {MenuItem} from 'primeng/api';
+
 
 @NgModule({
   declarations: [
@@ -19,7 +26,12 @@ import { HttpClientModule } from '@angular/common/http';
     FormsModule,
     BrowserAnimationsModule,
     CineArEntityModule,
-    CascadeSelectModule
+    CascadeSelectModule,
+    ListboxModule,
+    MessagesModule,
+    MessageModule,
+    ToastModule,
+    MenubarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

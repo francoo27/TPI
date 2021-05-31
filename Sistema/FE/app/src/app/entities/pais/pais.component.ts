@@ -1,97 +1,46 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import {MessageService} from 'primeng/api';
 import { PaisService } from './pais.service';
 
 @Component({
     selector: 'car-pais',
-    templateUrl: './pais.component.html'
+    templateUrl: './pais.component.html',
+    providers: []
 })
 export class PaisComponent implements OnInit, OnDestroy {
-    countries: any[] =  [
-        {
-            name: 'Australia',
-            code: 'AU',
-            states: [
-                {
-                    name: 'New South Wales',
-                    cities: [
-                        {cname: 'Sydney', code: 'A-SY'},
-                        {cname: 'Newcastle', code: 'A-NE'},
-                        {cname: 'Wollongong', code: 'A-WO'}
-                    ]
-                },
-                {
-                    name: 'Queensland',
-                    cities: [
-                        {cname: 'Brisbane', code: 'A-BR'},
-                        {cname: 'Townsville', code: 'A-TO'}
-                    ]
-                },
-                
-            ]
-        },
-        {
-            name: 'Canada', 
-            code: 'CA',
-            states: [
-                {
-                    name: 'Quebec',
-                    cities: [
-                        {cname: 'Montreal', code: 'C-MO'},
-                        {cname: 'Quebec City', code: 'C-QU'}
-                    ]
-                },
-                {
-                    name: 'Ontario',
-                    cities: [
-                        {cname: 'Ottawa', code: 'C-OT'},
-                        {cname: 'Toronto', code: 'C-TO'}
-                    ]
-                },
-                
-            ]
-        },
-        {
-            name: 'United States',
-            code: 'US',
-            states: [
-                {
-                    name: 'California',
-                    cities: [
-                        {cname: 'Los Angeles', code: 'US-LA'},
-                        {cname: 'San Diego', code: 'US-SD'},
-                        {cname: 'San Francisco', code: 'US-SF'}
-                    ]
-                },
-                {
-                    name: 'Florida',
-                    cities: [
-                        {cname: 'Jacksonville', code: 'US-JA'},
-                        {cname: 'Miami', code: 'US-MI'},
-                        {cname: 'Tampa', code: 'US-TA'},
-                        {cname: 'Orlando', code: 'US-OR'}
-                    ]
-                },
-                {
-                    name: 'Texas',
-                    cities: [
-                        {cname: 'Austin', code: 'US-AU'},
-                        {cname: 'Dallas', code: 'US-DA'},
-                        {cname: 'Houston', code: 'US-HO'}
-                    ]
-                }
-            ]
-        }
-    ];
-      selectedCity1: any;
+    countries: any[] =  [{
+        name: 'Australia',
+        code: 'AU'
+    }];
+    selectedCity1: any;
+
+
     constructor(
-        private paisService: PaisService
+        private paisService: PaisService,
+        private messageService: MessageService
     ) {
     }
 
     ngOnInit(): void {
+    this.setToast();
+      this.paisService.query().subscribe(res => {this.countries = res.body!,
+        console.log(this.countries),
+        this.setToast();
+    } );
+
+    }
+    
+    setToast(){
+        setTimeout(() => {
+            console.log('Authentication Failed');
+            this.messageService.add({
+              severity: "success",
+              summary: "Success Message",
+              detail: "Order submitted"
+            });
+          }, 1000);
     }
 
-    queryPais = (req?: any) => this.paisService.query(req);
 
     ngOnDestroy(): void {}
 }
