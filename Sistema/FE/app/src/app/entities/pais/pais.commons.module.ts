@@ -7,13 +7,14 @@ import { PaisComponent } from "./pais.component";
 import {ListboxModule} from 'primeng/listbox';
 import {ToastModule} from 'primeng/toast';
 import { MessageService } from "primeng/api";
+import { CineArFormModule } from "../cineArForm.module";
 
 @NgModule({
-    imports: [RouterModule,CascadeSelectModule,ListboxModule,ToastModule],
+    imports: [RouterModule,CascadeSelectModule,ListboxModule,ToastModule,CineArFormModule],
     declarations: [
         PaisComponent,
         PaisDetailComponent,
-        PaisUpdateComponent,
+        PaisUpdateComponent
         ],
     entryComponents: [],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
