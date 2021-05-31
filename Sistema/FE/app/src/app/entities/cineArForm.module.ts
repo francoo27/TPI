@@ -7,6 +7,7 @@ import {InputNumberModule} from 'primeng/inputnumber';
 import {CheckboxModule} from 'primeng/checkbox';
 import {InputMaskModule} from 'primeng/inputmask';
 import {CalendarModule} from 'primeng/calendar';
+import {TableModule} from 'primeng/table';
 
 @NgModule({
     imports: [
@@ -16,7 +17,8 @@ import {CalendarModule} from 'primeng/calendar';
         FormsModule,
         InputNumberModule,
         CheckboxModule,
-        InputMaskModule
+        InputMaskModule,
+        TableModule
     ],
     declarations: [],
     entryComponents: [],
@@ -29,7 +31,8 @@ import {CalendarModule} from 'primeng/calendar';
         FormsModule,
         InputNumberModule,
         CheckboxModule,
-        CalendarModule]
+        CalendarModule,
+        TableModule]
 })
 
 export class CineArFormModule{}

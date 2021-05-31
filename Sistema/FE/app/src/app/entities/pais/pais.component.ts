@@ -22,10 +22,8 @@ export class PaisComponent implements OnInit, OnDestroy {
     }
 
     ngOnInit(): void {
-    this.setToast();
-      this.paisService.query().subscribe(res => {this.countries = res.body!,
-        console.log(this.countries),
-        this.setToast();
+      this.paisService.query().subscribe(res => {
+        this.countries = res.body!
     } );
 
     }

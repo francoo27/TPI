@@ -1,3 +1,11 @@
 <div>
-    pais update
+    <form (ngSubmit)="save()">
+    <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col-12 p-md-6">
+            <label for="nombre">Nombre</label>
+            <input type="text" pInputText class="p-inputtext-sm" placeholder="Ej: Argentina" [(ngModel)]="pais.nombre" name="nombre">
+        </div>
+    </div>
+        <button pButton type="submit" label="Guardar"></button>
+    </form>
 </div>

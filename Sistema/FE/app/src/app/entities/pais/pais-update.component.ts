@@ -33,7 +33,12 @@ export class PaisUpdateComponent implements OnInit {
         window.history.back();
     }
 
+    onSubmit(){
+        console.log("asds")
+    }
+
     save() {
+        console.log(this.pais)
         this.isSaving = true;
         if (this.isNew()) {
             this.subscribeToSaveResponse(this.paisService.create(this.pais));
