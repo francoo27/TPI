@@ -5,6 +5,7 @@ import { Observable } from 'rxjs';
 import { PaisService } from './pais.service';
 import { IPais } from './pais.model';
 import { MessageService } from 'primeng/api';
+import { Location } from '@angular/common';
 
 
 @Component({
@@ -19,7 +20,8 @@ export class PaisUpdateComponent implements OnInit {
     constructor(
         private paisService: PaisService,
         private activatedRoute: ActivatedRoute,
-        private messageService: MessageService
+        private messageService: MessageService,
+        private location: Location
     ) {}
 
     ngOnInit() {
@@ -32,7 +34,7 @@ export class PaisUpdateComponent implements OnInit {
     }
 
     previousState() {
-        window.history.back();
+        this.location.back();
     }
 
     onSubmit(){

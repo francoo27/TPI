@@ -12,7 +12,7 @@
         </div>
     </div>
     <div class="">
-        <button pButton class="p-button-secondary" (click)="previousState" label="Volver"></button>
+        <button pButton type="button" class="p-button-secondary" (click)="previousState()" label="Volver"></button>
         <button pButton type="submit" label="Guardar" [disabled]="!dataform.valid"></button>
     </div>
     </form>
