@@ -1,11 +1,11 @@
 <div>
-    <form (ngSubmit)="save()">
+    <form (ngSubmit)="save()" #dataform="ngForm">
     <div class="p-fluid p-formgrid p-grid">
         <div class="p-field p-col-12 p-md-6">
             <label for="nombre">Nombre</label>
-            <input type="text" pInputText class="p-inputtext-sm" placeholder="Ej: Argentina" [(ngModel)]="pais.nombre" name="nombre">
+            <input type="text" pInputText class="p-inputtext-sm" placeholder="Ej: Argentina" [(ngModel)]="pais.nombre" required name="nombre">
         </div>
     </div>
-        <button pButton type="submit" label="Guardar"></button>
+        <button pButton type="submit" label="Guardar" [disabled]="!dataform.valid"></button>
     </form>
 </div>
