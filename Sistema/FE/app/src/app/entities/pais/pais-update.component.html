@@ -1,11 +1,19 @@
 <div>
+    <h2>{{isNew()? 'Nuevo' : 'Editar' }} Pais - {{currentNombre}}</h2>
     <form (ngSubmit)="save()" #dataform="ngForm">
     <div class="p-fluid p-formgrid p-grid">
-        <div class="p-field p-col-12 p-md-6">
+        <div class="p-field p-col-3 p-md-3">
+            <label for="codigo">Codigo</label>
+            <input type="text" pInputText class="p-inputtext-sm" placeholder="ARS" [(ngModel)]="pais.codigo" required name="codigo">
+        </div>
+        <div class="p-field p-col-3 p-md-3">
             <label for="nombre">Nombre</label>
             <input type="text" pInputText class="p-inputtext-sm" placeholder="Ej: Argentina" [(ngModel)]="pais.nombre" required name="nombre">
         </div>
     </div>
+    <div class="">
+        <button pButton class="p-button-secondary" (click)="previousState" label="Volver"></button>
         <button pButton type="submit" label="Guardar" [disabled]="!dataform.valid"></button>
+    </div>
     </form>
 </div>

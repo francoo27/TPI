@@ -5,6 +5,7 @@ paisSchema = PaisSchema()
 
 session = SessionManager.getInstance()
 def pais_create(pais):
+    print(pais)
     session.add(pais)
     session.commit()
 

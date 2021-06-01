@@ -18,7 +18,7 @@ export class PaisService {
     }
 
     update(pais: IPais): Observable<EntityResponseType> {
-        return this.http.put<IPais>(this.resourceUrl, pais, { observe: 'response' });
+        return this.http.put<IPais>(`${this.resourceUrl}/${pais.id}`, pais, { observe: 'response' });
     }
 
     find(id: number): Observable<EntityResponseType> {

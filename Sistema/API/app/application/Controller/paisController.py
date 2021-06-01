@@ -3,6 +3,7 @@ from flask import Blueprint , Response , jsonify ,current_app as app
 from flask.globals import request
 from ..Logic import paisService
 from marshmallow import Schema, fields, ValidationError
+from ..Shared import db
 
 
 # Blueprint Configuration
@@ -50,8 +51,8 @@ def pais_update(id):
         return {"message": "No input data provided"}, 400
     # Validate and deserialize input
     try:
-        data = paisSchema.load(json_data)
-        data.id = id
+        # WORKAROUND https://www.gitmemory.com/issue/marshmallow-code/flask-marshmallow/44/508944019
+        data = paisSchema.load(json_data ,session=db.session)
     except:
         return {"message": "Error"}, 422
     paisService.pais_update(data)

@@ -4,6 +4,7 @@ import { HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PaisService } from './pais.service';
 import { IPais } from './pais.model';
+import { MessageService } from 'primeng/api';
 
 
 @Component({
@@ -17,7 +18,8 @@ export class PaisUpdateComponent implements OnInit {
 
     constructor(
         private paisService: PaisService,
-        private activatedRoute: ActivatedRoute
+        private activatedRoute: ActivatedRoute,
+        private messageService: MessageService
     ) {}
 
     ngOnInit() {
@@ -38,7 +40,6 @@ export class PaisUpdateComponent implements OnInit {
     }
 
     save() {
-        console.log(this.pais)
         this.isSaving = true;
         if (this.isNew()) {
             this.subscribeToSaveResponse(this.paisService.create(this.pais));
@@ -57,11 +58,20 @@ export class PaisUpdateComponent implements OnInit {
 
     private onSaveSuccess() {
         this.isSaving = false;
-
+        this.messageService.add({
+            severity: "success",
+            summary: "Ok!",
+            detail: this.isNew() ? "Pais creado":"Pais editado"
+          });
         this.previousState();
     }
 
     private onSaveError() {
+        this.messageService.add({
+            severity: "error",
+            summary: "Ok!",
+            detail: this.isNew() ? "Hubo un error al crear el Pais":"Hubo un error al editar el Pais"
+          });
         this.isSaving = false;
     }
 

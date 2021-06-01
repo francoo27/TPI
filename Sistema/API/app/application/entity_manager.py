@@ -20,10 +20,12 @@ class EntityManager():
         # connection_engine.execute(f"INSERT INTO {DevConfig.DATABASE_SCHEMA}.pais (nombre) VALUES ('Argentina');")
         # Pais
         # BORRAR CUANDO SE ELIMINEN LAS ENTIDADES PARA TESTEAR
-        pais = Pais(nombre = 'Argentina')
+        pais = Pais(nombre = 'Argentina',codigo="AR")
         session.add(pais) # session.add(Pais(nombre = 'Argentina'))
-        session.add(Pais(nombre = 'Uruguay'))
-        session.add(Pais(nombre = 'Estados Unidos'))
+        session.add(Pais(nombre = 'Uruguay',codigo="UY"))
+        session.add(Pais(nombre = 'Estados Unidos',codigo="US"))
+        session.add(Pais(nombre = 'Brasil',codigo="BR"))
+        session.add(Pais(nombre = 'Chile',codigo="CL"))
         # Ciudad
         ciudad = Ciudad(nombre = 'Rosario',pais = pais)
         session.add(ciudad)

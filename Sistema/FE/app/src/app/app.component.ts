@@ -14,25 +14,21 @@ export class AppComponent implements OnInit {
   ngOnInit() {
       this.items = [
           {
+            label: 'Entidades',
+            items: [{
               label: 'Pais',
-              items: [{
+              items: [
+                  {
                       label: 'Nuevo', 
                       icon: 'pi pi-fw pi-plus',
                       routerLink: ['/pais/new']
                   },
-                  {label: 'Listado',
-                  icon: 'pi pi-fw pi-eye',
-                  routerLink: ['/pais']},
-                  {label: 'Quit'}
-              ]
-          },
-          {
-              label: 'Edit',
-              icon: 'pi pi-fw pi-pencil',
-              items: [
-                  {label: 'Delete', icon: 'pi pi-fw pi-trash'},
-                  {label: 'Refresh', icon: 'pi pi-fw pi-refresh'}
-              ]
+                  {
+                    label: 'Listado',
+                    icon: 'pi pi-fw pi-eye',
+                    routerLink: ['/pais']
+                  }
+              ]}]
           }
       ];
   }

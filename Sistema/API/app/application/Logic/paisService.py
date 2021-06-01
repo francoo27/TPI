@@ -8,7 +8,6 @@ def query_pais():
     return paisRepository.query_pais()
 
 def pais_create(pais):
-    pais = Pais(nombre = pais.nombre)
     paisRepository.pais_create(pais)
 
 def pais_update(pais):

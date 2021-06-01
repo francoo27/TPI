@@ -27,18 +27,6 @@ export class PaisComponent implements OnInit, OnDestroy {
     } );
 
     }
-    
-    setToast(){
-        setTimeout(() => {
-            console.log('Authentication Failed');
-            this.messageService.add({
-              severity: "success",
-              summary: "Success Message",
-              detail: "Order submitted"
-            });
-          }, 1000);
-    }
-
 
     ngOnDestroy(): void {}
 }
