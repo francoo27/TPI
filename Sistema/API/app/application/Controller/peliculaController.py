@@ -14,21 +14,21 @@ peliculaSchema = PeliculaSchema()
 peliculasSchema = PeliculaSchema(many=True)
 
 
-@pelicula_bp.route('/pelicula/<id>', methods=['GET'])
+@pelicula_bp.route('/api/pelicula/<id>', methods=['GET'])
 def get_pelicula(id):
     pelicula =  peliculaService.get_pelicula(id)
     output = peliculaSchema.dump(pelicula)
     return jsonify(output)
 
 
-@pelicula_bp.route('/pelicula', methods=['GET'])
+@pelicula_bp.route('/api/pelicula', methods=['GET'])
 def query_pelicula():
     pelicula = peliculaService.query_pelicula()
     output = peliculasSchema.dump(pelicula)
     return jsonify(output)
 
 
-@pelicula_bp.route('/pelicula', methods=['POST'])
+@pelicula_bp.route('/api/pelicula', methods=['POST'])
 def pelicula_create():
     json_data = request.get_json()
     if not json_data:
@@ -44,7 +44,7 @@ def pelicula_create():
 }),mimetype="application/json")
 
 
-@pelicula_bp.route('/pelicula/<id>', methods=['PUT'])
+@pelicula_bp.route('/api/pelicula/<id>', methods=['PUT'])
 def pelicula_update(id):
     json_data = request.get_json()
     if not json_data:
@@ -61,7 +61,7 @@ def pelicula_update(id):
 }),mimetype="application/json")
 
 
-@pelicula_bp.route('/pelicula/<id>', methods=['DELETE'])
+@pelicula_bp.route('/api/pelicula/<id>', methods=['DELETE'])
 def pelicula_delete(id):
     peliculaService.pelicula_delete(id)
     return Response(headers=dict({

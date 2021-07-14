@@ -14,21 +14,21 @@ funcionSchema = FuncionSchema()
 funcionsSchema = FuncionSchema(many=True)
 
 
-@funcion_bp.route('/funcion/<id>', methods=['GET'])
+@funcion_bp.route('/api/funcion/<id>', methods=['GET'])
 def get_funcion(id):
     funcion =  funcionService.get_funcion(id)
     output = funcionSchema.dump(funcion)
     return jsonify(output)
 
 
-@funcion_bp.route('/funcion', methods=['GET'])
+@funcion_bp.route('/api/funcion', methods=['GET'])
 def query_funcion():
     funcion = funcionService.query_funcion()
     output = funcionsSchema.dump(funcion)
     return jsonify(output)
 
 
-@funcion_bp.route('/funcion', methods=['POST'])
+@funcion_bp.route('/api/funcion', methods=['POST'])
 def funcion_create():
     json_data = request.get_json()
     if not json_data:
@@ -44,7 +44,7 @@ def funcion_create():
 }),mimetype="application/json")
 
 
-@funcion_bp.route('/funcion/<id>', methods=['PUT'])
+@funcion_bp.route('/api/funcion/<id>', methods=['PUT'])
 def funcion_update(id):
     json_data = request.get_json()
     if not json_data:
@@ -61,7 +61,7 @@ def funcion_update(id):
 }),mimetype="application/json")
 
 
-@funcion_bp.route('/funcion/<id>', methods=['DELETE'])
+@funcion_bp.route('/api/funcion/<id>', methods=['DELETE'])
 def funcion_delete(id):
     funcionService.funcion_delete(id)
     return Response(headers=dict({
