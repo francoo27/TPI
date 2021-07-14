@@ -12,13 +12,13 @@ class Funcion(BaseModel):
     horaInicio = db.Column(db.Time(), nullable=False)
 
     id_pelicula = db.Column(db.Integer, db.ForeignKey('pelicula.id'),nullable=False)
-    pelicula = db.relationship("Pelicula", backref=db.backref("pelicula", uselist=False))
+    pelicula = db.relationship("Pelicula", backref=db.backref("pelicula", uselist=False),lazy='subquery')
 
     id_formato = db.Column(db.Integer, db.ForeignKey('formato.id'),nullable=False)
-    formato = db.relationship("Formato", backref=db.backref("formato", uselist=False))
+    formato = db.relationship("Formato", backref=db.backref("formato", uselist=False),lazy='subquery')
 
     id_sala = db.Column(db.Integer, db.ForeignKey('sala.id'),nullable=False)
-    sala = db.relationship("Sala", backref=db.backref("sala", uselist=False))
+    sala = db.relationship("Sala", backref=db.backref("sala", uselist=False),lazy='subquery')
 
 class FuncionSchema(ma.SQLAlchemyAutoSchema):
     class Meta:

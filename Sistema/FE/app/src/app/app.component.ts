@@ -28,7 +28,21 @@ export class AppComponent implements OnInit {
                     icon: 'pi pi-fw pi-eye',
                     routerLink: ['/pais']
                   }
-              ]}]
+              ]},
+              {
+                label: 'Funcion',
+                items: [
+                    {
+                        label: 'Nuevo', 
+                        icon: 'pi pi-fw pi-plus',
+                        routerLink: ['/funcion/new']
+                    },
+                    {
+                      label: 'Listado',
+                      icon: 'pi pi-fw pi-eye',
+                      routerLink: ['/funcion']
+                    }
+                ]}]
           }
       ];
   }

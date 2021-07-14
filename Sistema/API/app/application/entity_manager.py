@@ -99,5 +99,5 @@ class EntityManager():
             pais = pais )
         session.add(pelicula)
 
-        session.add(Funcion(pelicula=pelicula,sala=sala,formato=formato,fechaInicio=datetime.now().date(),horaInicio=datetime.now().time()))
+        session.add(Funcion(nombre="TEST Nombre Funcion",pelicula=pelicula,sala=sala,formato=formato,fechaInicio=datetime.now().date(),horaInicio=datetime.now().time()))
         session.commit()

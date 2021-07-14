@@ -22,16 +22,16 @@ class Pelicula(BaseModel):
     sinopsis = db.Column('sinopsis',db.String(500))
     # Clasifiacion
     id_clasificacion = db.Column(db.Integer, db.ForeignKey('clasificacion.id'))
-    clasificacion = db.relationship("Clasificacion", backref=db.backref("clasificacion", uselist=False))
+    clasificacion = db.relationship("Clasificacion", backref=db.backref("clasificacion", uselist=False),lazy='subquery')
     # Pais
     id_pais = db.Column(db.Integer, db.ForeignKey('pais.id'))
-    pais = db.relationship("Pais", backref=db.backref("pais_pelicula", uselist=False))
+    pais = db.relationship("Pais", backref=db.backref("pais_pelicula", uselist=False),lazy='subquery')
     # Genero
     id_genero = db.Column(db.Integer, db.ForeignKey('genero.id'))
-    genero = db.relationship("Genero", backref=db.backref("genero", uselist=False))
+    genero = db.relationship("Genero", backref=db.backref("genero", uselist=False),lazy='subquery')
     # Formatos
     formatos = db.relationship("Formato",
-                    secondary=peliculaFormato)
+                    secondary=peliculaFormato,lazy='subquery')
 
 
 class PeliculaSchema(ma.SQLAlchemyAutoSchema):

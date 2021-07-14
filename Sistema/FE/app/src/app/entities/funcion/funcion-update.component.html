@@ -1,0 +1,28 @@
+<div>
+    <h2>{{isNew() ? 'Nuevo' : 'Editar' }} Funcion {{isNew() ? "" : "- " + currentNombre}}</h2>
+    <form (ngSubmit)="save()" #dataform="ngForm">
+    <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col-3 p-md-3">
+            <label for="codigo">Codigo</label>
+            <input type="text" pInputText class="p-inputtext-sm" placeholder="ARS" [(ngModel)]="funcion.nombre" required name="codigo">
+        </div>
+        <div class="p-field p-col-3 p-md-3">
+            <label for="nombre">Nombre</label>
+            <input type="text" pInputText class="p-inputtext-sm" placeholder="Ej: Argentina" [(ngModel)]="funcion.nombre" required name="nombre">
+        </div>
+        <div class="p-field p-col-3 p-md-3">
+            <label for="pelicula">Pelicula</label>
+            <p-dropdown  [options]="peliculas" [(ngModel)]="funcion.pelicula" optionLabel="tituloOriginal" name="pelicula" placeholder="Seleccione una pelicula" [required]="true" [showClear]="true"></p-dropdown>
+        </div>
+        <div class="p-field p-col-3 p-md-3">
+            <label for="formato">Formato</label>
+            <p-dropdown  [options]="formatos" [(ngModel)]="funcion.formato" optionLabel="nombre" name="formato" placeholder="Seleccione un formato" [required]="true" [showClear]="true"></p-dropdown>
+        </div>
+
+    </div>
+    <div class="">
+        <button pButton type="button" class="p-button-secondary" (click)="previousState()" label="Volver"></button>
+        <button pButton type="submit" label="Guardar" [disabled]="!dataform.valid"></button>
+    </div>
+    </form>
+</div>
