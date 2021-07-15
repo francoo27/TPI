@@ -44,7 +44,7 @@ export class PeliculaUpdateComponent implements OnInit {
             this.clasificaciones = res.body!
         } )
 
-        this.clasificacionService.query().subscribe(res => {
+        this.generoService.query().subscribe(res => {
             this.generos = res.body!
         } )
     }

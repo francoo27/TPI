@@ -1,5 +1,6 @@
 import { IClasificacion } from "../clasifiacion/clasificacion.model";
 import { IFormato } from "../formato/formato.model";
+import { IGenero } from "../genero/genero.model";
 import { IPais } from "../pais/pais.model";
 
 export interface IPelicula {
@@ -14,7 +15,7 @@ export interface IPelicula {
     sinopsis?: string;
     clasificacion?: IClasificacion;
     pais?: IPais;
-    //genero?: IGenero;
+    genero?: IGenero;
     formatos?: IFormato[];
 }
 
@@ -28,9 +29,9 @@ export class Pelicula implements IPelicula {
         public fechaEstreno?: string,
         public duracion?: number,
         public sinopsis?: string,
-        clasificacion?: IClasificacion,
+        public clasificacion?: IClasificacion,
         public pais?: IPais,
-        //genero?: IGenero;
+        public genero?: IGenero,
         public formatos?: IFormato[]
     ) {
 
