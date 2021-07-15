@@ -1,0 +1,52 @@
+<div>
+    <h2>{{isNew() ? 'Nueva' : 'Editar' }} Pelicula {{isNew() ? "" : "- " + currentNombre}}</h2>
+    <form (ngSubmit)="save()" #dataform="ngForm">
+    <div class="p-fluid p-formgrid p-grid">
+        <div class="p-col-3 p-md-3">
+            <div class="p-fluid p-grid">
+                <div class="p-field p-col-12 p-md-12">
+                    <label for="imagen">Imagen Portada</label>
+                    <p-fileUpload name="imagen" url="./upload.php" (onUpload)="onUpload($event)" accept="image/*" chooseLabel="Elegir" uploadLabel="Subir" cancelLabel="Cancelar">
+                        <!-- <ng-template pTemplate="content">
+                            <ul *ngIf="uploadedFiles.length">
+                                <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
+                            </ul>
+                        </ng-template> -->
+                    </p-fileUpload>
+                </div>
+            </div>
+        </div>
+        <div class="p-col-9 p-md-9">
+            <div class="p-fluid p-grid">
+                <div class="p-field p-col-3 p-md-3">
+                    <label for="tituloOriginal">Titulo Original</label>
+                    <input type="text" pInputText class="p-inputtext-sm" placeholder="Ej: The Godfather" [(ngModel)]="pelicula.tituloOriginal" required name="tituloOriginal">
+                </div>
+                <div class="p-field p-col-3 p-md-3">
+                    <label for="tituloPais">Titulo Argentina</label>
+                    <input type="text" pInputText class="p-inputtext-sm" placeholder="Ej: El Padrino" [(ngModel)]="pelicula.tituloPais" required name="tituloPais">
+                </div>
+                <div class="p-field p-col-3 p-md-3">
+                    <label for="genero">Genero</label>
+                    <!-- <p-dropdown  [options]="generos" [(ngModel)]="pelicula.genero" optionLabel="nombre" name="formato" placeholder="Seleccione un genero" [required]="true" [showClear]="true"></p-dropdown> -->
+                </div>
+                <div class="p-field p-col-3 p-md-3">
+                    <label for="clasificacion">Clasifiacion</label>
+                    <p-dropdown  [options]="clasificaciones" [(ngModel)]="pelicula.clasificacion" optionLabel="identificador" name="clasificacion" placeholder="Seleccione una clasifiacion" [required]="true" [showClear]="true"></p-dropdown>
+                </div>
+
+            </div>
+        </div>
+        <div class="p-col-12 p-md-12">
+            <div class="p-field">
+                <label for="sumarry">Sumary</label>
+                <textarea style="resize: none;" [rows]="5" [cols]="200" name="summary" pInputTextarea></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="">
+        <button pButton type="button" class="p-button-secondary" (click)="previousState()" label="Volver"></button>
+        <button pButton type="submit" label="Guardar" [disabled]="!dataform.valid"></button>
+    </div>
+    </form>
+</div>

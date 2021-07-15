@@ -21,8 +21,9 @@ def pelicula_update(pelicula):
     session.query(Pelicula).filter(Pelicula.id == pelicula.id).update(peliculaSchema.dump(pelicula))
     session.commit()
 
-def get_pelicula(id):
-    pelicula = session.query(Pelicula).filter(Pelicula.id == id).first()
+def get_pelicula(id):    
+    with Session() as session:
+        pelicula = session.query(Pelicula).filter(Pelicula.id == id).first()
     return pelicula
 
 def query_pelicula():

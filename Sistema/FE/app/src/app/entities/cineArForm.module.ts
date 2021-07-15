@@ -10,6 +10,8 @@ import {CalendarModule} from 'primeng/calendar';
 import {TableModule} from 'primeng/table';
 import { ListboxModule } from "primeng/listbox";
 import { DropdownModule } from "primeng/dropdown";
+import {FileUploadModule} from 'primeng/fileupload';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
     imports: [
@@ -22,7 +24,9 @@ import { DropdownModule } from "primeng/dropdown";
         InputMaskModule,
         TableModule,
         ListboxModule,
-        DropdownModule
+        DropdownModule,
+        FileUploadModule,
+        HttpClientModule
     ],
     declarations: [],
     entryComponents: [],
@@ -38,7 +42,10 @@ import { DropdownModule } from "primeng/dropdown";
         CalendarModule,
         TableModule,
         ListboxModule,
-        DropdownModule]
+        DropdownModule,
+        FileUploadModule,
+        HttpClientModule
+    ]
 })
 
 export class CineArFormModule{}

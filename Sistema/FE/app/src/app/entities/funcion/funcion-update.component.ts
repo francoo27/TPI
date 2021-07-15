@@ -7,7 +7,7 @@ import { IFuncion } from './funcion.model';
 import { MessageService } from 'primeng/api';
 import { Location } from '@angular/common';
 import { IFormato } from '../formato/formato.model';
-import { FormatoService } from '../formato/funcion.service';
+import { FormatoService } from '../formato/formato.service';
 import { IPelicula } from '../pelicula/pelicula.model';
 import { PeliculaService } from '../pelicula/pelicula.service';
 

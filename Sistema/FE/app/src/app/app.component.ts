@@ -42,7 +42,23 @@ export class AppComponent implements OnInit {
                       icon: 'pi pi-fw pi-eye',
                       routerLink: ['/funcion']
                     }
-                ]}]
+                ]}
+                ,
+              {
+                label: 'Pelicula',
+                items: [
+                    {
+                        label: 'Nuevo', 
+                        icon: 'pi pi-fw pi-plus',
+                        routerLink: ['/pelicula/new']
+                    },
+                    {
+                      label: 'Listado',
+                      icon: 'pi pi-fw pi-eye',
+                      routerLink: ['/pelicula']
+                    }
+                ]}
+              ]
           }
       ];
   }

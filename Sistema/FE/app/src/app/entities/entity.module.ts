@@ -13,6 +13,10 @@ import { RouterModule } from "@angular/router";
                         {
                             path: 'funcion',
                             loadChildren: () => import('./funcion/funcion.module').then(m => m.CineArFuncionModule)
+                        },
+                        {
+                            path: 'pelicula',
+                            loadChildren: () => import('./pelicula/pelicula.module').then(m => m.CineArPeliculaModule)
                         }
                     ]
                 }
