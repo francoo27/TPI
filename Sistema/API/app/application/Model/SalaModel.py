@@ -23,6 +23,7 @@ class SalaSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Sala
         load_instance = True
+        sqla_session = db.session
     formatos = ma.Nested(FormatoSchema(), many = True)
     complejo = ma.Nested(ComplejoSchema())
     

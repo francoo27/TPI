@@ -1,25 +1,20 @@
 from sqlalchemy.orm import session
 from ..connection_manager import SessionManager
 from ..Model.FormatoModel import Formato,FormatoSchema
+from sqlalchemy.engine import create_engine
+from sqlalchemy.orm import session, sessionmaker
+from config import DevConfig
 formatoSchema = FormatoSchema()
 
-session = SessionManager.getInstance()
-# def formato_create(formato):
-#     session.add(formato)
-#     session.commit()
+engine = create_engine(DevConfig.SQLALCHEMY_DATABASE_URI, echo=True)
+Session = sessionmaker(engine)
 
-# def formato_update(formato):
-#     session.query(Formato).filter(Formato.id == formato.id).update(formatoSchema.dump(formato))
-#     session.commit()
-
-# def get_formato(id):
-#     formato = session.query(Formato).filter(Formato.id == id).first()
-#     return formato
-
-def query_formato():
-    formato = session.query(Formato).all()
+def get_formato(id):    
+    with Session() as session:
+        formato = session.query(Formato).filter(Formato.id == id).first()
     return formato
 
-# def formato_delete(id):
-#     session.query(Formato).filter(Formato.id == id).delete()
-#     session.commit()
+def query_formato():
+    with Session() as session:
+        formato = session.query(Formato).all()
+    return formato

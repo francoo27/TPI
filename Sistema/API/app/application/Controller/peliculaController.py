@@ -4,6 +4,7 @@ from flask import Blueprint , Response , jsonify ,current_app as app
 from flask.globals import request
 from ..Logic import peliculaService
 from marshmallow import Schema, fields, ValidationError
+from ..Shared import db
 
 
 # Blueprint Configuration
@@ -51,9 +52,10 @@ def pelicula_update(id):
         return {"message": "No input data provided"}, 400
     # Validate and deserialize input
     try:
+        # WORKAROUND https://www.gitmemory.com/issue/marshmallow-code/flask-marshmallow/44/508944019
         data = peliculaSchema.load(json_data)
-        data.id = id
-    except:
+    except Exception as e :
+        print(e)
         return {"message": "Error"}, 422
     peliculaService.pelicula_update(data)
     return Response(headers=dict({

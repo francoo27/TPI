@@ -16,6 +16,7 @@ class FormatoSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Formato
         load_instance = True
+        sqla_session = db.session
     audio = ma.Nested(AudioSchema())
     tecnologiaProyeccion = ma.Nested(TecnologiaProyeccionSchema())
 

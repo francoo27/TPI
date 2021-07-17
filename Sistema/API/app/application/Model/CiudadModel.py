@@ -14,5 +14,6 @@ class CiudadSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Ciudad
         load_instance = True
+        sqla_session = db.session
     pais = ma.Nested(PaisSchema())
 

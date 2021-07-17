@@ -31,22 +31,42 @@
                     <p-dropdown  [options]="generos" [(ngModel)]="pelicula.genero" optionLabel="nombre" name="formato" placeholder="Seleccione un genero" [required]="true" [showClear]="true"></p-dropdown>
                 </div>
                 <div class="p-field p-col-3 p-md-3">
-                    <label for="clasificacion">Clasifiacion</label>
+                    <label for="clasificacion">Clasificacion</label>
                     <p-dropdown  [options]="clasificaciones" [(ngModel)]="pelicula.clasificacion" optionLabel="identificador" name="clasificacion" placeholder="Seleccione una clasifiacion" [required]="true" [showClear]="true"></p-dropdown>
                 </div>
-
+                <div class="p-field p-col-3 p-md-3">
+                    <label for="pais">Pais de origen</label>
+                    <p-dropdown  [options]="paises" [(ngModel)]="pelicula.pais" optionLabel="nombre" name="pais" placeholder="Seleccione un pais" [required]="true" [showClear]="true"></p-dropdown>
+                </div>
+                <div class="p-field p-col-3 p-md-3">
+                    <label for="formatos">Formatos Soportados</label>
+                    <p-multiSelect [options]="formatos" [(ngModel)]="pelicula.formatos"  name="formatos" defaultLabel="Seleccione Formatos" optionLabel="nombre"></p-multiSelect>
+                </div>
+                <div class="p-field p-col-3 p-md-3">
+                    <label for="fechaEstreno">Fecha de estreno</label>
+                    <p-calendar [(ngModel)]="fechaEstreno" name="fechaEstreno" dateFormat="dd/mm/yy" inputId="spanish"></p-calendar>
+                </div>
+                <div class="p-field p-col-3 p-md-3">
+                    <label for="fechaEstreno">Duracion (Minutos)</label>
+                    <input type="number" pInputText class="p-inputtext-sm" [(ngModel)]="pelicula.duracion" [min]="0" required name="duracion">
+                </div>
             </div>
         </div>
         <div class="p-col-12 p-md-12">
             <div class="p-field">
-                <label for="sumarry">Sumary</label>
-                <textarea style="resize: none;" [rows]="5" [cols]="200" name="summary" pInputTextarea></textarea>
+                <label for="sinopsis">Sinopsis</label>
+                <textarea style="resize: none;" [rows]="5" [cols]="200" name="sinopsis"  [(ngModel)]="pelicula.sinopsis" pInputTextarea></textarea>
             </div>
         </div>
     </div>
-    <div class="">
-        <button pButton type="button" class="p-button-secondary" (click)="previousState()" label="Volver"></button>
-        <button pButton type="submit" label="Guardar" [disabled]="!dataform.valid"></button>
-    </div>
+    <div class="p-grid p-jc-end">
+        <div class="p-col-1  p-md-1">
+            <button pButton type="button" class="p-button-secondary" (click)="previousState()" label="Volver"></button>
+        </div>
+        <div class="p-col-1  p-md-1">
+            <button pButton type="submit" label="Guardar" [disabled]="!dataform.valid"></button>
+        </div>
+      </div>
     </form>
 </div>
+<p-toast></p-toast>

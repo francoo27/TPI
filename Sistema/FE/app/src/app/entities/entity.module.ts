@@ -17,7 +17,16 @@ import { RouterModule } from "@angular/router";
                         {
                             path: 'pelicula',
                             loadChildren: () => import('./pelicula/pelicula.module').then(m => m.CineArPeliculaModule)
+                        },
+                        {
+                            path: 'auth',
+                            loadChildren: () => import('../auth/auth.module').then(m => m.CineArAuthModule)
+                        },
+                        {
+                            path: '',
+                            loadChildren: () => import('./home/home.module').then(m => m.CineArHomeModule)
                         }
+
                     ]
                 }
             ]

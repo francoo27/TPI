@@ -12,6 +12,8 @@ import { ListboxModule } from "primeng/listbox";
 import { DropdownModule } from "primeng/dropdown";
 import {FileUploadModule} from 'primeng/fileupload';
 import {HttpClientModule} from '@angular/common/http';
+import {MultiSelectModule} from 'primeng/multiselect';
+import {CardModule} from 'primeng/card';
 
 @NgModule({
     imports: [
@@ -21,12 +23,15 @@ import {HttpClientModule} from '@angular/common/http';
         FormsModule,
         InputNumberModule,
         CheckboxModule,
+        CalendarModule,
         InputMaskModule,
         TableModule,
         ListboxModule,
         DropdownModule,
+        MultiSelectModule,
         FileUploadModule,
-        HttpClientModule
+        HttpClientModule,
+        CardModule
     ],
     declarations: [],
     entryComponents: [],
@@ -43,8 +48,10 @@ import {HttpClientModule} from '@angular/common/http';
         TableModule,
         ListboxModule,
         DropdownModule,
+        MultiSelectModule,
         FileUploadModule,
-        HttpClientModule
+        HttpClientModule,
+        CardModule
     ]
 })
 

@@ -15,5 +15,6 @@ class ComplejoSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Complejo
         load_instance = True
+        sqla_session = db.session
     ciudad = ma.Nested(CiudadSchema())
 

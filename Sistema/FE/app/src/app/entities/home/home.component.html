@@ -1,0 +1,41 @@
+<div class="card">
+    <div class="p-fluid p-formgrid p-grid  p-jc-center">
+        <div class="p-col-4 p-md-4" style="margin-top: 5em;"></div>
+        <div class="p-col-4 p-md-4" style="margin-top: 5em;">
+            <p-galleria [value]="images">
+                <ng-template pTemplate="item" let-item>
+                    <img [src]="item.previewImageSrc" [alt]="item.alt" />
+                </ng-template>
+                <ng-template pTemplate="caption" let-item>
+                    <h4 style="margin-bottom: .5rem; color: #ffffff;">{{item.title}}</h4>
+                    <p>{{item.alt}}</p>
+                </ng-template>
+            </p-galleria>
+        </div>
+        <div class="p-col-4 p-md-4" style="margin-top: 5em;"></div>
+    </div>
+    <div class="p-grid p-formgrid p-grid  p-jc-center">
+        <div class="p-col-3 p-md-3" *ngFor="let pelicula of peliculas; let i=index">
+            <p-card header="{{pelicula.tituloPais}}" subheader="{{pelicula.tituloOriginal}}" [style]="{width: '360px'}" styleClass="p-card-shadow">
+                <ng-template pTemplate="header">
+                    <img alt="Card" src="http://192.168.0.10:5000/api/img/2">
+                </ng-template>
+                <p>{{pelicula.sinopsis}}</p>
+                <ng-template pTemplate="footer">
+                    <p-button label="Ver funciones" icon="pi pi-check"></p-button>
+                </ng-template>
+            </p-card>
+        </div>
+        <div class="p-col-3 p-md-3" *ngFor="let pelicula of peliculas; let i=index">
+            <p-card header="{{pelicula.tituloPais}}" subheader="{{pelicula.tituloOriginal}}" [style]="{width: '360px'}" styleClass="p-card-shadow">
+                <ng-template pTemplate="header">
+                    <img alt="Card" src="http://192.168.0.10:5000/api/img/2">
+                </ng-template>
+                <p>{{pelicula.sinopsis}}</p>
+                <ng-template pTemplate="footer">
+                    <p-button label="Ver funciones" icon="pi pi-check"></p-button>
+                </ng-template>
+            </p-card>
+        </div>
+    </div>
+</div>

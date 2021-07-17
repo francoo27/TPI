@@ -11,3 +11,4 @@ class GeneroSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Genero
         load_instance = True
+        sqla_session = db.session

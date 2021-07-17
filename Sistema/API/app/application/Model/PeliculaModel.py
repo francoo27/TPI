@@ -38,6 +38,7 @@ class PeliculaSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Pelicula
         load_instance = True
+        sqla_session = db.session
     clasificacion = ma.Nested(ClasificacionSchema())
     pais = ma.Nested(PaisSchema())
     genero = ma.Nested(GeneroSchema())

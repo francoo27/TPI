@@ -11,6 +11,7 @@ import { MessageModule } from 'primeng/message';
 import { ToastModule } from 'primeng/toast';
 import {MenubarModule} from 'primeng/menubar';
 import { CineArFormModule } from './entities/cineArForm.module';
+import { CineArAuthModule } from './auth/auth.module';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { CineArFormModule } from './entities/cineArForm.module';
     ToastModule,
     MenubarModule,
     CineArFormModule,
+    CineArAuthModule
   ],
   providers: [],
   bootstrap: [AppComponent]

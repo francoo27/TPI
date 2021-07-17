@@ -10,6 +10,12 @@ import { ClasificacionService } from '../clasifiacion/clasificacion.service';
 import { IClasificacion } from '../clasifiacion/clasificacion.model';
 import { IGenero } from '../genero/genero.model';
 import { GeneroService } from '../genero/genero.service';
+import { PaisService } from '../pais/pais.service';
+import { IPais } from '../pais/pais.model';
+import { IFormato } from '../formato/formato.model';
+import { FormatoService } from '../formato/formato.service';
+import {formatDate} from '@angular/common';
+import { DATE_FORMAT } from 'src/app/shared/dateFormat';
 
 
 @Component({
@@ -20,13 +26,18 @@ export class PeliculaUpdateComponent implements OnInit {
     private _pelicula!: IPelicula;
     clasificaciones:IClasificacion[]=[];
     generos:IGenero[]=[];
+    paises:IPais[]=[];
+    formatos:IFormato[]=[];
     currentNombre!: string;
+    fechaEstreno!: Date;
     isSaving!: boolean;
 
     constructor(
         private peliculaService: PeliculaService,
         private clasificacionService: ClasificacionService,
         private generoService: GeneroService,
+        private paisService: PaisService,
+        private formatoService: FormatoService,
         private activatedRoute: ActivatedRoute,
         private messageService: MessageService,
         private location: Location
@@ -37,7 +48,9 @@ export class PeliculaUpdateComponent implements OnInit {
 
         this.activatedRoute.data.subscribe(({ pelicula }) => {
             this.pelicula = pelicula;
-            this.currentNombre = pelicula.nombre;
+            this.currentNombre = pelicula.tituloPais;
+            console.log(new Date(pelicula.fechaEstreno))
+            this.fechaEstreno = new Date(pelicula.fechaEstreno);
         });
 
         this.clasificacionService.query().subscribe(res => {
@@ -46,6 +59,14 @@ export class PeliculaUpdateComponent implements OnInit {
 
         this.generoService.query().subscribe(res => {
             this.generos = res.body!
+        } )
+
+        this.paisService.query().subscribe(res => {
+            this.paises = res.body!
+        } )
+        
+        this.formatoService.query().subscribe(res => {
+            this.formatos = res.body!
         } )
     }
 
@@ -62,6 +83,8 @@ export class PeliculaUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
+        this.pelicula.fechaEstreno = formatDate(this.fechaEstreno,DATE_FORMAT,'en_US');
+        console.log( this.pelicula.fechaEstreno)
         if (this.isNew()) {
             this.subscribeToSaveResponse(this.peliculaService.create(this.pelicula));
         } else {
@@ -79,20 +102,24 @@ export class PeliculaUpdateComponent implements OnInit {
 
     private onSaveSuccess() {
         this.isSaving = false;
-        this.messageService.add({
-            severity: "success",
-            summary: "Ok!",
-            detail: this.isNew() ? "Pelicula creado":"Pelicula editado"
-          });
+        setTimeout(() => {
+            this.messageService.add({
+                severity: "success",
+                summary: "Todo Ok!",
+                detail: this.isNew() ? "Pelicula creada":"Pelicula editada"
+            })
+        }, 1000);
         this.previousState();
     }
 
     private onSaveError() {
-        this.messageService.add({
-            severity: "error",
-            summary: "Ok!",
-            detail: this.isNew() ? "Hubo un error al crear el Pelicula":"Hubo un error al editar el Pelicula"
-          });
+        setTimeout(() => {
+            this.messageService.add({
+                severity: "error",
+                summary: "ERROR",
+                detail: this.isNew() ? "Hubo un error al crear el Pelicula":"Hubo un error al editar el Pelicula"
+            });
+        }, 1000);
         this.isSaving = false;
     }
 
@@ -100,7 +127,7 @@ export class PeliculaUpdateComponent implements OnInit {
         return this._pelicula;
     }
 
-    set pelicula(motivo: IPelicula) {
-        this._pelicula = motivo;
+    set pelicula(pelicula: IPelicula) {
+        this._pelicula = pelicula;
     }
 }

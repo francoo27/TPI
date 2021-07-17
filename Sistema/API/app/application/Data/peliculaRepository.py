@@ -14,12 +14,12 @@ engine = create_engine(DevConfig.SQLALCHEMY_DATABASE_URI, echo=True)
 # session = Session()
 Session = sessionmaker(engine)
 def pelicula_create(pelicula):
-    session.add(pelicula)
-    session.commit()
+    with Session() as session:
+        session.add(pelicula)
 
 def pelicula_update(pelicula):
-    session.query(Pelicula).filter(Pelicula.id == pelicula.id).update(peliculaSchema.dump(pelicula))
-    session.commit()
+    with Session() as session:
+        session.query(Pelicula).filter(Pelicula.id == pelicula.id).update(peliculaSchema.dump(pelicula))
 
 def get_pelicula(id):    
     with Session() as session:
@@ -32,5 +32,5 @@ def query_pelicula():
     return pelicula
 
 def pelicula_delete(id):
-    session.query(Pelicula).filter(Pelicula.id == id).delete()
-    session.commit()
+    with Session() as session:
+        session.query(Pelicula).filter(Pelicula.id == id).delete()

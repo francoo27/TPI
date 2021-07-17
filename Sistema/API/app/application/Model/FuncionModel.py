@@ -24,6 +24,7 @@ class FuncionSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Funcion
         load_instance = True
+        sqla_session = db.session
     pelicula = ma.Nested(PeliculaSchema())
     formato = ma.Nested(FormatoSchema())
     sala = ma.Nested(SalaSchema())
