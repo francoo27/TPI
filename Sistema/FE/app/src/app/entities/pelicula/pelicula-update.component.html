@@ -44,7 +44,7 @@
                 </div>
                 <div class="p-field p-col-3 p-md-3">
                     <label for="fechaEstreno">Fecha de estreno</label>
-                    <p-calendar [(ngModel)]="fechaEstreno" name="fechaEstreno" dateFormat="dd/mm/yy" inputId="spanish"></p-calendar>
+                    <p-calendar [(ngModel)]="fechaEstreno" name="fechaEstreno" dateFormat="dd/mm/yy" inputId="spanish" [required]="true"></p-calendar>
                 </div>
                 <div class="p-field p-col-3 p-md-3">
                     <label for="fechaEstreno">Duracion (Minutos)</label>
@@ -55,7 +55,7 @@
         <div class="p-col-12 p-md-12">
             <div class="p-field">
                 <label for="sinopsis">Sinopsis</label>
-                <textarea style="resize: none;" [rows]="5" [cols]="200" name="sinopsis"  [(ngModel)]="pelicula.sinopsis" pInputTextarea></textarea>
+                <textarea style="resize: none;" [rows]="5" [cols]="200" name="sinopsis"  [(ngModel)]="pelicula.sinopsis" pInputTextarea required></textarea>
             </div>
         </div>
     </div>

@@ -1,5 +1,8 @@
+from pickle import TRUE
 from ..Data import peliculaRepository
-from ..Model.PeliculaModel import Pelicula
+from ..Model.PeliculaModel import Pelicula,PeliculaSchema
+
+peliculaSchema = PeliculaSchema()
 
 def get_pelicula(id):
     return peliculaRepository.get_pelicula(id)
@@ -8,7 +11,6 @@ def query_pelicula():
     return peliculaRepository.query_pelicula()
 
 def pelicula_create(pelicula):
-    pelicula = Pelicula(nombre = pelicula.nombre)
     peliculaRepository.pelicula_create(pelicula)
 
 def pelicula_update(pelicula):

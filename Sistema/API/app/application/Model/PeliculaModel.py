@@ -1,3 +1,4 @@
+from sqlalchemy.orm import backref
 from .BaseModel import BaseModel
 from .ClasificacionModel import ClasificacionSchema
 from .PaisModel import PaisSchema
@@ -5,6 +6,7 @@ from .FormatoModel import FormatoSchema
 from .GeneroModel import GeneroSchema
 from ..Shared import db
 from ..Shared import ma
+import marshmallow_sqlalchemy as masqla
 
 peliculaFormato = db.Table('pelicula_formato', db.Model.metadata,
     db.Column('id', db.Integer, primary_key=True, autoincrement=True),
@@ -16,7 +18,7 @@ class Pelicula(BaseModel):
     __tablename__ = 'pelicula'
     tituloOriginal = db.Column('titulo_original',db.String(128), nullable=False)
     tituloPais = db.Column('titulo_pais',db.String(128), nullable=False)
-    fechaEstreno = db.Column('fecha_estreno',db.Date(), nullable=False)
+    fechaEstreno = db.Column('fecha_estreno',db.String(128), nullable=True)
     imagen = db.Column('imagen',db.String(300))
     duracion = db.Column('duracion',db.Integer())
     sinopsis = db.Column('sinopsis',db.String(500))
@@ -31,7 +33,7 @@ class Pelicula(BaseModel):
     genero = db.relationship("Genero", backref=db.backref("genero", uselist=False),lazy='subquery')
     # Formatos
     formatos = db.relationship("Formato",
-                    secondary=peliculaFormato,lazy='subquery')
+                    secondary=peliculaFormato,lazy='subquery',backref=db.backref('pelicula', lazy=True))
 
 
 class PeliculaSchema(ma.SQLAlchemyAutoSchema):
@@ -42,6 +44,6 @@ class PeliculaSchema(ma.SQLAlchemyAutoSchema):
     clasificacion = ma.Nested(ClasificacionSchema())
     pais = ma.Nested(PaisSchema())
     genero = ma.Nested(GeneroSchema())
-    formatos = ma.Nested(FormatoSchema(), many = True)
+    formatos = masqla.fields.Nested("FormatoSchema", many=True)
 
 

@@ -1,3 +1,4 @@
+from ..Model.FormatoModel import FormatoSchema
 from ..Model.ClasificacionModel import ClasificacionSchema
 from ..Model.PeliculaModel import PeliculaSchema
 from flask import Blueprint , Response , jsonify ,current_app as app
@@ -13,6 +14,8 @@ pelicula_bp = Blueprint(
 )
 peliculaSchema = PeliculaSchema()
 peliculasSchema = PeliculaSchema(many=True)
+
+formatosSchema = FormatoSchema(many=True)
 
 
 @pelicula_bp.route('/api/pelicula/<id>', methods=['GET'])
@@ -31,15 +34,20 @@ def query_pelicula():
 
 @pelicula_bp.route('/api/pelicula', methods=['POST'])
 def pelicula_create():
-    json_data = request.get_json()
-    if not json_data:
-        return {"message": "No input data provided"}, 400
+    if request.data:
+        json_data = request.get_json()
+    else:
+        return {"message": "No data provided"}, 400
     # Validate and deserialize input
     try:
         data = peliculaSchema.load(json_data)
-    except:
-        return {"message": "Error"}, 422
-    peliculaService.pelicula_create(data)
+    except Exception as e :
+        print(e)
+        return {e: "Error"}, 422
+    try:
+        peliculaService.pelicula_create(data)
+    except ValueError as e :
+        return {e: "Error"}, 400
     return Response(headers=dict({
   "HeaderExample": "HeaderContent"
 }),mimetype="application/json")
@@ -48,12 +56,13 @@ def pelicula_create():
 @pelicula_bp.route('/api/pelicula/<id>', methods=['PUT'])
 def pelicula_update(id):
     json_data = request.get_json()
+    print(json_data)
     if not json_data:
-        return {"message": "No input data provided"}, 400
+        return {"message": "No data provided"}, 400
     # Validate and deserialize input
     try:
         # WORKAROUND https://www.gitmemory.com/issue/marshmallow-code/flask-marshmallow/44/508944019
-        data = peliculaSchema.load(json_data)
+        data = peliculaSchema.load(json_data,session=db.session)
     except Exception as e :
         print(e)
         return {"message": "Error"}, 422

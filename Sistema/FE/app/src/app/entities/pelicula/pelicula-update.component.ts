@@ -16,6 +16,7 @@ import { IFormato } from '../formato/formato.model';
 import { FormatoService } from '../formato/formato.service';
 import {formatDate} from '@angular/common';
 import { DATE_FORMAT } from 'src/app/shared/dateFormat';
+import { DateTime } from "luxon";
 
 
 @Component({
@@ -30,6 +31,7 @@ export class PeliculaUpdateComponent implements OnInit {
     formatos:IFormato[]=[];
     currentNombre!: string;
     fechaEstreno!: Date;
+    fechaEstrenoFormat!: DateTime;
     isSaving!: boolean;
 
     constructor(
@@ -49,9 +51,17 @@ export class PeliculaUpdateComponent implements OnInit {
         this.activatedRoute.data.subscribe(({ pelicula }) => {
             this.pelicula = pelicula;
             this.currentNombre = pelicula.tituloPais;
-            console.log(new Date(pelicula.fechaEstreno))
-            this.fechaEstreno = new Date(pelicula.fechaEstreno);
+
+
+            var date = new Date(pelicula.fechaEstreno)
+            var userTimezoneOffset = date.getTimezoneOffset() * 60000;
+            this.fechaEstreno = new Date(date.getTime() - userTimezoneOffset);
         });
+
+
+        if (this.isNew()){
+            this.fechaEstreno = new Date()
+        }
 
         this.clasificacionService.query().subscribe(res => {
             this.clasificaciones = res.body!
@@ -83,8 +93,7 @@ export class PeliculaUpdateComponent implements OnInit {
 
     save() {
         this.isSaving = true;
-        this.pelicula.fechaEstreno = formatDate(this.fechaEstreno,DATE_FORMAT,'en_US');
-        console.log( this.pelicula.fechaEstreno)
+        this.pelicula.fechaEstreno = DateTime.fromJSDate(this.fechaEstreno).toFormat(DATE_FORMAT)
         if (this.isNew()) {
             this.subscribeToSaveResponse(this.peliculaService.create(this.pelicula));
         } else {

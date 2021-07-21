@@ -25,6 +25,10 @@ import { RouterModule } from "@angular/router";
                         {
                             path: '',
                             loadChildren: () => import('./home/home.module').then(m => m.CineArHomeModule)
+                        },
+                        {
+                            path: 'boleteria',
+                            loadChildren: () => import('./boleteria/boleteria.module').then(m => m.CineArBoleteriaModule)
                         }
 
                     ]

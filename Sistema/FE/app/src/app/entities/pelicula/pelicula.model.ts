@@ -5,8 +5,6 @@ import { IPais } from "../pais/pais.model";
 
 export interface IPelicula {
     id?: number;
-    nombre?: string;
-    codigo?: string;
     tituloOriginal?: string;
     tituloPais?: string;
     fechaEstreno?: string;
@@ -22,8 +20,6 @@ export interface IPelicula {
 export class Pelicula implements IPelicula {
     constructor(
         public id?: number,
-        public nombre?: string,
-        public codigo?: string,
         public tituloOriginal?: string,
         public tituloPais?: string,
         public fechaEstreno?: string,

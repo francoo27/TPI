@@ -24,6 +24,7 @@
                 <td>{{pelicula.clasificacion?.identificador}}</td>
                 <td>
                     <button pButton class="p-button-rounded" type="submit" [routerLink]="['/pelicula/'+pelicula.id+'/edit']" icon="pi pi-pencil" title="Editar"></button>
+                    <button pButton class="p-button-rounded p-button-danger" type="submit" (click)="delete(pelicula.id)" icon="pi pi-times" title="Eliminar"></button>
                 </td>
             </tr>
         </ng-template>
