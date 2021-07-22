@@ -37,7 +37,6 @@ export class FuncionUpdateComponent implements OnInit {
 
         this.activatedRoute.data.subscribe(({ funcion }) => {
             this.funcion = funcion;
-            console.log(funcion)
             this.currentNombre = funcion.nombre;
         });
 
@@ -47,7 +46,6 @@ export class FuncionUpdateComponent implements OnInit {
 
         this.peliculaService.query().subscribe(res => {
             this.peliculas = res.body!
-            console.log(this.peliculas)
         } )
 
 
@@ -80,20 +78,24 @@ export class FuncionUpdateComponent implements OnInit {
 
     private onSaveSuccess() {
         this.isSaving = false;
-        this.messageService.add({
-            severity: "success",
-            summary: "Ok!",
-            detail: this.isNew() ? "Funcion creado":"Funcion editado"
-          });
+        setTimeout(() => {
+            this.messageService.add({
+                severity: "success",
+                summary: "Ok!",
+                detail: this.isNew() ? "Funcion creada":"Funcion editada"
+            })
+        }, 1000);
         this.previousState();
     }
 
     private onSaveError() {
-        this.messageService.add({
-            severity: "error",
-            summary: "Ok!",
-            detail: this.isNew() ? "Hubo un error al crear el Funcion":"Hubo un error al editar el Funcion"
-          });
+        setTimeout(() => {
+            this.messageService.add({
+                severity: "error",
+                summary: "ERROR",
+                detail: this.isNew() ? "Hubo un error al crear el Funcion":"Hubo un error al editar el Funcion"
+            })
+        }, 1000);
         this.isSaving = false;
     }
 
@@ -101,7 +103,7 @@ export class FuncionUpdateComponent implements OnInit {
         return this._funcion;
     }
 
-    set funcion(motivo: IFuncion) {
-        this._funcion = motivo;
+    set funcion(funcion: IFuncion) {
+        this._funcion = funcion;
     }
 }

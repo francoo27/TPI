@@ -25,6 +25,7 @@ export class Pelicula implements IPelicula {
         public fechaEstreno?: string,
         public duracion?: number,
         public sinopsis?: string,
+        public imagen?: string,
         public clasificacion?: IClasificacion,
         public pais?: IPais,
         public genero?: IGenero,

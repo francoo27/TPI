@@ -8,7 +8,7 @@ type EntityResponseType = HttpResponse<IFuncion>;
 type EntityArrayResponseType = HttpResponse<IFuncion[]>;
 
 @Injectable({ providedIn: 'root' })
-export class FuncionService {
+export class ImageService {
     private resourceUrl = SERVER_API_URL + 'api/image';
 
     constructor(private http: HttpClient) {}

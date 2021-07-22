@@ -6,13 +6,28 @@
             <div class="p-fluid p-grid">
                 <div class="p-field p-col-12 p-md-12">
                     <label for="imagen">Imagen Portada</label>
-                    <p-fileUpload name="imagen" url="./upload.php" (onUpload)="onUpload($event)" accept="image/*" chooseLabel="Elegir" uploadLabel="Subir" cancelLabel="Cancelar">
-                        <!-- <ng-template pTemplate="content">
-                            <ul *ngIf="uploadedFiles.length">
-                                <li *ngFor="let file of uploadedFiles">{{file.name}} - {{file.size}} bytes</li>
-                            </ul>
-                        </ng-template> -->
-                    </p-fileUpload>
+                    <ng-container *ngIf="pelicula.imagen">
+                        <p-card header="pelicula.imagen" styleClass="p-card-shadow">
+                            <ng-template pTemplate="header">
+                                <img alt="Imagen Pelicula" src="http://192.168.0.10:5000/api/img/{{pelicula.imagen}}">
+                            </ng-template>
+                            <p>{{pelicula.imagen}}</p>
+                            <ng-template pTemplate="footer">
+                                <p-button label="Eliminar foto" icon="pi pi-times"></p-button>
+                            </ng-template>
+                        </p-card>
+                    </ng-container>
+                    <ng-container *ngIf="!pelicula.imagen">
+                        <p-fileUpload name="file" url="http://192.168.0.10:5000/api/img" (onUpload)="onUpload($event)" accept="image/*" chooseLabel="Elegir" uploadLabel="Subir" cancelLabel="Cancelar" [disabled]="!canUpload">
+                            <ng-template pTemplate="content">
+                                <div *ngIf="uploadedFiles.length">
+                                    <div *ngFor="let file of uploadedFiles">
+                                        <img src="http://192.168.0.10:5000/api/img/{{file.name}}" style=" width: 200px;height: 100%;" alt="">{{file.name}} - {{file.size}} bytes
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </p-fileUpload>
+                    </ng-container>
                 </div>
             </div>
         </div>

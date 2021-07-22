@@ -1,8 +1,8 @@
 <div class="card">
     <div class="p-fluid p-formgrid p-grid  p-jc-center">
         <div class="p-col-4 p-md-4" style="margin-top: 5em;"></div>
-        <div class="p-col-4 p-md-4" style="margin-top: 5em;">
-            <p-galleria [value]="images">
+        <div class="p-col-4 p-md-4" style="margin-top: 10em;min-height: 200px;">
+            <p-galleria [value]="images" >
                 <ng-template pTemplate="item" let-item>
                     <img [src]="item.previewImageSrc" [alt]="item.alt" />
                 </ng-template>
@@ -15,27 +15,17 @@
         <div class="p-col-4 p-md-4" style="margin-top: 5em;"></div>
     </div>
     <div class="p-grid p-formgrid p-grid  p-jc-center">
-        <div class="p-col-3 p-md-3" *ngFor="let pelicula of peliculas; let i=index">
+        <div class="p-col-3 p-md-3 p-xs-3" *ngFor="let pelicula of peliculas; let i=index">
             <p-card header="{{pelicula.tituloPais}}" subheader="{{pelicula.tituloOriginal}}" [style]="{width: '360px'}" styleClass="p-card-shadow">
                 <ng-template pTemplate="header">
-                    <img alt="Card" src="http://192.168.0.10:5000/api/img/2">
+                    <img alt="Card" src="http://192.168.0.10:5000/api/img/{{pelicula.imagen}}" style="height: 200px;width: 300px;">
                 </ng-template>
                 <p>{{pelicula.sinopsis}}</p>
                 <ng-template pTemplate="footer">
                     <p-button label="Ver funciones" icon="pi pi-check"></p-button>
                 </ng-template>
             </p-card>
-        </div>
-        <div class="p-col-3 p-md-3" *ngFor="let pelicula of peliculas; let i=index">
-            <p-card header="{{pelicula.tituloPais}}" subheader="{{pelicula.tituloOriginal}}" [style]="{width: '360px'}" styleClass="p-card-shadow">
-                <ng-template pTemplate="header">
-                    <img alt="Card" src="http://192.168.0.10:5000/api/img/2">
-                </ng-template>
-                <p>{{pelicula.sinopsis}}</p>
-                <ng-template pTemplate="footer">
-                    <p-button label="Ver funciones" icon="pi pi-check"></p-button>
-                </ng-template>
-            </p-card>
+            <br>
         </div>
     </div>
 </div>

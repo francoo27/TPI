@@ -29,4 +29,9 @@ export class FuncionService {
         // const options = createRequestOption(req);
         return this.http.get<IFuncion[]>(this.resourceUrl, { params: {}/*options*/, observe: 'response' });
     }
+        
+    queryByPeliculaAndFormato(peliculaId:number,formatoId:number): Observable<EntityArrayResponseType> {
+        // const options = createRequestOption(req);
+        return this.http.get<IFuncion[]>(`${this.resourceUrl}/pelicula/${peliculaId}/formato/${formatoId}`, { params: {}/*options*/, observe: 'response' });
+    }
 }

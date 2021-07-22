@@ -26,14 +26,22 @@ class EntityManager():
         session.add(Pais(nombre = 'Estados Unidos',codigo="US"))
         session.add(Pais(nombre = 'Brasil',codigo="BR"))
         session.add(Pais(nombre = 'Chile',codigo="CL"))
+        session.add(Pais(nombre = 'Italia',codigo="IT"))
+        session.add(Pais(nombre = 'Francia',codigo="FR"))
+        session.add(Pais(nombre = 'Belgica',codigo="BE"))
+        session.add(Pais(nombre = 'Holanda',codigo="HO"))
+        session.add(Pais(nombre = 'Alemania',codigo="AL"))
         # Ciudad
         ciudad = Ciudad(nombre = 'Rosario',pais = pais)
         session.add(ciudad)
         session.add(Ciudad(nombre = 'Buenos Aires',pais = pais))
+        session.add(Ciudad(nombre = 'Cordoba',pais = pais))
+        session.add(Ciudad(nombre = 'Santa Fe',pais = pais))
         # Complejo
         complejo=Complejo(nombre = 'Complejo Rosario Centro',ciudad = ciudad,gerente='GerenteNombre')
         session.add(complejo)
-
+        session.add(Complejo(nombre = 'Complejo Cordoba',ciudad = Ciudad(nombre = 'Cordoba',pais = pais),gerente='Gerente Cordoba'))
+        session.add(Complejo(nombre = 'Complejo Buenos Aires',ciudad = Ciudad(nombre = 'Buenos Aires',pais = pais), gerente='Gerente Buenos Aires'))
 
         # Audio
         espanol = Audio(nombre = 'Español')
@@ -47,6 +55,10 @@ class EntityManager():
         session.add(Audio(nombre = 'Ingles (Subtitulado)'))
         session.add(Audio(nombre = 'Frances'))
         session.add(Audio(nombre = 'Frances (Subtitulado)'))
+        session.add(Audio(nombre = 'Italiano'))
+        session.add(Audio(nombre = 'Italiano (Subtitulado)'))
+        session.add(Audio(nombre = 'Portugues'))
+        session.add(Audio(nombre = 'Portugues (Subtitulado)'))
         twoD   = TecnologiaProyeccion(nombre = '2D')
         threeD = TecnologiaProyeccion(nombre = '3D')
         session.add(twoD)
@@ -84,7 +96,17 @@ class EntityManager():
                             recomendacion='Exhibición condicionada.',
                             definicion ='Adecuado para mayores de 18 años. Restringido a lugares especialmente autorizados. Los menores de edad no están destinados a ver la película. Los mayores de edad tampoco están destinados a ver esto en cines autorizados.' ))
 
-        genero = Genero(nombre='comedia')
+        genero = Genero(nombre='Comedia')
+        session.add(Genero(nombre='Acción'))
+        session.add(Genero(nombre='Aventuras'))
+        session.add(Genero(nombre='Ciencia Ficción'))
+        session.add(Genero(nombre='Comedia.'))
+        session.add(Genero(nombre='No-Ficción / documental'))
+        session.add(Genero(nombre='Drama'))
+        session.add(Genero(nombre='Fantasía'))
+        session.add(Genero(nombre='Musical'))
+        session.add(Genero(nombre='Terror'))
+        session.add(Genero(nombre='Suspenso'))
         session.add(genero)
         # session.add(Genero(nombre='comedia')) BORRAR CUANDO SE ELIMINEN LAS ENTIDADES PARA TESTEAR
         pelicula = Pelicula(

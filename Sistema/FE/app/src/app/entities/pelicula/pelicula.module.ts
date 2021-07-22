@@ -9,10 +9,11 @@ import {ToastModule} from 'primeng/toast';
 import { MessageService } from "primeng/api";
 import { CineArFormModule } from "../cineArForm.module";
 import { peliculaRoute } from "./pelicula.route";
+import { CommonModule } from '@angular/common';
 
 const ENTITY_STATES = [...peliculaRoute]
 @NgModule({
-    imports: [RouterModule.forChild(ENTITY_STATES),CascadeSelectModule,ListboxModule,ToastModule,CineArFormModule],
+    imports: [RouterModule.forChild(ENTITY_STATES),CascadeSelectModule,ListboxModule,ToastModule,CineArFormModule,CommonModule],
     declarations: [
         PeliculaComponent,
         PeliculaDetailComponent,

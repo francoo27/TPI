@@ -6,11 +6,12 @@ import { CineArFormModule } from "../cineArForm.module";
 import {GalleriaModule} from 'primeng/galleria';
 import { boleteriaRoute } from "./boleteria.route";
 import { BoleteriaComponent } from "./boleteria.component";
+import { CommonModule } from "@angular/common";
 
 
 const ENTITY_STATES = [...boleteriaRoute]
 @NgModule({
-    imports: [RouterModule.forChild(ENTITY_STATES),ToastModule,CineArFormModule,GalleriaModule],
+    imports: [RouterModule.forChild(ENTITY_STATES),ToastModule,CineArFormModule,GalleriaModule,CommonModule],
     declarations: [
         BoleteriaComponent
         ],

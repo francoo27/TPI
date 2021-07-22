@@ -2,6 +2,85 @@
     <div class="p-fluid p-formgrid p-grid  p-jc-center">
         <div class="p-col-4 p-md-4" style="margin-top: 5em;"></div>
         <div class="p-col-4 p-md-4" style="margin-top: 5em;">
+            <p-accordion>
+                <p-accordionTab header="Seleccion de Pelicula">
+                   <ng-container>
+                        <div class="p-field p-col-12 p-md-12">
+                            <label for="pelicula">Pelicula</label>
+                            <p-dropdown [options]="peliculas" [(ngModel)]="peliculaSeleccionado"  name="pelicula" placeholder="Seleccione una Pelicula" optionLabel="tituloPais" [required]="true" [showClear]="true"></p-dropdown>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="peliculaSeleccionado">
+                        <div class="p-field p-col-12 p-md-12" >
+                            <label for="formato">Formato</label>
+                            <p-dropdown [options]="peliculaSeleccionado.formatos!" [(ngModel)]="formatoSeleccionado" (ngModelChange)="onFormatoSelected()"  name="formato"  placeholder="Seleccione Formato" optionLabel="nombre" [required]="true" [showClear]="true"></p-dropdown>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="formatoSeleccionado">
+                        <div class="p-field p-col-12 p-md-12" >
+                            <label for="funcion">Funcion</label>
+                            <p-dropdown [options]="funciones" [(ngModel)]="funcionSeleccionado" name="funcion"  placeholder="Seleccione Funcion" optionLabel="nombre" [required]="true" [showClear]="true"></p-dropdown>
+                        </div>
+                    </ng-container>
+                </p-accordionTab>
+                <p-accordionTab header="Seleccion de Precios">
+                    <ng-container *ngIf="formatoSeleccionado">
+                        <div class="p-field p-col-12 p-md-12" >
+                            <p>Usted a seleccionado la pelicula <b>{{peliculaSeleccionado.tituloPais}}</b> en formato <b>{{formatoSeleccionado.nombre}}</b> para la funcion <b></b></p>
+                        </div>
+                    </ng-container>
+                    <ng-container *ngIf="formatoSeleccionado">
+                        <div class="p-field p-col-12 p-md-12" >
+                            <p-table [value]="peliculas">
+                                <ng-template pTemplate="header">
+                                    <tr>
+                                        <th>Precio</th>
+                                        <th>Valor</th>
+                                        <th>Cantidad</th>
+                                    </tr>
+                                </ng-template>
+                                <ng-template pTemplate="body" let-item>
+                                    <tr>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </ng-template>
+                            </p-table>
+                        </div>
+                    </ng-container>  
+                </p-accordionTab>
+                <p-accordionTab header="Seleccion de Asiento">
+                </p-accordionTab>
+                <p-accordionTab header="Resumen Transaccion">
+                    <ng-container *ngIf="true">
+                        <form #form="ngForm">
+                            <div class="p-field p-col-12 p-md-12" >
+                                <label for="nombreTitular">Nombre Titular</label>
+                                <input type="text" pInputText pKeyFilter="alpha" class="p-inputtext-sm" placeholder="Franco E Pinacca"  required name="nombreTitular">
+                            </div>
+                            <div class="p-field p-col-12 p-md-12" >
+                                <label for="cc" style="display:block;margin-bottom:4px">Numero Tarjeta</label>
+                                <input id="cc" type="text" name="cc" pInputText [(ngModel)]="cc" pKeyFilter="pnum" [pValidateOnly]="true" required placeholder="1234123412341234" maxlength="12" style="margin-right: .5em">
+                            </div>
+                            <div class="p-grid" style="margin-left: 1px;">
+                                <div class="p-field p-col-4 p-md-4" >
+                                    <label for="mesExp">Mes Expiracion</label>
+                                    <input type="text" pInputText class="p-inputtext-sm" pKeyFilter="pnum" placeholder="MM"  maxlength="2" required name="mesExp">
+                                </div>
+                                <div class="p-field p-col-4 p-md-4" >
+                                    <label for="anoExp">Año Expiracion</label>
+                                    <input type="text" pInputText class="p-inputtext-sm" pKeyFilter="pnum" placeholder="AA"  maxlength="2" required name="anoExp">
+                                </div>
+                                <div class="p-field p-col-4 p-md-4" >
+                                    <label for="codigoVerif">Codigo Verificacion</label>
+                                    <input type="text" pInputText class="p-inputtext-sm" pKeyFilter="pnum" placeholder="***"  maxlength="3" required name="codigoVerif">
+                                </div>
+                            </div>
+                        </form>
+                    </ng-container>
+                </p-accordionTab>
+            </p-accordion>
         </div>
         <div class="p-col-4 p-md-4" style="margin-top: 5em;"></div>
     </div>

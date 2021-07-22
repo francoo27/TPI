@@ -33,6 +33,8 @@ export class PeliculaUpdateComponent implements OnInit {
     fechaEstreno!: Date;
     fechaEstrenoFormat!: DateTime;
     isSaving!: boolean;
+    uploadedFiles:any[]=[];
+    canUpload!: boolean;
 
     constructor(
         private peliculaService: PeliculaService,
@@ -47,6 +49,7 @@ export class PeliculaUpdateComponent implements OnInit {
 
     ngOnInit() {
         this.isSaving = false;
+        this.canUpload = true;
 
         this.activatedRoute.data.subscribe(({ pelicula }) => {
             this.pelicula = pelicula;
@@ -56,6 +59,7 @@ export class PeliculaUpdateComponent implements OnInit {
             var date = new Date(pelicula.fechaEstreno)
             var userTimezoneOffset = date.getTimezoneOffset() * 60000;
             this.fechaEstreno = new Date(date.getTime() - userTimezoneOffset);
+            this.canUpload = this.pelicula.imagen != null  || this.pelicula.imagen != undefined ? false : true;
         });
 
 
@@ -88,7 +92,13 @@ export class PeliculaUpdateComponent implements OnInit {
         console.log("asds")
     }
     onUpload($event:any){
-
+        for(let file of $event.files) {
+            this.canUpload = false;
+            this.uploadedFiles.push(file);
+            this.pelicula.imagen = file.name
+            console.log(this.canUpload);
+        }
+        console.log($event);
     }
 
     save() {

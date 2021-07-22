@@ -20,9 +20,14 @@
         </div>
 
     </div>
-    <div class="">
-        <button pButton type="button" class="p-button-secondary" (click)="previousState()" label="Volver"></button>
-        <button pButton type="submit" label="Guardar" [disabled]="!dataform.valid"></button>
-    </div>
+    <div class="p-grid p-jc-end">
+        <div class="p-col-1  p-md-1">
+            <button pButton type="button" class="p-button-secondary" (click)="previousState()" label="Volver"></button>
+        </div>
+        <div class="p-col-1  p-md-1">
+            <button pButton type="submit" label="Guardar" [disabled]="!dataform.valid"></button>
+        </div>
+      </div>
     </form>
 </div>
+<p-toast></p-toast>

@@ -14,6 +14,10 @@ import {FileUploadModule} from 'primeng/fileupload';
 import {HttpClientModule} from '@angular/common/http';
 import {MultiSelectModule} from 'primeng/multiselect';
 import {CardModule} from 'primeng/card';
+import {AccordionModule} from 'primeng/accordion';
+import {KeyFilterModule} from 'primeng/keyfilter';
+import {MessagesModule} from 'primeng/messages';
+import {MessageModule} from 'primeng/message';
 
 @NgModule({
     imports: [
@@ -31,7 +35,11 @@ import {CardModule} from 'primeng/card';
         MultiSelectModule,
         FileUploadModule,
         HttpClientModule,
-        CardModule
+        CardModule,
+        AccordionModule,
+        KeyFilterModule,
+        MessagesModule,
+        MessageModule
     ],
     declarations: [],
     entryComponents: [],
@@ -51,7 +59,11 @@ import {CardModule} from 'primeng/card';
         MultiSelectModule,
         FileUploadModule,
         HttpClientModule,
-        CardModule
+        CardModule,
+        AccordionModule,
+        KeyFilterModule,
+        MessagesModule,
+        MessageModule
     ]
 })
 

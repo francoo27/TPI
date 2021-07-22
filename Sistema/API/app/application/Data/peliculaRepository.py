@@ -47,10 +47,6 @@ def get_pelicula(id):
     pelicula = session.query(Pelicula).filter(Pelicula.id == id).first()
     return pelicula
 
-def get_pelicula_byTituloOriginal(tituloOrginal):
-    print("CORREEEEEEEEEEEEEEEEEEEEEEE")    
-    pelicula = session.query(Pelicula).filter(Pelicula.tituloOrginal == tituloOrginal).first()
-    return pelicula
 
 
 
