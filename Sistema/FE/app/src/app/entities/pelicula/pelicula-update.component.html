@@ -1,0 +1,87 @@
+<div>
+    <h2>{{isNew() ? 'Nueva' : 'Editar' }} Pelicula {{isNew() ? "" : "- " + currentNombre}}</h2>
+    <form (ngSubmit)="save()" #dataform="ngForm">
+    <div class="p-fluid p-formgrid p-grid">
+        <div class="p-col-3 p-md-3">
+            <div class="p-fluid p-grid">
+                <div class="p-field p-col-12 p-md-12">
+                    <label for="imagen">Imagen Portada</label>
+                    <ng-container *ngIf="pelicula.imagen">
+                        <p-card header="pelicula.imagen" styleClass="p-card-shadow">
+                            <ng-template pTemplate="header">
+                                <img alt="Imagen Pelicula" src="http://192.168.0.10:5000/api/img/{{pelicula.imagen}}">
+                            </ng-template>
+                            <p>{{pelicula.imagen}}</p>
+                            <ng-template pTemplate="footer">
+                                <p-button label="Eliminar foto" icon="pi pi-times"></p-button>
+                            </ng-template>
+                        </p-card>
+                    </ng-container>
+                    <ng-container *ngIf="!pelicula.imagen">
+                        <p-fileUpload name="file" url="http://192.168.0.10:5000/api/img" (onUpload)="onUpload($event)" accept="image/*" chooseLabel="Elegir" uploadLabel="Subir" cancelLabel="Cancelar" [disabled]="!canUpload">
+                            <ng-template pTemplate="content">
+                                <div *ngIf="uploadedFiles.length">
+                                    <div *ngFor="let file of uploadedFiles">
+                                        <img src="http://192.168.0.10:5000/api/img/{{file.name}}" style=" width: 200px;height: 100%;" alt="">{{file.name}} - {{file.size}} bytes
+                                    </div>
+                                </div>
+                            </ng-template>
+                        </p-fileUpload>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+        <div class="p-col-9 p-md-9">
+            <div class="p-fluid p-grid">
+                <div class="p-field p-col-3 p-md-3">
+                    <label for="tituloOriginal">Titulo Original</label>
+                    <input type="text" pInputText class="p-inputtext-sm" placeholder="Ej: The Godfather" [(ngModel)]="pelicula.tituloOriginal" required name="tituloOriginal">
+                </div>
+                <div class="p-field p-col-3 p-md-3">
+                    <label for="tituloPais">Titulo Argentina</label>
+                    <input type="text" pInputText class="p-inputtext-sm" placeholder="Ej: El Padrino" [(ngModel)]="pelicula.tituloPais" required name="tituloPais">
+                </div>
+                <div class="p-field p-col-3 p-md-3">
+                    <label for="genero">Genero</label>
+                    <p-dropdown  [options]="generos" [(ngModel)]="pelicula.genero" optionLabel="nombre" name="formato" placeholder="Seleccione un genero" [required]="true" [showClear]="true"></p-dropdown>
+                </div>
+                <div class="p-field p-col-3 p-md-3">
+                    <label for="clasificacion">Clasificacion</label>
+                    <p-dropdown  [options]="clasificaciones" [(ngModel)]="pelicula.clasificacion" optionLabel="identificador" name="clasificacion" placeholder="Seleccione una clasifiacion" [required]="true" [showClear]="true"></p-dropdown>
+                </div>
+                <div class="p-field p-col-3 p-md-3">
+                    <label for="pais">Pais de origen</label>
+                    <p-dropdown  [options]="paises" [(ngModel)]="pelicula.pais" optionLabel="nombre" name="pais" placeholder="Seleccione un pais" [required]="true" [showClear]="true"></p-dropdown>
+                </div>
+                <div class="p-field p-col-3 p-md-3">
+                    <label for="formatos">Formatos Soportados</label>
+                    <p-multiSelect [options]="formatos" [(ngModel)]="pelicula.formatos"  name="formatos" defaultLabel="Seleccione Formatos" optionLabel="nombre"></p-multiSelect>
+                </div>
+                <div class="p-field p-col-3 p-md-3">
+                    <label for="fechaEstreno">Fecha de estreno</label>
+                    <p-calendar [(ngModel)]="fechaEstreno" name="fechaEstreno" dateFormat="dd/mm/yy" inputId="spanish" [required]="true"></p-calendar>
+                </div>
+                <div class="p-field p-col-3 p-md-3">
+                    <label for="fechaEstreno">Duracion (Minutos)</label>
+                    <input type="number" pInputText class="p-inputtext-sm" [(ngModel)]="pelicula.duracion" [min]="0" required name="duracion">
+                </div>
+            </div>
+        </div>
+        <div class="p-col-12 p-md-12">
+            <div class="p-field">
+                <label for="sinopsis">Sinopsis</label>
+                <textarea style="resize: none;" [rows]="5" [cols]="200" name="sinopsis"  [(ngModel)]="pelicula.sinopsis" pInputTextarea required></textarea>
+            </div>
+        </div>
+    </div>
+    <div class="p-grid p-jc-end">
+        <div class="p-col-1  p-md-1">
+            <button pButton type="button" class="p-button-secondary" (click)="previousState()" label="Volver"></button>
+        </div>
+        <div class="p-col-1  p-md-1">
+            <button pButton type="submit" label="Guardar" [disabled]="!dataform.valid"></button>
+        </div>
+      </div>
+    </form>
+</div>
+<p-toast></p-toast>

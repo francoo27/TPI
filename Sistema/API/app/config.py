@@ -28,3 +28,5 @@ class DevConfig(Config):
     SQLALCHEMY_DATABASE_URI = environ.get('DEV_DATABASE_URI')
     DATABASE_SCHEMA = environ.get('DATABASE_SCHEMA')
     SQLALCHEMY_TRACK_MODIFICATIONS = environ.get('SQLALCHEMY_TRACK_MODIFICATIONS')
+    UPLOAD_FOLDER = environ.get('UPLOAD_FOLDER')
+    BASE_DIR = basedir

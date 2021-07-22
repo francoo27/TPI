@@ -14,3 +14,4 @@ class ClasificacionSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Clasificacion
         load_instance = True
+        sqla_session = db.session

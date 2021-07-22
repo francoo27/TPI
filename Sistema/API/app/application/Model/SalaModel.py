@@ -15,14 +15,15 @@ class Sala(BaseModel):
     __tablename__ = 'sala'
     numero = db.Column(db.Integer(), nullable=False)
     id_complejo = db.Column(db.Integer, db.ForeignKey('complejo.id'), nullable=False)
-    complejo = db.relationship("Complejo", backref=db.backref("complejo", uselist=False))
+    complejo = db.relationship("Complejo", backref=db.backref("complejo", uselist=False),lazy='subquery')
     formatos = db.relationship("Formato",
-                    secondary=salaFormato)
+                    secondary=salaFormato,lazy='subquery')
 
 class SalaSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Sala
         load_instance = True
+        sqla_session = db.session
     formatos = ma.Nested(FormatoSchema(), many = True)
     complejo = ma.Nested(ComplejoSchema())
     

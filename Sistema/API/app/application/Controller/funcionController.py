@@ -4,7 +4,7 @@ from flask import Blueprint , Response , jsonify ,current_app as app
 from flask.globals import request
 from ..Logic import funcionService
 from marshmallow import Schema, fields, ValidationError
-
+from ..Shared import db
 
 # Blueprint Configuration
 funcion_bp = Blueprint(
@@ -51,8 +51,7 @@ def funcion_update(id):
         return {"message": "No input data provided"}, 400
     # Validate and deserialize input
     try:
-        data = funcionSchema.load(json_data)
-        data.id = id
+        data = funcionSchema.load(json_data,session=db.session)
     except:
         return {"message": "Error"}, 422
     funcionService.funcion_update(data)
@@ -67,3 +66,10 @@ def funcion_delete(id):
     return Response(headers=dict({
   "HeaderExample": "HeaderContent"
 }),mimetype="application/json")
+
+
+@funcion_bp.route('/api/funcion/pelicula/<peliculaId>/formato/<formatoId>', methods=['GET'])
+def query_ByPeliculaAndFormato(peliculaId,formatoId):
+    funcion =  funcionService.query_ByPeliculaAndFormato(peliculaId,formatoId)
+    output = funcionsSchema.dump(funcion)
+    return jsonify(output)

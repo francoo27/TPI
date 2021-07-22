@@ -1,3 +1,4 @@
+from contextlib import contextmanager
 from sqlalchemy import create_engine
 from sqlalchemy.orm import session, sessionmaker
 from config import DevConfig
@@ -22,3 +23,18 @@ class SessionManager:
             raise Exception("This class is a singleton!")
         else:
             SessionManager.__instance = Session()
+
+
+# class DBAdapter:
+
+#     @contextmanager
+#     def get_session(self):
+#         session = Session()
+#         try:
+#             yield session
+#             session.commit()
+#         except:
+#             session.rollback()
+#             raise
+#         finally:
+#             session.close()

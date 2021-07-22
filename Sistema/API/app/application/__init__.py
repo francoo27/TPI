@@ -31,13 +31,16 @@ def init_app():
 
     with app.app_context():
         # Include our Routes
-        from .Controller import homeController, paisController, peliculaController, funcionController
+        from .Controller import homeController, paisController, peliculaController, funcionController, formatoController, clasificacionController, generoController, imagenController
         MigrationManager.validate_database()
         # Register Blueprints
         app.register_blueprint(homeController.home_bp)
         app.register_blueprint(paisController.pais_bp)
         app.register_blueprint(peliculaController.pelicula_bp)
         app.register_blueprint(funcionController.funcion_bp)
-
+        app.register_blueprint(formatoController.formato_bp)
+        app.register_blueprint(clasificacionController.clasificacion_bp)
+        app.register_blueprint(generoController.genero_bp)
+        app.register_blueprint(imagenController.image_bp)
         return app
 

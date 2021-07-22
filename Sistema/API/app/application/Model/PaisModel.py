@@ -11,4 +11,5 @@ class PaisSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Pais
         load_instance = True
+        sqla_session = db.session
 

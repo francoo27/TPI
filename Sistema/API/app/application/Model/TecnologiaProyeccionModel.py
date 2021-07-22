@@ -10,3 +10,4 @@ class TecnologiaProyeccionSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = TecnologiaProyeccion
         load_instance = True
+        sqla_session = db.session

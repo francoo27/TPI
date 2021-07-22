@@ -10,4 +10,5 @@ class AudioSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = Audio
         load_instance = True
+        sqla_session = db.session
 
