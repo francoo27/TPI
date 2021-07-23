@@ -25,8 +25,7 @@ export class ImageService {
         return this.http.get<IFuncion>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
-    query(req?: any): Observable<EntityArrayResponseType> {
-        // const options = createRequestOption(req);
+    query(): Observable<EntityArrayResponseType> {
         return this.http.get<IFuncion[]>(this.resourceUrl, { params: {}/*options*/, observe: 'response' });
     }
 }

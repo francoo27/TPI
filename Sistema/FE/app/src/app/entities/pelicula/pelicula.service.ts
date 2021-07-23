@@ -29,8 +29,7 @@ export class PeliculaService {
         return this.http.delete<IPelicula>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 
-    query(req?: any): Observable<EntityArrayResponseType> {
-        // const options = createRequestOption(req);
+    query(): Observable<EntityArrayResponseType> {
         return this.http.get<IPelicula[]>(this.resourceUrl, { params: {}/*options*/, observe: 'response' });
     }
 }

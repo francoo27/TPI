@@ -12,21 +12,8 @@ export class ClasificacionService {
     private resourceUrl = SERVER_API_URL + 'api/clasificacion';
 
     constructor(private http: HttpClient) {}
-
-    // create(formato: IClasificacion): Observable<EntityResponseType> {
-    //     return this.http.post<IClasificacion>(this.resourceUrl, formato, { observe: 'response' });
-    // }
-
-    // update(formato: IClasificacion): Observable<EntityResponseType> {
-    //     return this.http.put<IClasificacion>(`${this.resourceUrl}/${formato.id}`, formato, { observe: 'response' });
-    // }
-
-    // find(id: number): Observable<EntityResponseType> {
-    //     return this.http.get<IClasificacion>(`${this.resourceUrl}/${id}`, { observe: 'response' });
-    // }
-
-    query(req?: any): Observable<EntityArrayResponseType> {
-        // const options = createRequestOption(req);
+    
+    query(): Observable<EntityArrayResponseType> {
         return this.http.get<IClasificacion[]>(this.resourceUrl, { params: {}/*options*/, observe: 'response' });
     }
 }

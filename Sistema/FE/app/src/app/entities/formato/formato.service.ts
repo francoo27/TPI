@@ -25,8 +25,7 @@ export class FormatoService {
     //     return this.http.get<IFormato>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     // }
 
-    query(req?: any): Observable<EntityArrayResponseType> {
-        // const options = createRequestOption(req);
+    query(): Observable<EntityArrayResponseType> {
         return this.http.get<IFormato[]>(this.resourceUrl, { params: {}/*options*/, observe: 'response' });
     }
 }
