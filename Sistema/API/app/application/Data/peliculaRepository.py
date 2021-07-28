@@ -29,6 +29,8 @@ def pelicula_update(pelicula):
     currentPelicula.pais = pelicula.pais
     currentPelicula.tituloOriginal = pelicula.tituloOriginal
     currentPelicula.tituloPais = pelicula.tituloPais
+    print("pelicula imagen",pelicula.imagen)
+    currentPelicula.imagen = None if pelicula.imagen == None else pelicula.imagen
     session.add(currentPelicula)
     session.commit()
 

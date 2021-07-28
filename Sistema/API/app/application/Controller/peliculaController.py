@@ -56,6 +56,7 @@ def pelicula_create():
 @pelicula_bp.route('/api/pelicula/<id>', methods=['PUT'])
 def pelicula_update(id):
     json_data = request.get_json()
+    print(json_data)
     if not json_data:
         return {"message": "No data provided"}, 400
     # Validate and deserialize input

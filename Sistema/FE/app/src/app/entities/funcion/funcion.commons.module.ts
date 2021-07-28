@@ -8,9 +8,10 @@ import {ListboxModule} from 'primeng/listbox';
 import {ToastModule} from 'primeng/toast';
 import { MessageService } from "primeng/api";
 import { CineArFormModule } from "../cineArForm.module";
+import { CommonModule } from "@angular/common";
 
 @NgModule({
-    imports: [RouterModule,CascadeSelectModule,ListboxModule,ToastModule,CineArFormModule],
+    imports: [RouterModule,CascadeSelectModule,ListboxModule,ToastModule,CineArFormModule,CommonModule],
     declarations: [
         FuncionComponent,
         FuncionDetailComponent,

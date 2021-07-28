@@ -9,6 +9,8 @@ from .Model.ComplejoModel import Complejo
 from .Model.SalaModel import Sala
 from .Model.FuncionModel import Funcion
 from .Model.CiudadModel import Ciudad
+from .Model.AsientoModel import Asiento
+from .Model.UsuarioModel import Usuario
 from .connection_manager import SessionManager
 from datetime import date, datetime
 
@@ -66,8 +68,25 @@ class EntityManager():
         formato = Formato(nombre = f'{twoD.nombre} {espanol.nombre}',audio = espanol , tecnologiaProyeccion = twoD) # BORRAR CUANDO SE ELIMINEN LAS ENTIDADES PARA TESTEAR
         # session.add(Formato(nombre = f'{twoD.nombre} {espanol.nombre}',audio = espanol , tecnologiaProyeccion = twoD))
         session.add(formato)
+        asientos = [
+                Asiento(columna=1,fila=1,nombre="A-1",adaptado=False),
+                Asiento(columna=2,fila=1,nombre="A-2",adaptado=False),
+                Asiento(columna=3,fila=1,nombre="A-3",adaptado=False),
+                Asiento(columna=4,fila=1,nombre="A-4",adaptado=False),
+                Asiento(columna=5,fila=1,nombre="A-5",adaptado=False),
+                Asiento(columna=1,fila=2,nombre="B-1",adaptado=False),
+                Asiento(columna=2,fila=2,nombre="B-2",adaptado=False),
+                Asiento(columna=3,fila=2,nombre="B-3",adaptado=False),
+                Asiento(columna=4,fila=2,nombre="B-4",adaptado=False),
+                Asiento(columna=5,fila=2,nombre="B-5",adaptado=False),
+                Asiento(columna=1,fila=3,nombre="C-1",adaptado=False),
+                Asiento(columna=2,fila=3,nombre="C-2",adaptado=False),
+                Asiento(columna=3,fila=3,nombre="C-3",adaptado=False),
+                Asiento(columna=4,fila=3,nombre="C-4",adaptado=True),
+                Asiento(columna=5,fila=3,nombre="C-5",adaptado=True),
+                ]
         # Sala
-        sala=Sala(numero = 1,complejo = complejo,formatos=[formato])
+        sala=Sala(numero = 1,complejo = complejo,formatos=[formato],asientos=asientos)
         session.add(sala)
         clasificacion = Clasificacion(identificador ='ATP' ,
                     edadMinima = 'Apto para todo el público',

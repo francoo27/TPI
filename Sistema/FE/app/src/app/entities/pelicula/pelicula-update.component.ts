@@ -95,15 +95,18 @@ export class PeliculaUpdateComponent implements OnInit {
         for(let file of $event.files) {
             this.canUpload = false;
             this.uploadedFiles.push(file);
-            this.pelicula.imagen = file.name
-            console.log(this.canUpload);
+            this.pelicula.imagen = file.name;
         }
-        console.log($event);
+    }
+
+    eliminarFoto(){
+        this.pelicula.imagen = null;
+        this.canUpload = true;
     }
 
     save() {
         this.isSaving = true;
-        this.pelicula.fechaEstreno = DateTime.fromJSDate(this.fechaEstreno).toFormat(DATE_FORMAT)
+        this.pelicula.fechaEstreno = DateTime.fromJSDate(this.fechaEstreno).toFormat(DATE_FORMAT);
         if (this.isNew()) {
             this.subscribeToSaveResponse(this.peliculaService.create(this.pelicula));
         } else {

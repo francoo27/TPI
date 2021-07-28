@@ -8,7 +8,7 @@ export interface IPelicula {
     tituloOriginal?: string;
     tituloPais?: string;
     fechaEstreno?: string;
-    imagen?: string;
+    imagen?: string | null;
     duracion?: number;
     sinopsis?: string;
     clasificacion?: IClasificacion;
@@ -25,7 +25,7 @@ export class Pelicula implements IPelicula {
         public fechaEstreno?: string,
         public duracion?: number,
         public sinopsis?: string,
-        public imagen?: string,
+        public imagen?: string | null,
         public clasificacion?: IClasificacion,
         public pais?: IPais,
         public genero?: IGenero,

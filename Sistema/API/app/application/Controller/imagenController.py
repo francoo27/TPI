@@ -34,8 +34,6 @@ def allowed_file(filename):
 @image_bp.route('/api/img', methods=['POST'])
 def upload_file():
     # check if the post request has the file part
-    print(request.headers)
-    print(request.files)
     if 'file' not in request.files:
         return {"message": "No data provided"}, 400
     file = request.files['file']

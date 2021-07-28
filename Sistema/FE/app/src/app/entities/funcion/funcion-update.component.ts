@@ -10,6 +10,10 @@ import { IFormato } from '../formato/formato.model';
 import { FormatoService } from '../formato/formato.service';
 import { IPelicula } from '../pelicula/pelicula.model';
 import { PeliculaService } from '../pelicula/pelicula.service';
+import { ISala } from '../sala/sala.model';
+import { IComplejo } from '../complejo/complejo.model';
+import { ComplejoService } from '../complejo/complejo.service';
+import { SalaService } from '../sala/sala.service';
 
 
 @Component({
@@ -18,15 +22,27 @@ import { PeliculaService } from '../pelicula/pelicula.service';
 })
 export class FuncionUpdateComponent implements OnInit {
     private _funcion!: IFuncion;
+
     formatos:IFormato[]=[];
     peliculas:IPelicula[]=[];
+    complejos:IComplejo[]=[];
+    salas:ISala[]=[];
+
+    complejo!:IComplejo;
+
     currentNombre!: string;
     isSaving!: boolean;
 
+    fecha!: Date;
+
+    hora!: Date
+    minFecha: Date = new Date();
+
     constructor(
         private funcionService: FuncionService,
-        private formatoService: FormatoService,
+        private complejoService: ComplejoService,
         private peliculaService: PeliculaService,
+        private salaService: SalaService,
         private activatedRoute: ActivatedRoute,
         private messageService: MessageService,
         private location: Location
@@ -40,8 +56,8 @@ export class FuncionUpdateComponent implements OnInit {
             this.currentNombre = funcion.nombre;
         });
 
-        this.formatoService.query().subscribe(res => {
-            this.formatos = res.body!
+        this.complejoService.query().subscribe(res => {
+            this.complejos = res.body!
         } )
 
         this.peliculaService.query().subscribe(res => {
@@ -57,6 +73,22 @@ export class FuncionUpdateComponent implements OnInit {
 
     onSubmit(){
         console.log("asds")
+    }
+
+    generateNombre(){
+        return `${this.funcion.pelicula && this.funcion.formato 
+            ? this.funcion.pelicula?.tituloPais! + " - " + this.funcion.formato?.nombre! + " - " + "Sala: " + this.funcion.sala?.numero! + " - " + (this.fecha ? this.fecha!.getDate().toString()+"/"+this.fecha!.getMonth().toString() : "") + " - " + (this.hora ? this.hora!.getHours().toString() + ":" + this.hora!.getMinutes().toString(): "") 
+            : ""}`;
+    }
+
+    onComplejoChange(){
+        this.salaService.query_ByComplejo(this.complejo.id!).subscribe(res => {
+            this.salas = res.body!
+        } )
+    }
+
+    onSalaChange(){
+        this.formatos=this.funcion.sala?.formatos!;
     }
 
     save() {
