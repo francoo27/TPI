@@ -1,3 +1,5 @@
+from http import HTTPStatus
+import json
 from ..Model.FormatoModel import FormatoSchema
 from ..Model.ClasificacionModel import ClasificacionSchema
 from ..Model.PeliculaModel import PeliculaSchema
@@ -74,7 +76,11 @@ def pelicula_update(id):
 
 @pelicula_bp.route('/api/pelicula/<id>', methods=['DELETE'])
 def pelicula_delete(id):
-    peliculaService.pelicula_delete(id)
+    try:
+        peliculaService.pelicula_delete(id)
+    except ValueError as e :
+        print(e)
+        return Response(mimetype="application/json",status=HTTPStatus.INTERNAL_SERVER_ERROR,response=json.dumps({"message":str(e)}))
     return Response(headers=dict({
-  "HeaderExample": "HeaderContent"
-}),mimetype="application/json")
+    "HeaderExample": "HeaderContent"
+    }),mimetype="application/json")

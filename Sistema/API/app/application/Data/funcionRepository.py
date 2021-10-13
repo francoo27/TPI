@@ -5,6 +5,7 @@ from ..connection_manager import SessionManager
 from ..Model.FuncionModel import Funcion,FuncionSchema
 from config import DevConfig
 from ..Shared import db
+from datetime import date
 funcionSchema = FuncionSchema()
 
 # session = SessionManager.getInstance()
@@ -18,7 +19,11 @@ engine = create_engine(DevConfig.SQLALCHEMY_DATABASE_URI, echo=True)
 Session = sessionmaker(engine)
 session = db.session
 def funcion_create(funcion):
-    session.add(funcion)
+    query = """INSERT INTO `car_db`.`funcion`
+        (`fecha_creacion`,`fecha_modificacion`,`nombre`,`fechaInicio`,`horaInicio`,`id_pelicula`,`id_formato`,`id_sala`)
+        VALUES(CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'{nombre}','{fechaInicio}','{horaInicio}',{peliculaId},{formatoId},{salaId})
+        """.format(nombre=funcion['nombre'], fechaInicio=f"{funcion['fechaAnio']}-{funcion['fechaMes']}-{funcion['fechaDia']}", horaInicio=f"{funcion['hora']}:{funcion['minuto']}:00", peliculaId=funcion['peliculaId'], formatoId=funcion['formatoId'], salaId=funcion['salaId'])
+    session.execute(query)
     session.commit()
 
 def funcion_update(funcion):
@@ -47,3 +52,6 @@ def query_ByPeliculaAndFormato(peliculaId,fomatoId):
 def funcion_delete(id):
     session.query(Funcion).filter(Funcion.id == id).delete()
     session.commit()
+
+def funcion_can_create(fechaInicio, horaInicio):
+    return session.query(Funcion).filter(Funcion.fechaInicio == fechaInicio and Funcion.horaInicio == horaInicio).count() > 0

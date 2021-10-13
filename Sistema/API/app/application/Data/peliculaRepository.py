@@ -1,3 +1,4 @@
+from typing import final
 from sqlalchemy.orm import session
 from ..connection_manager import SessionManager
 from ..Model.PeliculaModel import Pelicula,PeliculaSchema
@@ -41,8 +42,12 @@ def query_pelicula():
 def pelicula_delete(id):
     pelicula = session.query(Pelicula).filter(Pelicula.id == id).first()
     pelicula.formatos = []
-    session.query(Pelicula).filter(Pelicula.id == id).delete()
-    session.commit()
+    try:
+        session.query(Pelicula).filter(Pelicula.id == id).delete()
+    except:
+        raise ValueError('Error al eliminar una pelicula')
+    finally:
+        session.commit()
 
 
 def get_pelicula(id):    

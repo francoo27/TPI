@@ -11,7 +11,7 @@ def query_ByPeliculaAndFormato(peliculaId,fomatoId):
     return funcionRepository.query_ByPeliculaAndFormato(peliculaId,fomatoId)
 
 def funcion_create(funcion):
-    funcion = Funcion(nombre = funcion.nombre)
+    # funcion = Funcion(nombre = funcion.nombre)
     funcionRepository.funcion_create(funcion)
 
 def funcion_update(funcion):

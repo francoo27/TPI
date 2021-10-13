@@ -1,3 +1,4 @@
+import json
 from ..Model.ClasificacionModel import ClasificacionSchema
 from ..Model.FuncionModel import FuncionSchema
 from flask import Blueprint , Response , jsonify ,current_app as app
@@ -28,17 +29,42 @@ def query_funcion():
     return jsonify(output)
 
 
+# @funcion_bp.route('/api/funcion', methods=['POST'])
+# def funcion_create():
+#     json_data = request.get_json()
+#     if not json_data:
+#         return {"message": "No input data provided"}, 400
+#     # Validate and deserialize input
+#     try:
+#         data = funcionSchema.load(json_data)
+#     except:
+#         return {"message": "Error"}, 422
+#     funcionService.funcion_create(data)
+#     return Response(headers=dict({
+#   "HeaderExample": "HeaderContent"
+# }),mimetype="application/json")
+
+
 @funcion_bp.route('/api/funcion', methods=['POST'])
 def funcion_create():
-    json_data = request.get_json()
-    if not json_data:
-        return {"message": "No input data provided"}, 400
-    # Validate and deserialize input
-    try:
-        data = funcionSchema.load(json_data)
-    except:
-        return {"message": "Error"}, 422
-    funcionService.funcion_create(data)
+    if request.data:
+        json_data = request.get_json()
+        print(json_data)
+        funcionService.funcion_create(json_data)
+    # else:
+    #     return {"message": "No data provided"}, 400
+    # # Validate and deserialize input
+    # try:
+    #     data = json.loads(request.get_json())
+    #     # print(data)
+    #     # data = funcionSchema.load(json_data,session=db.session)
+    # except Exception as e :
+    #     print(e)
+    #     return {e: "Error"}, 422
+    # try:
+        
+    # except ValueError as e :
+    #     return {e: "Error"}, 400
     return Response(headers=dict({
   "HeaderExample": "HeaderContent"
 }),mimetype="application/json")
@@ -51,10 +77,10 @@ def funcion_update(id):
         return {"message": "No input data provided"}, 400
     # Validate and deserialize input
     try:
-        data = funcionSchema.load(json_data,session=db.session)
+        data = funcionSchema.load(json_data,session=db.session,only=("sala.id","pelicula.clasificacion"))
     except:
         return {"message": "Error"}, 422
-    funcionService.funcion_update(data)
+    # funcionService.funcion_update(data)
     return Response(headers=dict({
   "HeaderExample": "HeaderContent"
 }),mimetype="application/json")

@@ -26,3 +26,41 @@ export class Funcion implements IFuncion {
 
     }
 }
+
+export interface IFuncionCreate {
+    id?: number;
+    nombre?: string;
+    fechaInicio?:string;
+    fechaDia?:number;
+    fechaMes?:number;
+    fechaAnio?:number;
+    horaInicio?:string;
+    peliculaId?: number;
+    formatoId?: number;
+    salaId?: number;
+    hora?: number;
+    minuto?: number;
+}
+
+export class FuncionCreate implements IFuncionCreate {
+    constructor(
+        public id?: number,
+        public nombre?: string,
+        public fechaInicio?:string,
+        public horaInicio?:string,
+        public peliculaId?: number,
+        public formatoId?: number,
+        public salaId?: number,
+        public fechaDia?:number,
+        public fechaMes?:number,
+        public fechaAnio?:number,
+        public hora?:number,
+        public minuto?:number,
+    ) {
+
+    }
+}
+
+export function mapToFuncionCreate(funcion:IFuncion): IFuncionCreate{
+    return new FuncionCreate(funcion.id,funcion.nombre,funcion.fechaInicio,funcion.horaInicio,funcion.pelicula?.id,funcion.formato?.id,funcion.sala?.id);
+}

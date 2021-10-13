@@ -8,8 +8,8 @@ from ..Shared import ma
 class Funcion(BaseModel):
     __tablename__ = 'funcion'
     nombre = db.Column(db.String(128))
-    fechaInicio = db.Column(db.Date(), nullable=False)
-    horaInicio = db.Column(db.Time(), nullable=False)
+    fechaInicio = db.Column(db.Date(), nullable=True)
+    horaInicio = db.Column(db.Time(), nullable=True)
 
     id_pelicula = db.Column(db.Integer, db.ForeignKey('pelicula.id'),nullable=False)
     pelicula = db.relationship("Pelicula", backref=db.backref("pelicula", uselist=False),lazy='subquery')

@@ -1,5 +1,5 @@
 <div>
-    <h2>{{isNew() ? 'Nuevo' : 'Editar' }} Funcion {{isNew() ? "" : "- " + currentNombre}}</h2>
+    <h2>{{isNew() ? 'Nueva' : 'Editar' }} Funcion {{isNew() ? "" : "- " + currentNombre}}</h2>
     <form (ngSubmit)="save()" #dataform="ngForm">
         <div class="p-fluid p-formgrid p-grid">
             <div class="p-field p-col-3 p-md-3">
@@ -8,24 +8,24 @@
             </div>
             <div class="p-field p-col-3 p-md-3">
                 <label for="pelicula">Pelicula</label>
-                <p-dropdown  [options]="peliculas" [(ngModel)]="funcion.pelicula" optionLabel="tituloPais" name="pelicula" placeholder="Seleccione una pelicula" [required]="true" [showClear]="true"></p-dropdown>
+                <p-dropdown  [options]="peliculas" [(ngModel)]="funcion.pelicula"  optionLabel="tituloPais" name="pelicula" placeholder="Seleccione una pelicula" [required]="true" [showClear]="true"></p-dropdown>
             </div>
             <div class="p-field p-col-3 p-md-3">
                 <label for="complejo">Complejo</label>
-                <p-dropdown  [options]="complejos" [(ngModel)]="complejo" (ngModelChange)="onComplejoChange()" optionLabel="nombre" name="complejo" placeholder="Seleccione un complejo" [required]="true" [showClear]="true"></p-dropdown>
+                <p-dropdown  [options]="complejos" [(ngModel)]="complejoSelected" (ngModelChange)="onComplejoChange()" optionLabel="nombre" name="complejo" placeholder="Seleccione un complejo" [required]="true" [showClear]="true"></p-dropdown>
             </div>
             <div class="p-field p-col-3 p-md-3">
                 <label for="sala">Sala</label>
-                <p-dropdown  [options]="salas" [(ngModel)]="funcion.sala" optionLabel="numero"  (ngModelChange)="onSalaChange()" name="sala" placeholder="Seleccione una sala" [required]="true" [showClear]="true"></p-dropdown>
+                <p-dropdown  [options]="salas" [(ngModel)]="funcion.sala" optionLabel="numero" (ngModelChange)="onSalaChange()" name="sala" placeholder="Seleccione una sala" [required]="true" [showClear]="true"></p-dropdown>
             </div>
             <ng-container *ngIf="funcion.sala" >
                 <div class="p-field p-col-3 p-md-3" >
                     <label for="formato">Formato</label>
-                    <p-dropdown [options]="formatos" [(ngModel)]="funcion.formato" optionLabel="nombre" name="formato" placeholder="Seleccione un formato" [required]="true" [showClear]="true"></p-dropdown>
+                    <p-dropdown [options]="formatos" [(ngModel)]="funcion.formato"  optionLabel="nombre" name="formato" placeholder="Seleccione un formato" [required]="true" [showClear]="true"></p-dropdown>
                 </div>
                 <div class="p-field p-col-3 p-md-3">
                     <label for="fecha">Fecha</label>
-                    <p-calendar [(ngModel)]="fecha" [minDate]="minFecha" [dateOnly]="true" name="fecha" [readonlyInput]="true" inputId="fecha" [required]="true"></p-calendar>
+                    <p-calendar [(ngModel)]="fechaStr" [minDate]="minFecha" [dateOnly]="true" name="fecha" [readonlyInput]="true" [dateFormat]="'dd/mm/yy'" inputId="fecha" [required]="true"></p-calendar>
                 </div>
                 <div class="p-field p-col-3 p-md-3">
                     <label for="hora">Hora</label>

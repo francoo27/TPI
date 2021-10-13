@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { IFuncion } from './funcion.model';
+import { IFuncion, IFuncionCreate } from './funcion.model';
 import { SERVER_API_URL } from 'src/app/app.constants';
 
 type EntityResponseType = HttpResponse<IFuncion>;
+type EntityResponseCreateType = HttpResponse<IFuncionCreate>;
 type EntityArrayResponseType = HttpResponse<IFuncion[]>;
 
 @Injectable({ providedIn: 'root' })
@@ -13,12 +14,12 @@ export class FuncionService {
 
     constructor(private http: HttpClient) {}
 
-    create(funcion: IFuncion): Observable<EntityResponseType> {
-        return this.http.post<IFuncion>(this.resourceUrl, funcion, { observe: 'response' });
+    create(funcion: IFuncionCreate): Observable<EntityResponseCreateType> {
+        return this.http.post<IFuncionCreate>(this.resourceUrl, funcion, { observe: 'response' });
     }
 
-    update(funcion: IFuncion): Observable<EntityResponseType> {
-        return this.http.put<IFuncion>(`${this.resourceUrl}/${funcion.id}`, funcion, { observe: 'response' });
+    update(funcion: IFuncionCreate): Observable<EntityResponseCreateType> {
+        return this.http.put<IFuncionCreate>(`${this.resourceUrl}/${funcion.id}`, funcion, { observe: 'response' });
     }
 
     find(id: number): Observable<EntityResponseType> {

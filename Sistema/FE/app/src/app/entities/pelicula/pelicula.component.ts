@@ -28,7 +28,6 @@ export class PeliculaComponent implements OnInit, OnDestroy {
     }
 
     delete(id:number):void{
-        console.log(id)
         this.peliculaService.delete(id).subscribe(
             x => {
                 setTimeout(() => {
@@ -39,12 +38,12 @@ export class PeliculaComponent implements OnInit, OnDestroy {
                     })
                 }, 100);
             },
-            err => {
+            res => {
                 setTimeout(() => {
                     this.messageService.add({
                         severity: "error",
                         summary: "ERROR",
-                        detail:"Error al eliminar pelicula"
+                        detail:res.error.message
                     })
                 }, 100);
             },
