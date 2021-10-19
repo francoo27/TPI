@@ -13,5 +13,8 @@ export class IAsiento implements IAsiento {
         public fila?: number,
         public columna?: number,
         public adaptado?: boolean,
-    ) {}
+        public disponible?: boolean,
+        public seleccionado?: boolean
+    ) {
+    }
 }

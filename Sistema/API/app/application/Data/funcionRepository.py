@@ -55,3 +55,7 @@ def funcion_delete(id):
 
 def funcion_can_create(fechaInicio, horaInicio):
     return session.query(Funcion).filter(Funcion.fechaInicio == fechaInicio and Funcion.horaInicio == horaInicio).count() > 0
+
+# def qq():
+#     funcion = session.query(Funcion).filter(Funcion.id == id and Funcion.id).all()
+#     return funcion

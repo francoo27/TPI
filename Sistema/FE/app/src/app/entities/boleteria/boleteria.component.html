@@ -19,7 +19,7 @@
                     <ng-container *ngIf="formatoSeleccionado">
                         <div class="p-field p-col-12 p-md-12" >
                             <label for="funcion">Funcion</label>
-                            <p-dropdown [options]="funciones" [(ngModel)]="funcionSeleccionado" name="funcion"  placeholder="Seleccione Funcion" optionLabel="nombre" [required]="true" [showClear]="true"></p-dropdown>
+                            <p-dropdown [options]="funciones" [(ngModel)]="funcionSeleccionado" name="funcion" (ngModelChange)="onFuncionSelected()"  placeholder="Seleccione Funcion" optionLabel="nombre" [required]="true" [showClear]="true"></p-dropdown>
                         </div>
                     </ng-container>
                 </p-accordionTab>
@@ -51,6 +51,24 @@
                     </ng-container>  
                 </p-accordionTab>
                 <p-accordionTab header="Seleccion de Asiento">
+                    <h5>Seleccione asientos</h5>
+                    <div class="p-grid" *ngFor="let item of asientosSeleccionables">
+                        <div class="p-col" *ngFor="let a of item">
+                            <br>
+                            <div class="box">{{a.nombre}}</div>
+                            <button pButton pRipple type="button" icon="pi pi-user" class="p-button-rounded" [ngClass]="{
+                                'p-button-info': a.disponible && !a.adaptado && !a.seleccionado,
+                                'p-button-success': a.disponible && a.adaptado && !a.seleccionado,
+                                'p-button-danger': !a.disponible,
+                                'p-button-secondary': a.seleccionado
+                            }"(click)="onAsientoSelected(a.id!)" [disabled]="!a.disponible"></button>
+                        </div>
+                    </div>
+                    <hr>
+                    <div pButton pRipple type="button" icon="pi pi-user" class="p-button-rounded p-button-info"></div>Disponible
+                    <div pButton pRipple type="button" icon="pi pi-user" class="p-button-rounded p-button-success"></div>Adaptado
+                    <div pButton pRipple type="button" icon="pi pi-user" class="p-button-rounded p-button-danger"></div>Ocupado
+                    <div pButton pRipple type="button" icon="pi pi-user" class="p-button-rounded p-button-secondary" ></div>Seleccionado
                 </p-accordionTab>
                 <p-accordionTab header="Resumen Transaccion">
                     <ng-container *ngIf="true">
@@ -75,6 +93,14 @@
                                 <div class="p-field p-col-4 p-md-4" >
                                     <label for="codigoVerif">Codigo Verificacion</label>
                                     <input type="text" pInputText class="p-inputtext-sm" pKeyFilter="pnum" placeholder="***"  maxlength="3" required name="codigoVerif">
+                                </div>
+                            </div>
+                            <div class="p-grid p-jc-end">
+                                <div class="p-col-2  p-md-2">
+                                    <button pButton type="button" class="p-button-secondary" (click)="previousState()" label="Volver"></button>
+                                </div>
+                                <div class="p-col-2  p-md-2">
+                                    <button pButton type="submit" label="Guardar" [disabled]="!form.valid"></button>
                                 </div>
                             </div>
                         </form>
