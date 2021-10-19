@@ -10,6 +10,8 @@ from .Model.SalaModel import Sala
 from .Model.FuncionModel import Funcion
 from .Model.CiudadModel import Ciudad
 from .Model.AsientoModel import Asiento
+from .Model.PrecioModel import Precio
+from .Model.TipoPrecioModel import TipoPrecio
 from .Model.UsuarioModel import Usuario
 from .connection_manager import SessionManager
 from datetime import date, datetime
@@ -176,4 +178,11 @@ class EntityManager():
         session.add(pelicula)
 
         session.add(Funcion(nombre="TEST Nombre Funcion",pelicula=pelicula,sala=sala,formato=formato,fechaInicio=datetime.now().date(),horaInicio=datetime.now().time()))
+        adulto = TipoPrecio(nombre="Adulto",codigo="ADULTO")
+        nino =TipoPrecio(nombre="Niños",codigo="NINO")
+        jubi =TipoPrecio(nombre="Jubilado",codigo="JUBILADO")
+
+        session.add(Precio(nombre="A",codigo="A",valor=150,tipoPrecio=nino,activo=True))
+        session.add(Precio(nombre="B",codigo="B",valor=300,tipoPrecio=adulto,activo=True))
+        session.add(Precio(nombre="C",codigo="C",valor=200,tipoPrecio=jubi,activo=True))
         session.commit()

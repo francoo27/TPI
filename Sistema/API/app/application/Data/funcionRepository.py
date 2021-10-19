@@ -5,7 +5,7 @@ from ..connection_manager import SessionManager
 from ..Model.FuncionModel import Funcion,FuncionSchema
 from config import DevConfig
 from ..Shared import db
-from datetime import date
+from datetime import date,datetime
 funcionSchema = FuncionSchema()
 
 # session = SessionManager.getInstance()
@@ -46,7 +46,7 @@ def query_funcion():
 
 
 def query_ByPeliculaAndFormato(peliculaId,fomatoId):
-    funcion = session.query(Funcion).filter(Funcion.id_pelicula == peliculaId and Funcion.id_formato == fomatoId ).all()
+    funcion = session.query(Funcion).filter(Funcion.id_pelicula == peliculaId and Funcion.id_formato == fomatoId ).filter(Funcion.horaInicio > datetime.now().time()).all()
     return funcion
 
 def funcion_delete(id):

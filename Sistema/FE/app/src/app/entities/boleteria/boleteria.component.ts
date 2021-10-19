@@ -6,6 +6,9 @@ import { IPelicula } from '../pelicula/pelicula.model';
 import { PeliculaService } from '../pelicula/pelicula.service';
 import { Location } from '@angular/common';
 import { IAsiento } from '../asiento/asiento.model';
+import { IPrecio } from '../precio/precio.model';
+import { PrecioService } from '../precio/precio.service';
+import { isNgTemplate } from '@angular/compiler';
 
 @Component({
     selector: 'car-boleteria',
@@ -15,9 +18,12 @@ import { IAsiento } from '../asiento/asiento.model';
 export class BoleteriaComponent {
     peliculas:IPelicula[]=[];
     funciones:IFuncion[]=[];
+    precios:any[]=[];
+
     peliculaSeleccionado!:IPelicula;
     formatoSeleccionado!:IFormato;
     funcionSeleccionado!:IFuncion;
+    preciosSeleccionados:any[]=[];
     ccRegex: RegExp = /[0-9]{12}$/;
     cc!: string;  
 
@@ -30,10 +36,18 @@ export class BoleteriaComponent {
 
     constructor(private peliculaService: PeliculaService,
                 private funcionService: FuncionService,
+                private precioService: PrecioService,
                 private location: Location
                 ) { 
         this.peliculaService.query().subscribe(res=>{
             this.peliculas = res.body!;
+        })
+        this.precioService.query().subscribe(res=>{
+            this.precios = res.body!;
+            this.preciosSeleccionados = this.precios.map(x=>{
+                x['cantidad'] = 0;
+                return x;
+            })
         })
     }
 
@@ -42,6 +56,33 @@ export class BoleteriaComponent {
         this.funcionService.queryByPeliculaAndFormato(this.peliculaSeleccionado.id!,this.formatoSeleccionado.id!).subscribe(res=>{
             this.funciones = res.body!;
         })
+    }
+
+    onPrecioChange(precio:IPrecio,value:string){
+        this.preciosSeleccionados.forEach(x=> {
+            if(x.id === precio.id){
+                x['cantidad'] = parseInt(value);
+            }
+        })
+        console.log(this.preciosSeleccionados);
+    }
+
+    calculateSubtotal(item:any) {
+        return item.valor *  this.preciosSeleccionados.find(x=>x.id === item.id)['cantidad'];
+    }
+
+    calculateTotalElegido() {
+        let subtotales = this.preciosSeleccionados.map(x=>x['cantidad']);
+        let total = 0;
+        subtotales.forEach(x=> total += x);
+        return total;
+    }
+
+    calculateTotal() {
+        let subtotales = this.preciosSeleccionados.map(x=>x['cantidad']*x.valor);
+        let total = 0;
+        subtotales.forEach(x=> total += x);
+        return total;
     }
 
     onFuncionSelected() {
