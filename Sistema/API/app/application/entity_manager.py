@@ -13,6 +13,8 @@ from .Model.AsientoModel import Asiento
 from .Model.PrecioModel import Precio
 from .Model.TipoPrecioModel import TipoPrecio
 from .Model.UsuarioModel import Usuario
+from .Model.TicketModel import Ticket
+from .Model.CompraModel import Compra
 from .connection_manager import SessionManager
 from datetime import date, datetime
 
@@ -120,11 +122,21 @@ class EntityManager():
                 Asiento(columna=7,fila=5,nombre="E-7",adaptado=False),
                 Asiento(columna=8,fila=5,nombre="E-8",adaptado=False),
                 Asiento(columna=9,fila=5,nombre="E-9",adaptado=False),
-                Asiento(columna=10,fila=5,nombre="E-10",adaptado=False),
+                Asiento(columna=10,fila=5,nombre="E-10",adaptado=False)
+                ]
+        asientos2 = [
+                Asiento(columna=1,fila=1,nombre="A-1",adaptado=True),
+                Asiento(columna=2,fila=1,nombre="A-2",adaptado=True),
+                Asiento(columna=3,fila=1,nombre="A-3",adaptado=True),
+                Asiento(columna=4,fila=1,nombre="A-4",adaptado=True),
+                Asiento(columna=5,fila=1,nombre="A-5",adaptado=True),
+                Asiento(columna=6,fila=1,nombre="A-6",adaptado=True)
                 ]
         # Sala
         sala=Sala(numero = 1,complejo = complejo,formatos=[formato],asientos=asientos)
+        sala2=Sala(numero = 2,complejo = complejo,formatos=[formato],asientos=asientos2)
         session.add(sala)
+        session.add(sala2)
         clasificacion = Clasificacion(identificador ='ATP' ,
                     edadMinima = 'Apto para todo el público',
                     recomendacion='Apto para todo el público',
@@ -177,7 +189,8 @@ class EntityManager():
             pais = pais )
         session.add(pelicula)
 
-        session.add(Funcion(nombre="TEST Nombre Funcion",pelicula=pelicula,sala=sala,formato=formato,fechaInicio=datetime.now().date(),horaInicio=datetime.now().time()))
+        funcion = Funcion(nombre="TEST Nombre Funcion",pelicula=pelicula,sala=sala,formato=formato,fechaInicio=datetime.now().date(),horaInicio=datetime.now().time())
+        session.add(funcion)
         adulto = TipoPrecio(nombre="Adulto",codigo="ADULTO")
         nino =TipoPrecio(nombre="Niños",codigo="NINO")
         jubi =TipoPrecio(nombre="Jubilado",codigo="JUBILADO")
@@ -185,4 +198,5 @@ class EntityManager():
         session.add(Precio(nombre="A",codigo="A",valor=150,tipoPrecio=nino,activo=True))
         session.add(Precio(nombre="B",codigo="B",valor=300,tipoPrecio=adulto,activo=True))
         session.add(Precio(nombre="C",codigo="C",valor=200,tipoPrecio=jubi,activo=True))
+        session.add(Compra(email="asdas@asdasd.com",funcion=funcion))
         session.commit()
