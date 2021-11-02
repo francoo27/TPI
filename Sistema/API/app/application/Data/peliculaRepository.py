@@ -57,6 +57,9 @@ def get_pelicula(id):
 
 def any_pelicula_has_genero(generoId):
     return session.query(Pelicula).filter(Pelicula.id_genero == generoId).first() is not None
+
+def any_pelicula_has_clasificacion(clasificacionId):
+    return session.query(Pelicula).filter(Pelicula.id_clasificacion == clasificacionId).first() is not None
   
 
 # session = db.session

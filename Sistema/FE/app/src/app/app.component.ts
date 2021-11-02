@@ -59,6 +59,20 @@ export class AppComponent implements OnInit {
                     }
                 ]},
               {
+                label: 'Clasificacion',
+                items: [
+                    {
+                        label: 'Nuevo', 
+                        icon: 'pi pi-fw pi-plus',
+                        routerLink: ['/clasificacion/new']
+                    },
+                    {
+                      label: 'Listado',
+                      icon: 'pi pi-fw pi-eye',
+                      routerLink: ['/clasificacion']
+                    }
+                ]},
+              {
                 label: 'Pais',
                 items: [
                     {

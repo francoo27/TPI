@@ -21,4 +21,7 @@ def pelicula_delete(id):
 
 def any_pelicula_has_genero(generoId):
     return peliculaRepository.any_pelicula_has_genero(generoId)
+
+def  any_pelicula_has_clasificacion(generoId):
+    return peliculaRepository.any_pelicula_has_clasificacion(generoId)
     

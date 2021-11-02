@@ -62,7 +62,7 @@ def genero_update(id):
 }),mimetype="application/json")
 
 @genero_bp.route('/api/genero/<id>', methods=['DELETE'])
-def pelicula_delete(id):
+def clasificacion_delete(id):
     try:
         generoService.genero_delete(id)
     except ValueError as e :

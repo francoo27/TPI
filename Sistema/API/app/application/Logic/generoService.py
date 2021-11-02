@@ -15,7 +15,6 @@ def genero_update(genero):
     return generoRepository.genero_update(genero)
 
 def genero_delete(generoId):
-    print(peliculaService.any_pelicula_has_genero(generoId))
     if peliculaService.any_pelicula_has_genero(generoId):
         raise ValueError('No es posible eliminar un Genero vinculada a una pelicula')
     else:
