@@ -6,8 +6,8 @@ import { PeliculaService } from './pelicula.service';
 import { IPelicula } from './pelicula.model';
 import { MessageService } from 'primeng/api';
 import { Location } from '@angular/common';
-import { ClasificacionService } from '../clasifiacion/clasificacion.service';
-import { IClasificacion } from '../clasifiacion/clasificacion.model';
+import { ClasificacionService } from '../clasificacion/clasificacion.service';
+import { IClasificacion } from '../clasificacion/clasificacion.model';
 import { IGenero } from '../genero/genero.model';
 import { GeneroService } from '../genero/genero.service';
 import { PaisService } from '../pais/pais.service';
@@ -17,6 +17,7 @@ import { FormatoService } from '../formato/formato.service';
 import {formatDate} from '@angular/common';
 import { DATE_FORMAT } from 'src/app/shared/dateFormat';
 import { DateTime } from "luxon";
+
 
 
 @Component({

@@ -1,0 +1,29 @@
+<div class="p-grid p-jc-end">
+    <div class="p-col-1">
+            <button pButton type="submit" label="Nuevo Clasificacion"  [routerLink]="['/clasificacion/new']"></button>
+    </div>
+</div>
+<div class="p-col-12">
+    <p-table [value]="clasificacions">
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="identificador">Idenficador <p-sortIcon field="nombre"></p-sortIcon></th>
+                <th pSortableColumn="recomendacion">Recomendacion <p-sortIcon field="nombre"></p-sortIcon></th>
+                <th pSortableColumn="edadMinima">Edad Minima <p-sortIcon field="nombre"></p-sortIcon></th>
+                <th style="width:15%">Operaciones</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-clasificacion>
+            <tr>
+                <td>{{clasificacion.identificador}}</td>
+                <td>{{clasificacion.recomendacion}}</td>
+                <td>{{clasificacion.edadMinima}}</td>
+                <td>
+                    <button pButton class="p-button-rounded" type="submit" [routerLink]="['/clasificacion/'+clasificacion.id+'/edit']" icon="pi pi-pencil" title="Editar"></button>
+                    <button pButton class="p-button-rounded p-button-danger" type="submit" (click)="delete(clasificacion.id)" icon="pi pi-times" title="Eliminar"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+<p-toast></p-toast>

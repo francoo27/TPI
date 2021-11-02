@@ -7,6 +7,10 @@ import { RouterModule } from "@angular/router";
                 {
                     path: '', children: [
                         {
+                            path: '',
+                            loadChildren: () => import('./home/home.module').then(m => m.CineArHomeModule)
+                        },
+                        {
                             path: 'pais',
                             loadChildren: () => import('./pais/pais.module').then(m => m.CineArPaisModule)
                         },
@@ -23,14 +27,17 @@ import { RouterModule } from "@angular/router";
                             loadChildren: () => import('../auth/auth.module').then(m => m.CineArAuthModule)
                         },
                         {
-                            path: '',
-                            loadChildren: () => import('./home/home.module').then(m => m.CineArHomeModule)
-                        },
-                        {
                             path: 'boleteria',
                             loadChildren: () => import('./boleteria/boleteria.module').then(m => m.CineArBoleteriaModule)
+                        },
+                        {
+                            path: 'genero',
+                            loadChildren: () => import('./genero/genero.module').then(m => m.CineArGeneroModule)
+                        },
+                        {
+                            path: 'clasificacion',
+                            loadChildren: () => import('./clasificacion/clasificacion.module').then(m => m.CineArClasificacionModule)
                         }
-
                     ]
                 }
             ]

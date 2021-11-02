@@ -15,20 +15,7 @@ export class AppComponent implements OnInit {
       this.items = [
           {
             label: 'Entidades',
-            items: [{
-              label: 'Pais',
-              items: [
-                  {
-                      label: 'Nuevo', 
-                      icon: 'pi pi-fw pi-plus',
-                      routerLink: ['/pais/new']
-                  },
-                  {
-                    label: 'Listado',
-                    icon: 'pi pi-fw pi-eye',
-                    routerLink: ['/pais']
-                  }
-              ]},
+            items: [
               {
                 label: 'Funcion',
                 items: [
@@ -42,8 +29,7 @@ export class AppComponent implements OnInit {
                       icon: 'pi pi-fw pi-eye',
                       routerLink: ['/funcion']
                     }
-                ]}
-                ,
+                ]},
               {
                 label: 'Pelicula',
                 items: [
@@ -56,6 +42,34 @@ export class AppComponent implements OnInit {
                       label: 'Listado',
                       icon: 'pi pi-fw pi-eye',
                       routerLink: ['/pelicula']
+                    }
+                ]},
+              {
+                label: 'Genero',
+                items: [
+                    {
+                        label: 'Nuevo', 
+                        icon: 'pi pi-fw pi-plus',
+                        routerLink: ['/genero/new']
+                    },
+                    {
+                      label: 'Listado',
+                      icon: 'pi pi-fw pi-eye',
+                      routerLink: ['/genero']
+                    }
+                ]},
+              {
+                label: 'Pais',
+                items: [
+                    {
+                        label: 'Nuevo', 
+                        icon: 'pi pi-fw pi-plus',
+                        routerLink: ['/pais/new']
+                    },
+                    {
+                      label: 'Listado',
+                      icon: 'pi pi-fw pi-eye',
+                      routerLink: ['/pais']
                     }
                 ]}
               ]

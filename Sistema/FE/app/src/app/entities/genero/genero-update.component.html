@@ -1,0 +1,15 @@
+<div>
+    <h2>{{isNew() ? 'Nuevo' : 'Editar' }} Genero {{ isNew() ? '' : ' - ' + currentNombre}}</h2>
+    <form (ngSubmit)="save()" #dataform="ngForm">
+    <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col-3 p-md-3">
+            <label for="nombre">Nombre</label>
+            <input type="text" pInputText class="p-inputtext-sm" placeholder="Ej: Comedia" [(ngModel)]="genero.nombre" required name="nombre">
+        </div>
+    </div>
+    <div class="">
+        <button pButton type="button" class="p-button-secondary" (click)="previousState()" label="Volver"></button>
+        <button pButton type="submit" label="Guardar" [disabled]="!dataform.valid"></button>
+    </div>
+    </form>
+</div>

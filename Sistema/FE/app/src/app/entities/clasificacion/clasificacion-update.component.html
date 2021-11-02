@@ -1,0 +1,31 @@
+<div>
+    <h2>{{isNew() ? 'Nueva' : 'Editar' }} Clasificacion {{ isNew() ? '' : ' - ' + currentIdentificador + "  " + currentEdadMinima }}</h2>
+    <form (ngSubmit)="save()" #dataform="ngForm">
+    <div class="p-fluid p-formgrid p-grid">
+        <div class="p-field p-col-3 p-md-3">
+            <label for="nombre">Identificador</label>
+            <input type="text" pInputText class="p-inputtext-sm" [(ngModel)]="clasificacion.identificador" required name="identificador">
+        </div>
+        <div class="p-field p-col-3 p-md-3">
+            <label for="nombre">Edad Minima</label>
+            <input type="text" pInputText class="p-inputtext-sm" [(ngModel)]="clasificacion.edadMinima" required name="edadMinima">
+        </div>
+        <div class="p-field p-col-3 p-md-3">
+            <label for="nombre">Recomendacion</label>
+            <input type="text" pInputText class="p-inputtext-sm" [(ngModel)]="clasificacion.recomendacion" required name="recomendacion">
+        </div>
+        <div class="p-field p-col-12 p-md-12">
+            <label for="nombre">Deficincion</label>
+            <textarea style="resize: none;" [rows]="5" [cols]="200" name="definicion"  [(ngModel)]="clasificacion.definicion" pInputTextarea required></textarea>
+        </div>
+    </div>
+    <div class="p-grid p-jc-end">
+        <div class="p-col-1  p-md-1">
+            <button pButton type="button" class="p-button-secondary" (click)="previousState()" label="Volver"></button>
+        </div>
+        <div class="p-col-1  p-md-1">
+            <button pButton type="submit" label="Guardar" [disabled]="!dataform.valid"></button>
+        </div>
+      </div>
+    </form>
+</div>

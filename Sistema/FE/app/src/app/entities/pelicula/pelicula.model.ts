@@ -1,4 +1,4 @@
-import { IClasificacion } from "../clasifiacion/clasificacion.model";
+import { IClasificacion } from "../clasificacion/clasificacion.model";
 import { IFormato } from "../formato/formato.model";
 import { IGenero } from "../genero/genero.model";
 import { IPais } from "../pais/pais.model";

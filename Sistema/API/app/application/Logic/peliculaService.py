@@ -18,4 +18,7 @@ def pelicula_update(pelicula):
 
 def pelicula_delete(id):
     peliculaRepository.pelicula_delete(id)
+
+def any_pelicula_has_genero(generoId):
+    return peliculaRepository.any_pelicula_has_genero(generoId)
     
