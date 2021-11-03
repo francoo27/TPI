@@ -46,7 +46,7 @@ def query_funcion():
 
 
 def query_ByPeliculaAndFormato(peliculaId,fomatoId):
-    funcion = session.query(Funcion).filter(Funcion.id_pelicula == peliculaId and Funcion.id_formato == fomatoId ).filter(Funcion.horaInicio > datetime.now().time()).all()
+    funcion = session.query(Funcion).filter(Funcion.id_pelicula == peliculaId and Funcion.id_formato == fomatoId ).filter(Funcion.fechaInicio == datetime.now().date() and Funcion.horaInicio > datetime.now().time() or Funcion.fechaInicio > datetime.now().date()).all()
     return funcion
 
 def funcion_delete(id):

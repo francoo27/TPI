@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IFormato } from '../formato/formato.model';
 import { IFuncion } from '../funcion/funcion.model';
 import { FuncionService } from '../funcion/funcion.service';
@@ -9,13 +9,14 @@ import { IAsiento } from '../asiento/asiento.model';
 import { IPrecio } from '../precio/precio.model';
 import { PrecioService } from '../precio/precio.service';
 import { isNgTemplate } from '@angular/compiler';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
     selector: 'car-boleteria',
     templateUrl: './boleteria.component.html',
     providers: []
 })
-export class BoleteriaComponent {
+export class BoleteriaComponent implements OnInit {
     peliculas:IPelicula[]=[];
     funciones:IFuncion[]=[];
     precios:any[]=[];
@@ -25,7 +26,13 @@ export class BoleteriaComponent {
     funcionSeleccionado!:IFuncion;
     preciosSeleccionados:any[]=[];
     ccRegex: RegExp = /[0-9]{12}$/;
-    cc!: string;  
+    cc!: string;
+    me!: string;  
+    ae!: string;  
+    cvef!: string;
+    
+    okPrecio:boolean = false;
+    okAsiento:boolean = false;
 
     asientosSeleccionables : IAsiento[][] = []; 
 
@@ -37,7 +44,8 @@ export class BoleteriaComponent {
     constructor(private peliculaService: PeliculaService,
                 private funcionService: FuncionService,
                 private precioService: PrecioService,
-                private location: Location
+                private location: Location,
+                private activatedRoute: ActivatedRoute
                 ) { 
         this.peliculaService.query().subscribe(res=>{
             this.peliculas = res.body!;
@@ -49,6 +57,13 @@ export class BoleteriaComponent {
                 return x;
             })
         })
+    }
+
+
+    ngOnInit() {
+        this.activatedRoute.data.subscribe(({ pelicula }) => {
+            this.peliculaSeleccionado = pelicula;
+        });
     }
 
     onFormatoSelected() {
@@ -78,6 +93,14 @@ export class BoleteriaComponent {
         return total;
     }
 
+    isPrecioSelected(){
+        return this.preciosSeleccionados.some(x=>x['cantidad']>0);
+    }
+    
+    calculateTotalPrecioSelected(){
+        return this.preciosSeleccionados.reduce((a, b) => a + b['cantidad'], 0);
+    }
+
     calculateTotal() {
         let subtotales = this.preciosSeleccionados.map(x=>x['cantidad']*x.valor);
         let total = 0;
@@ -88,8 +111,6 @@ export class BoleteriaComponent {
     onFuncionSelected() {
         this.fillAsientos()
     }
-
-    ngOnInit() {}
 
     previousState() {
         this.location.back();

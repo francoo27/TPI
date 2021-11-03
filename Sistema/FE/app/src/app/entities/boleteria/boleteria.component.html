@@ -3,7 +3,7 @@
         <div class="p-col-4 p-md-4" style="margin-top: 5em;"></div>
         <div class="p-col-4 p-md-4" style="margin-top: 5em;">
             <p-accordion>
-                <p-accordionTab header="Seleccion de Pelicula">
+                <p-accordionTab header="Seleccion de Pelicula" [selected]="true">
                    <ng-container>
                         <div class="p-field p-col-12 p-md-12">
                             <label for="pelicula">Pelicula</label>
@@ -23,9 +23,8 @@
                         </div>
                     </ng-container>
                 </p-accordionTab>
-                <p-accordionTab header="Seleccion de Precios">
-
-                    <ng-container *ngIf="formatoSeleccionado">
+                <p-accordionTab header="Seleccion de Precios" [disabled]="funcionSeleccionado == null">
+                    <ng-container *ngIf="funcionSeleccionado">
                         <div class="p-field p-col-12 p-md-12" >
                             <p-table [value]="precios">
                                 <ng-template pTemplate="header">
@@ -48,13 +47,13 @@
                             </p-table>
                         </div>
                     </ng-container> 
-                    <ng-container *ngIf="formatoSeleccionado">
+                    <ng-container *ngIf="funcionSeleccionado">
                         <div class="p-field p-col-12 p-md-12" >
                             <p>Siendo {{calculateTotalElegido()}} asientos dando un  total de <b>$ {{calculateTotal()}}</b></p>
                         </div>
-                    </ng-container> 
+                    </ng-container>
                 </p-accordionTab>
-                <p-accordionTab header="Seleccion de Asiento">
+                <p-accordionTab header="Seleccion de Asiento" [disabled]="!isPrecioSelected()">
                     <h5>Seleccione asientos</h5>
                     <div class="p-grid" *ngFor="let item of asientosSeleccionables">
                         <div class="p-col" *ngFor="let a of item">
@@ -75,6 +74,10 @@
                     <div pButton pRipple type="button" icon="pi pi-user" class="p-button-rounded p-button-secondary" ></div>Seleccionado
                 </p-accordionTab>
                 <p-accordionTab header="Resumen Transaccion">
+                    <p>Usted esta por comprar <b>{{calculateTotalPrecioSelected()}} </b> boletos para la funcion <b>{{funcionSeleccionado?.nombre}} </b> 
+                        por un precio de <b>$ {{calculateTotal()}}</b> </p>
+                </p-accordionTab>
+                <p-accordionTab header="Pagar">
                     <ng-container *ngIf="true">
                         <form #form="ngForm">
                             <div class="p-field p-col-12 p-md-12" >
@@ -83,20 +86,20 @@
                             </div>
                             <div class="p-field p-col-12 p-md-12" >
                                 <label for="cc" style="display:block;margin-bottom:4px">Numero Tarjeta</label>
-                                <input id="cc" type="text" name="cc" pInputText [(ngModel)]="cc" pKeyFilter="pnum" [pValidateOnly]="true" required placeholder="1234123412341234" maxlength="12" style="margin-right: .5em">
+                                <input id="cc" type="text" name="cc" pInputText [(ngModel)]="cc" pKeyFilter="pnum" required placeholder="1234123412341234" minlength="12" maxlength="12" style="margin-right: .5em">
                             </div>
                             <div class="p-grid" style="margin-left: 1px;">
                                 <div class="p-field p-col-4 p-md-4" >
                                     <label for="mesExp">Mes Expiracion</label>
-                                    <input type="text" pInputText class="p-inputtext-sm" pKeyFilter="pnum" placeholder="MM"  maxlength="2" required name="mesExp">
+                                    <input type="text" pInputText class="p-inputtext-sm" [(ngModel)]="me" pKeyFilter="pnum" placeholder="MM"  maxlength="2" required name="mesExp">
                                 </div>
                                 <div class="p-field p-col-4 p-md-4" >
                                     <label for="anoExp">Año Expiracion</label>
-                                    <input type="text" pInputText class="p-inputtext-sm" pKeyFilter="pnum" placeholder="AA"  maxlength="2" required name="anoExp">
+                                    <input type="text" pInputText class="p-inputtext-sm" [(ngModel)]="ae" pKeyFilter="pnum" placeholder="AA"  maxlength="2" required name="anoExp">
                                 </div>
                                 <div class="p-field p-col-4 p-md-4" >
                                     <label for="codigoVerif">Codigo Verificacion</label>
-                                    <input type="text" pInputText class="p-inputtext-sm" pKeyFilter="pnum" placeholder="***"  maxlength="3" required name="codigoVerif">
+                                    <input type="text" pInputText class="p-inputtext-sm" [(ngModel)]="cvef" pKeyFilter="pnum" placeholder="***"  maxlength="3" required name="codigoVerif">
                                 </div>
                             </div>
                             <div class="p-grid p-jc-end">
@@ -104,12 +107,12 @@
                                     <button pButton type="button" class="p-button-secondary" (click)="previousState()" label="Volver"></button>
                                 </div>
                                 <div class="p-col-2  p-md-2">
-                                    <button pButton type="submit" label="Guardar" [disabled]="!form.valid"></button>
+                                    <button pButton class="p-button-success" type="submit" label="Pagar" [disabled]="!form.valid"></button>
                                 </div>
                             </div>
                         </form>
                     </ng-container>
-                </p-accordionTab>
+                </p-accordionTab>  
             </p-accordion>
         </div>
         <div class="p-col-4 p-md-4" style="margin-top: 5em;"></div>

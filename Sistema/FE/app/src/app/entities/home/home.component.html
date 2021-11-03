@@ -16,13 +16,13 @@
     </div>
     <div class="p-grid p-formgrid p-grid  p-jc-center">
         <div class="p-col-3 p-md-3 p-xs-3" *ngFor="let pelicula of peliculas; let i=index">
-            <p-card header="{{pelicula.tituloPais}}" subheader="{{pelicula.tituloOriginal}}" [style]="{width: '360px'}" styleClass="p-card-shadow">
-                <ng-template pTemplate="header">
+            <p-card header="{{pelicula.tituloPais}}" subheader="{{pelicula.tituloOriginal}}" [style]="{width: '360px'}"  styleClass="p-card-shadow">
+                <ng-template pTemplate="header" >
                     <img alt="Card" src="http://192.168.0.10:5000/api/img/{{pelicula.imagen}}" style="height: 200px;width: 300px;">
                 </ng-template>
                 <p>{{pelicula.sinopsis}}</p>
                 <ng-template pTemplate="footer">
-                    <p-button label="Ver funciones" [routerLink]="['/boleteria']" icon="pi pi-check"></p-button>
+                    <p-button label="Ver funciones" [routerLink]="['/boleteria',pelicula.id]" icon="pi pi-check"></p-button>
                 </ng-template>
             </p-card>
             <br>
