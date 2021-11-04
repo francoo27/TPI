@@ -33,7 +33,8 @@ def init_app():
         # Include our Routes
         from .Controller import homeController, paisController, peliculaController, funcionController
         from .Controller import formatoController, clasificacionController, generoController, imagenController 
-        from .Controller import salaController, complejoController, authorizationController, precioController,asientoController
+        from .Controller import salaController, complejoController, authorizationController
+        from .Controller import precioController, asientoController, compraController
         MigrationManager.validate_database()
         # Register Blueprints
         app.register_blueprint(homeController.home_bp)
@@ -49,5 +50,6 @@ def init_app():
         app.register_blueprint(authorizationController.authorization_bp)
         app.register_blueprint(precioController.precio_bp)
         app.register_blueprint(asientoController.asiento_bp)
+        app.register_blueprint(compraController.compra_bp)
         return app
 

@@ -13,7 +13,7 @@ export class AsientoService {
 
     constructor(private http: HttpClient) {}
 
-    query_by_funcion(funcion_id: number): Observable<EntityArrayResponseType> {
+    query_occupied_by_funcion(funcion_id: number): Observable<EntityArrayResponseType> {
         // const options = createRequestOption(req);
         return this.http.get<IAsiento[]>(`${this.resourceUrl}/funcion/${funcion_id}`, { params: {}/*options*/, observe: 'response' });
     }

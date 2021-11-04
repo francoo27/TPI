@@ -18,6 +18,11 @@ engine = create_engine(DevConfig.SQLALCHEMY_DATABASE_URI, echo=True)
 # session = Session()
 Session = sessionmaker(engine)
 session = db.session
+
+def get_precio(id):
+    precio = session.query(Precio).filter(Precio.id == id).all()
+    return precio
+
 def query_precio():
     precio = session.query(Precio).filter(Precio.activo == True).all()
     return precio

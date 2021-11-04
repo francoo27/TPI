@@ -22,3 +22,9 @@ def query_asiento(id):
     output = asientosSchema.dump(asiento)
     sendmail()
     return jsonify(output)
+
+@asiento_bp.route('/api/asiento/funcion/<id>', methods=['GET'])
+def query_asiento_occupied(id):
+    asiento = asientoService.query_ocupados_by_funcion(id)
+    output = asientosSchema.dump(asiento)
+    return jsonify(output)

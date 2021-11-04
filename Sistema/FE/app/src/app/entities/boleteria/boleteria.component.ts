@@ -10,6 +10,9 @@ import { IPrecio } from '../precio/precio.model';
 import { PrecioService } from '../precio/precio.service';
 import { isNgTemplate } from '@angular/compiler';
 import { ActivatedRoute } from '@angular/router';
+import { AsientoService } from '../asiento/asiento.service';
+import { CompraService } from '../compra/compra.service';
+import { Compra, PrecioSelectedQuantity } from '../compra/compra.model';
 
 @Component({
     selector: 'car-boleteria',
@@ -37,15 +40,17 @@ export class BoleteriaComponent implements OnInit {
     asientosSeleccionables : IAsiento[][] = []; 
 
     a: IAsiento[] = [{fila:1},{fila:2},{fila:3}];
-    nodisp = [1,6,8,7,4,2]
-    selected = [11,15,16]
+    nodisp:number[] = []
+    selected:number[] = []
     multi: IAsiento[][] = []; 
 
     constructor(private peliculaService: PeliculaService,
                 private funcionService: FuncionService,
                 private precioService: PrecioService,
                 private location: Location,
-                private activatedRoute: ActivatedRoute
+                private activatedRoute: ActivatedRoute,
+                private asientoService: AsientoService,
+                private compraService: CompraService
                 ) { 
         this.peliculaService.query().subscribe(res=>{
             this.peliculas = res.body!;
@@ -67,7 +72,6 @@ export class BoleteriaComponent implements OnInit {
     }
 
     onFormatoSelected() {
-        console.log("asds")
         this.funcionService.queryByPeliculaAndFormato(this.peliculaSeleccionado.id!,this.formatoSeleccionado.id!).subscribe(res=>{
             this.funciones = res.body!;
         })
@@ -76,10 +80,10 @@ export class BoleteriaComponent implements OnInit {
     onPrecioChange(precio:IPrecio,value:string){
         this.preciosSeleccionados.forEach(x=> {
             if(x.id === precio.id){
-                x['cantidad'] = parseInt(value);
+                let val = parseInt(value)
+                x['cantidad'] = !isNaN(val) ? val : 0;
             }
         })
-        console.log(this.preciosSeleccionados);
     }
 
     calculateSubtotal(item:any) {
@@ -109,7 +113,10 @@ export class BoleteriaComponent implements OnInit {
     }
 
     onFuncionSelected() {
-        this.fillAsientos()
+        this.asientoService.query_occupied_by_funcion(this.funcionSeleccionado.id!).subscribe(res=>{
+            this.nodisp = res.body!.map(x => x.id!);
+            this.fillAsientos()
+        })
     }
 
     previousState() {
@@ -121,6 +128,9 @@ export class BoleteriaComponent implements OnInit {
     }
 
     onAsientoSelected(id:number){
+        if (this.selected.length >= this.calculateTotalPrecioSelected() && !this.selected.some(x =>x == id)) {
+            return;
+        }
         this.asientosSeleccionables.map(x => {
             return x.map(y=>{
                 if(y.id === id){
@@ -139,6 +149,7 @@ export class BoleteriaComponent implements OnInit {
     fillAsientos(){
         let ini = 1;
         let arr : IAsiento[] = [];
+        this.asientosSeleccionables = []
         while (true) {
             arr = this.funcionSeleccionado.sala?.asientos!.filter(x => x.fila == ini)!;
             arr = arr.map(x => {
@@ -149,9 +160,21 @@ export class BoleteriaComponent implements OnInit {
                 return x})
             if (arr.length < 1) {break;}
             this.asientosSeleccionables.push([...arr]);
-            console.log(this.asientosSeleccionables);
+            // console.log(this.asientosSeleccionables);
             ini++;
         }
+    }
+
+    canPagar(){
+        return this.selected.length > 0 && this.selected.length == this.calculateTotalPrecioSelected();
+    }
+
+
+    onSubmit(){
+        console.log(this.funcionSeleccionado);
+        console.log(this.selected)
+        console.log(this.preciosSeleccionados.map(x=>{return new PrecioSelectedQuantity(x.id,x['cantidad'])}))
+        this.compraService.buy_tickets_to_funcion(new Compra(this.funcionSeleccionado.id!,this.selected,this.preciosSeleccionados.map(x=>{return new PrecioSelectedQuantity(x.id,x['cantidad'])}))).subscribe()
     }
 
 }

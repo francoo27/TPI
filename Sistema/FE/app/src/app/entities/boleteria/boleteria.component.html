@@ -39,7 +39,7 @@
                                     <tr>
                                         <td>{{item.tipoPrecio.nombre}}</td>
                                         <td><strong>$ {{item.valor}} </strong></td>
-                                        <td><input type="number" pInputText (change)="onPrecioChange(item,precioInput.value)" min="0" #precioInput></td>
+                                        <td><input type="number" pInputText (change)="onPrecioChange(item,precioInput.value)" min="0" value="0" #precioInput></td>
                                         <td><strong>$ {{calculateSubtotal(item)}} </strong></td>
                                     </tr>
                                 </ng-template>
@@ -73,13 +73,17 @@
                     <div pButton pRipple type="button" icon="pi pi-user" class="p-button-rounded p-button-danger"></div>Ocupado
                     <div pButton pRipple type="button" icon="pi pi-user" class="p-button-rounded p-button-secondary" ></div>Seleccionado
                 </p-accordionTab>
-                <p-accordionTab header="Resumen Transaccion">
+                <p-accordionTab header="Resumen Transaccion" [disabled]="!canPagar()">
                     <p>Usted esta por comprar <b>{{calculateTotalPrecioSelected()}} </b> boletos para la funcion <b>{{funcionSeleccionado?.nombre}} </b> 
                         por un precio de <b>$ {{calculateTotal()}}</b> </p>
                 </p-accordionTab>
-                <p-accordionTab header="Pagar">
+                <p-accordionTab header="Pagar" [disabled]="!canPagar()">
                     <ng-container *ngIf="true">
-                        <form #form="ngForm">
+                        <form #form="ngForm" (ngSubmit)="onSubmit()">
+                            <div class="p-field p-col-12 p-md-12" >
+                                <label for="email">Email</label>
+                                <input type="email" pInputText class="p-inputtext-sm" placeholder="email@email.com"  required name="email">
+                            </div>
                             <div class="p-field p-col-12 p-md-12" >
                                 <label for="nombreTitular">Nombre Titular</label>
                                 <input type="text" pInputText pKeyFilter="alpha" class="p-inputtext-sm" placeholder="Franco E Pinacca"  required name="nombreTitular">
