@@ -3,9 +3,10 @@ from ..Logic import ticketService
 from ..Model.PrecioModel import Precio
 
 
-def compra(email,funcionId,ticketsIdList):
+def compra(funcionId,ticketIdList,email,nombre):
     tickets = []
-    for t in ticketsIdList:
+    for t in ticketIdList:
         tickets.append(ticketService.get_ticket(t))
-    compraRepository.compra(email,funcionId,tickets)
+    return compraRepository.compra(funcionId,tickets,email,nombre)
+
     

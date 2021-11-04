@@ -13,6 +13,9 @@ import { ActivatedRoute } from '@angular/router';
 import { AsientoService } from '../asiento/asiento.service';
 import { CompraService } from '../compra/compra.service';
 import { Compra, PrecioSelectedQuantity } from '../compra/compra.model';
+import { HttpResponse } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { MessageService } from 'primeng/api';
 
 @Component({
     selector: 'car-boleteria',
@@ -31,11 +34,14 @@ export class BoleteriaComponent implements OnInit {
     ccRegex: RegExp = /[0-9]{12}$/;
     cc!: string;
     me!: string;  
-    ae!: string;  
+    ae!: string;
+    email!: string;  
+    nombre!: string;    
     cvef!: string;
     
     okPrecio:boolean = false;
     okAsiento:boolean = false;
+    isSaving:boolean = false;
 
     asientosSeleccionables : IAsiento[][] = []; 
 
@@ -50,7 +56,8 @@ export class BoleteriaComponent implements OnInit {
                 private location: Location,
                 private activatedRoute: ActivatedRoute,
                 private asientoService: AsientoService,
-                private compraService: CompraService
+                private compraService: CompraService,
+                private messageService: MessageService
                 ) { 
         this.peliculaService.query().subscribe(res=>{
             this.peliculas = res.body!;
@@ -171,10 +178,42 @@ export class BoleteriaComponent implements OnInit {
 
 
     onSubmit(){
-        console.log(this.funcionSeleccionado);
-        console.log(this.selected)
-        console.log(this.preciosSeleccionados.map(x=>{return new PrecioSelectedQuantity(x.id,x['cantidad'])}))
-        this.compraService.buy_tickets_to_funcion(new Compra(this.funcionSeleccionado.id!,this.selected,this.preciosSeleccionados.map(x=>{return new PrecioSelectedQuantity(x.id,x['cantidad'])}))).subscribe()
+        this.isSaving = true;
+        this.subscribeToSaveResponse(this.compraService.buy_tickets_to_funcion(
+            new Compra(
+                this.funcionSeleccionado.id!,this.selected,this.preciosSeleccionados.map(x =>
+                    {
+                        return new PrecioSelectedQuantity(x.id,x['cantidad'])
+                    }),this.email,this.nombre
+                )
+        ));
+
+    }
+
+    private subscribeToSaveResponse(result: Observable<HttpResponse<any>>) {
+        result.subscribe(() => this.onSaveSuccess(), () => this.onSaveError());
+    }
+
+    private onSaveSuccess() {
+        this.isSaving = false;
+            this.messageService.add({
+            severity: "success",
+            summary: "Ok!",
+            detail: "Compra Exitosa"
+        })
+        setTimeout(() => {
+            this.previousState();
+        }, 1000);
+
+    }
+
+    private onSaveError() {
+        this.messageService.add({
+            severity: "error",
+            summary: "Ok!",
+            detail: "Hubo un error al procesar la compra"
+          });
+        this.isSaving = false;
     }
 
 }

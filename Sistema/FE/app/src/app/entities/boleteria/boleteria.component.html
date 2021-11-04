@@ -82,11 +82,11 @@
                         <form #form="ngForm" (ngSubmit)="onSubmit()">
                             <div class="p-field p-col-12 p-md-12" >
                                 <label for="email">Email</label>
-                                <input type="email" pInputText class="p-inputtext-sm" placeholder="email@email.com"  required name="email">
+                                <input type="email" pInputText class="p-inputtext-sm" [(ngModel)]="email" placeholder="email@email.com"  required name="email">
                             </div>
                             <div class="p-field p-col-12 p-md-12" >
                                 <label for="nombreTitular">Nombre Titular</label>
-                                <input type="text" pInputText pKeyFilter="alpha" class="p-inputtext-sm" placeholder="Franco E Pinacca"  required name="nombreTitular">
+                                <input type="text" pInputText pKeyFilter="alpha" [(ngModel)]="nombre" class="p-inputtext-sm" placeholder="Franco E Pinacca"  required name="nombreTitular">
                             </div>
                             <div class="p-field p-col-12 p-md-12" >
                                 <label for="cc" style="display:block;margin-bottom:4px">Numero Tarjeta</label>
@@ -111,7 +111,7 @@
                                     <button pButton type="button" class="p-button-secondary" (click)="previousState()" label="Volver"></button>
                                 </div>
                                 <div class="p-col-2  p-md-2">
-                                    <button pButton class="p-button-success" type="submit" label="Pagar" [disabled]="!form.valid"></button>
+                                    <button pButton class="p-button-success" type="submit" label="Pagar" [disabled]="!form.valid || isSaving"></button>
                                 </div>
                             </div>
                         </form>
@@ -124,3 +124,4 @@
     <div class="p-grid p-formgrid p-grid  p-jc-center">
     </div>
 </div>
+<p-toast></p-toast>

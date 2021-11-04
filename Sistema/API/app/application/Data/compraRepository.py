@@ -17,11 +17,12 @@ engine = create_engine(DevConfig.SQLALCHEMY_DATABASE_URI, echo=True)
 # session = Session()
 Session = sessionmaker(engine)
 session = db.session
-def compra(email,funcionId,tickets):
+def compra(funcionId,tickets,email,nombre):
+    print(tickets)
     query = """INSERT INTO `car_db`.`compra`
-        (`fecha_creacion`,`fecha_modificacion`,`email`,`id_funcion`)
-        VALUES(CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'{email}',{funcionId})
-        """.format(email=email, funcionId=funcionId)
+        (`fecha_creacion`,`fecha_modificacion`,`email`,`id_funcion`,`nombre`)
+        VALUES(CURRENT_TIMESTAMP,CURRENT_TIMESTAMP,'{email}',{funcionId},'{nombre}')
+        """.format(email=email, funcionId=funcionId,nombre=nombre)
     session.execute(query)
     compra = session.query(Compra).order_by(Compra.fecha_creacion.desc()).filter(~Compra.tickets.any()).filter(Compra.email == email).filter(Compra.id_funcion == funcionId).first()
     for t in tickets:
@@ -31,6 +32,7 @@ def compra(email,funcionId,tickets):
         """.format(idCompra=compra.id, idTicket=t.id))
     session.commit()
     session.flush()
+    return compra.id
     session.expire(compra)
     session.refresh(compra) 
     session.expire_all()

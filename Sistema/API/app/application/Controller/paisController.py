@@ -1,3 +1,4 @@
+from .util.auth import authorize
 from ..Model.PaisModel import PaisSchema
 from flask import Blueprint , Response , jsonify ,current_app as app
 from flask.globals import request
@@ -15,6 +16,7 @@ paisesSchema = PaisSchema(many=True)
 
 
 @pais_bp.route('/api/pais/<id>', methods=['GET'])
+@authorize
 def get_pais(id):
     pais =  paisService.get_pais(id)
     output = paisSchema.dump(pais)

@@ -6,6 +6,8 @@ from marshmallow import Schema, fields, ValidationError
 from ..Logic.emailService import sendmail
 from ..Logic import compraService
 from ..Logic import ticketService
+from http import HTTPStatus
+import json
 
 
 # Blueprint Configuration
@@ -19,22 +21,30 @@ comprasSchema = AsientoSchema(many=True)
 
 @compra_bp.route('/api/compra', methods=['POST'])
 def compra():
-    data = request.get_json()
-    precioIdQuantityList = data['precioIdQuantitySelected']
-    asientosId = data['asientoIdSelected']
-    cont = 0
-    ticketIdList=[]
-    for e in precioIdQuantityList:
-        for x in range(e['quantity']):
-            asientoId = asientosId[cont]
-            ticketId = ticketService.create_ticket(asientoId,e['precioId'])
-            ticketIdList.append(ticketId)
-            cont += 1
-    compraService.compra("a@a.com",5,ticketIdList)
-    # print(compra)
-    # comprasSchema.dump_only
-    # ticket = ticketService.create_ticket(1,1)
-    # print(ticket)
+    json_data = request.get_json()
+    if not json_data:
+        return {"message": "No data provided"}, 400
+    # Validate and deserialize input
+    try:
+        precioIdQuantityList = json_data['precioIdQuantitySelected']
+        asientosId = json_data['asientoIdSelected']
+        funcionId  = json_data['funcionId']
+        email = json_data['email']
+        nombre = json_data['nombre']
+        cont = 0
+        ticketIdList=[]
+        for e in precioIdQuantityList:
+            for x in range(e['quantity']):
+                asientoId = asientosId[cont]
+                ticketId = ticketService.create_ticket(asientoId,e['precioId'],email,nombre)
+                ticketIdList.append(ticketId)
+                cont += 1
+        compraService.compra(funcionId,ticketIdList,email,nombre)
+    except ValueError as e :
+        print(e)
+        return Response(mimetype="application/json",status=HTTPStatus.INTERNAL_SERVER_ERROR,response=json.dumps({"message":str(e)}))
+   
+
     return Response('{"data": "JSON string example"}',headers=dict({
     "HeaderExample": "HeaderContent"
     }),mimetype="application/json")

@@ -18,7 +18,9 @@
         <div class="p-col-3 p-md-3 p-xs-3" *ngFor="let pelicula of peliculas; let i=index">
             <p-card header="{{pelicula.tituloPais}}" subheader="{{pelicula.tituloOriginal}}" [style]="{width: '360px'}"  styleClass="p-card-shadow">
                 <ng-template pTemplate="header" >
-                    <img alt="Card" src="http://192.168.0.10:5000/api/img/{{pelicula.imagen}}" style="height: 200px;width: 300px;">
+                    <div style="text-align: center;background-color: rgb(127, 127, 127);">
+                        <img alt="Card" src="{{getImageSrc(pelicula.imagen!)}}" style="height: 200px;width: 300px;">
+                    </div>
                 </ng-template>
                 <p>{{pelicula.sinopsis}}</p>
                 <ng-template pTemplate="footer">

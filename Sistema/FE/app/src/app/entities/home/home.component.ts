@@ -59,8 +59,14 @@ export class HomeComponent {
         })
     }
 
+    getImageSrc(img:string):string{
+        console.log(SERVER_API_URL_IMAGE+img)
+        return SERVER_API_URL_IMAGE+img;
+    }
 
 }
+
+
 
 export const SERVER_API_URL_IMAGE = SERVER_API_URL + 'api/img/'
 export interface IDataCarousel {

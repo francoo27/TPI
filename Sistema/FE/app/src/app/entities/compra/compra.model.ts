@@ -3,6 +3,8 @@ export interface ICompra {
     funcionId?:number;
     asientoIdSelected?:number[];
     precioIdQuantitySelected?:IPrecioSelectedQuantity[];
+    email?: string;
+    nombre?: string;
 }
 
 export class Compra implements ICompra {
@@ -10,6 +12,8 @@ export class Compra implements ICompra {
         public funcionId?: number,
         public asientoIdSelected?: number[],
         public precioIdQuantitySelected?: IPrecioSelectedQuantity[],
+        public email?: string,
+        public nombre?: string,
     ) {
     }
 }

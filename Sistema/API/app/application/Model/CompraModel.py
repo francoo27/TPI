@@ -14,6 +14,7 @@ compraTicket = db.Table('compra_ticket', db.Model.metadata,
 class Compra(BaseModel):
     __tablename__ = 'compra'
     email = db.Column(db.String(128),nullable=False)
+    nombre = db.Column(db.String(128),nullable=False)
 
     id_funcion = db.Column(db.Integer, db.ForeignKey('funcion.id'),nullable=False)
     funcion = db.relationship("Funcion", backref=db.backref("funcion", uselist=False),lazy='subquery')
