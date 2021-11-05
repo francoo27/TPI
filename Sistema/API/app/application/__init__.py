@@ -34,7 +34,7 @@ def init_app():
         from .Controller import homeController, paisController, peliculaController, funcionController
         from .Controller import formatoController, clasificacionController, generoController, imagenController 
         from .Controller import salaController, complejoController, authorizationController
-        from .Controller import precioController, asientoController, compraController
+        from .Controller import precioController, asientoController, compraController, audioController, tecnologiaProyeccionController
         MigrationManager.validate_database()
         # Register Blueprints
         app.register_blueprint(homeController.home_bp)
@@ -51,5 +51,7 @@ def init_app():
         app.register_blueprint(precioController.precio_bp)
         app.register_blueprint(asientoController.asiento_bp)
         app.register_blueprint(compraController.compra_bp)
+        app.register_blueprint(audioController.audio_bp)
+        app.register_blueprint(tecnologiaProyeccionController.tecnologiaProyeccion_bp)
         return app
 

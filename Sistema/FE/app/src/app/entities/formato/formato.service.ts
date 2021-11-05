@@ -13,19 +13,23 @@ export class FormatoService {
 
     constructor(private http: HttpClient) {}
 
-    // create(formato: IFormato): Observable<EntityResponseType> {
-    //     return this.http.post<IFormato>(this.resourceUrl, formato, { observe: 'response' });
-    // }
-
-    // update(formato: IFormato): Observable<EntityResponseType> {
-    //     return this.http.put<IFormato>(`${this.resourceUrl}/${formato.id}`, formato, { observe: 'response' });
-    // }
-
-    // find(id: number): Observable<EntityResponseType> {
-    //     return this.http.get<IFormato>(`${this.resourceUrl}/${id}`, { observe: 'response' });
-    // }
-
     query(): Observable<EntityArrayResponseType> {
         return this.http.get<IFormato[]>(this.resourceUrl, { params: {}/*options*/, observe: 'response' });
+    }
+
+    create(formato: IFormato): Observable<EntityResponseType> {
+        return this.http.post<IFormato>(this.resourceUrl, formato, { observe: 'response' });
+    }
+
+    update(formato: IFormato): Observable<EntityResponseType> {
+        return this.http.put<IFormato>(`${this.resourceUrl}/${formato.id}`, formato, { observe: 'response' });
+    }
+
+    find(id: number): Observable<EntityResponseType> {
+        return this.http.get<IFormato>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+    }
+
+    delete(id: number): Observable<EntityResponseType> {
+        return this.http.delete<IFormato>(`${this.resourceUrl}/${id}`, { observe: 'response' });
     }
 }

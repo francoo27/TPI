@@ -37,6 +37,18 @@ import { RouterModule } from "@angular/router";
                         {
                             path: 'clasificacion',
                             loadChildren: () => import('./clasificacion/clasificacion.module').then(m => m.CineArClasificacionModule)
+                        },
+                        {
+                            path: 'audio',
+                            loadChildren: () => import('./audio/audio.module').then(m => m.CineArAudioModule)
+                        },
+                        {
+                            path: 'tecnologia-proyeccion',
+                            loadChildren: () => import('./tecnologia-proyeccion/tecnologia-proyeccion.module').then(m => m.CineArTecnologiaProyeccionModule)
+                        },
+                        {
+                            path: 'formato',
+                            loadChildren: () => import('./formato/formato.module').then(m => m.CineArFormatoModule)
                         }
                     ]
                 }

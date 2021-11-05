@@ -73,6 +73,34 @@ export class AppComponent implements OnInit {
                     }
                 ]},
               {
+                label: 'Audio',
+                items: [
+                    {
+                        label: 'Nuevo', 
+                        icon: 'pi pi-fw pi-plus',
+                        routerLink: ['/audio/new']
+                    },
+                    {
+                      label: 'Listado',
+                      icon: 'pi pi-fw pi-eye',
+                      routerLink: ['/audio']
+                    }
+                ]},
+              {
+                label: 'Tecnologia Proyeccion',
+                items: [
+                    {
+                        label: 'Nuevo', 
+                        icon: 'pi pi-fw pi-plus',
+                        routerLink: ['/tecnologia-proyeccion/new']
+                    },
+                    {
+                      label: 'Listado',
+                      icon: 'pi pi-fw pi-eye',
+                      routerLink: ['/tecnologia-proyeccion']
+                    }
+                ]},
+              {
                 label: 'Pais',
                 items: [
                     {
@@ -85,7 +113,21 @@ export class AppComponent implements OnInit {
                       icon: 'pi pi-fw pi-eye',
                       routerLink: ['/pais']
                     }
-                ]}
+                ]},
+                {
+                  label: 'Formato',
+                  items: [
+                      {
+                          label: 'Nuevo', 
+                          icon: 'pi pi-fw pi-plus',
+                          routerLink: ['/formato/new']
+                      },
+                      {
+                        label: 'Listado',
+                        icon: 'pi pi-fw pi-eye',
+                        routerLink: ['/formato']
+                      }
+                  ]}
               ]
           }
       ];

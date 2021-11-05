@@ -1,0 +1,25 @@
+<div class="p-grid p-jc-end">
+    <div class="p-col-2">
+            <button pButton type="submit"  [routerLink]="['/tecnologia-proyeccion/new']">Nueva Tecnologia Proyeccion</button>
+    </div>
+</div>
+<div class="p-col-12">
+    <p-table [value]="tecnologiaProyeccions">
+        <ng-template pTemplate="header">
+            <tr>
+                <th pSortableColumn="nombre">Nombre <p-sortIcon field="nombre"></p-sortIcon></th>
+                <th style="width:15%">Operaciones</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-tecnologiaProyeccion>
+            <tr>
+                <td>{{tecnologiaProyeccion.nombre}}</td>
+                <td>
+                    <button pButton class="p-button-rounded" type="submit" [routerLink]="['/tecnologia-proyeccion/'+tecnologiaProyeccion.id+'/edit']" icon="pi pi-pencil" title="Editar"></button>
+                    <button pButton class="p-button-rounded p-button-danger" type="submit" (click)="delete(tecnologiaProyeccion.id)" icon="pi pi-times" title="Eliminar"></button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</div>
+<p-toast></p-toast>
