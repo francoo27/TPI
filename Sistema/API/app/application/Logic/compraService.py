@@ -9,4 +9,7 @@ def compra(funcionId,ticketIdList,email,nombre):
         tickets.append(ticketService.get_ticket(t))
     return compraRepository.compra(funcionId,tickets,email,nombre)
 
+def get_compra(id):
+    return compraRepository.get_compra(id)
+
     

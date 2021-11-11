@@ -14,7 +14,7 @@ export class AppComponent implements OnInit {
     {
       label: 'Cartelera', 
       icon: 'pi pi-fw',
-      routerLink: ['/cartelera']
+      routerLink: ['']
     },
     {
       label: 'Boleteria', 

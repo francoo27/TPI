@@ -40,3 +40,5 @@ def compra(funcionId,tickets,email,nombre):
     # compraId = session.query(Compra).order_by(Compra.fecha_creacion.desc()).filter(~Compra.tickets.any()).filter(Compra.email == email).filter(Compra.id_funcion == funcionId).first().id
     # session.query(Compra).filter(Compra.id == compraId).update(tickets= tickets)
 
+def get_compra(id):
+    return session.query(Compra).filter(Compra.id==id).first()

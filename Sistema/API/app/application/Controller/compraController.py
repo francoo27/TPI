@@ -40,7 +40,22 @@ def compra():
                 ticketIdList.append(ticketId)
                 cont += 1
         compra = compraService.compra(funcionId,ticketIdList,email,nombre)
-        sendmail(email,compra)
+        sendmail(compraService.get_compra(compra))
+    except ValueError as e :
+        print(e)
+        return Response(mimetype="application/json",status=HTTPStatus.INTERNAL_SERVER_ERROR,response=json.dumps({"message":str(e)}))
+   
+
+    return Response('{"data": "JSON string example"}',headers=dict({
+    "HeaderExample": "HeaderContent"
+    }),mimetype="application/json")
+
+@compra_bp.route('/api/compra', methods=['GET'])
+def compra_get():
+    # Validate and deserialize input
+    try:
+        compra = compraService.get_compra(7)
+        sendmail(compra)
     except ValueError as e :
         print(e)
         return Response(mimetype="application/json",status=HTTPStatus.INTERNAL_SERVER_ERROR,response=json.dumps({"message":str(e)}))

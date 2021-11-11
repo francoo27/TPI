@@ -2,10 +2,38 @@ import smtplib
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 
+
 gmail_user = 'cinearventassistema@gmail.com'
 gmail_password = 'cinear123'
 
-def sendmail(to,data):
+def sendmail(data):
+    tipoPrecios =[]
+    print(len(data.tickets))
+    for t in data.tickets:
+        if len(tipoPrecios) < 1:
+          tipoPrecios.append({"id":t.precio.id_tipoPrecio,"nombre":t.precio.tipoPrecio.nombre,"valor":t.precio.valor,"cantidad":1})
+          continue
+        for tp in tipoPrecios:
+            item = list(filter(lambda tp: tp['id'] == t.precio.id_tipoPrecio, tipoPrecios))
+            if len(item) < 1:
+                tipoPrecios.append({"id":t.precio.id_tipoPrecio,"nombre":t.precio.tipoPrecio.nombre,"valor":t.precio.valor,"cantidad":1})
+                break
+            else:
+                tp.update({"cantidad":tp["cantidad"]+1})
+                break
+
+            
+    print(tipoPrecios)
+    middleTemplate =""
+    total = 0
+    emailTemplate = mailTopTemplate
+    for tp in tipoPrecios:
+      middleTemplate+= getTicketRowTemplate(tp["nombre"],tp["cantidad"],tp["cantidad"]*tp["valor"])
+      total +=tp["cantidad"]*tp["valor"]
+    
+    emailTemplate+= middleTemplate 
+    emailTemplate+= getTicketTotalTemplate(total)
+    emailTemplate+= bottonTemplate
     sent_from = gmail_user
     to = ['cinearventassistema@gmail.com']
     subject = 'OMG Super Important Message'
@@ -17,13 +45,13 @@ def sendmail(to,data):
     Subject: %s
 
     %s
-    """ % (sent_from, ", ".join(to), subject, body)
+    """ % (sent_from, ", ".join(data.email), subject, body)
 
     try:
         server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
         server.ehlo()
         server.login(gmail_user, gmail_password)
-        server.sendmail(sent_from, to, MIMEText(mailTemplate, 'html').as_string())
+        server.sendmail(sent_from, data.email, MIMEText(emailTemplate, 'html').as_string())
         server.close()
 
         print('Email sent!')
@@ -32,8 +60,8 @@ def sendmail(to,data):
 
 
 
-def getTicketRowTemplate():
-  return """<div style="padding: 0px;">
+def getTicketRowTemplate(tipo,cantidad,subtotal):
+  return f"""<div style="padding: 0px;">
             <div style="max-width: 600px;margin: 0 auto;">
               <div class="u-row">
 
@@ -46,7 +74,7 @@ def getTicketRowTemplate():
                           <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:'Cabin',sans-serif;" align="left">
 
                             <div style="line-height: 140%; text-align: left; word-wrap: break-word;">
-                              <p style="font-size: 14px; line-height: 140%;">TIPO</p>
+                              <p style="font-size: 14px; line-height: 140%;">{tipo}</p>
                             </div>
 
                           </td>
@@ -66,7 +94,7 @@ def getTicketRowTemplate():
                           <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:'Cabin',sans-serif;" align="left">
 
                             <div style="line-height: 140%; text-align: left; word-wrap: break-word;">
-                              <p style="font-size: 14px; line-height: 140%;">Cantidad</p>
+                              <p style="font-size: 14px; line-height: 140%;">{cantidad}</p>
                             </div>
 
                           </td>
@@ -86,7 +114,36 @@ def getTicketRowTemplate():
                           <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:'Cabin',sans-serif;" align="left">
 
                             <div style="line-height: 140%; text-align: left; word-wrap: break-word;">
-                              <p style="font-size: 14px; line-height: 140%;">Subtotal</p>
+                              <p style="font-size: 14px; line-height: 140%;">{subtotal}</p>
+                            </div>
+
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>"""
+
+def getTicketTotalTemplate(total):
+  return f"""          <div style="padding: 0px;">
+            <div style="max-width: 600px;margin: 0 auto;">
+              <div class="u-row">
+
+                <div class="u-col u-col-100">
+                  <div style="padding: 0px;border-top: 2px solid #000000;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 2px solid #000000;border-radius: 0px;">
+
+                    <table style="font-family:'Cabin',sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
+                      <tbody>
+                        <tr>
+                          <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:'Cabin',sans-serif;" align="left">
+
+                            <div style="line-height: 140%; text-align: left; word-wrap: break-word;">
+                              <p style="font-size: 14px; line-height: 140%; text-align: right;"><b>TOTAL   ${total}</b></p>
                             </div>
 
                           </td>
@@ -102,7 +159,8 @@ def getTicketRowTemplate():
           </div>"""
 
 
-mailTemplate = """
+
+mailTopTemplate = """
 <!doctype html>
 <html ⚡4email data-css-strict>
 
@@ -349,104 +407,11 @@ mailTemplate = """
 
               </div>
             </div>
-          </div>
+          </div>"""
 
-          <div style="padding: 0px;">
-            <div style="max-width: 600px;margin: 0 auto;">
-              <div class="u-row">
 
-                <div class="u-col u-col-33p33">
-                  <div style="padding: 0px;border-top: 2px solid #CCC;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 2px solid #CCC;border-radius: 0px;">
 
-                    <table style="font-family:'Cabin',sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
-                      <tbody>
-                        <tr>
-                          <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:'Cabin',sans-serif;" align="left">
-
-                            <div style="line-height: 140%; text-align: left; word-wrap: break-word;">
-                              <p style="font-size: 14px; line-height: 140%;">TIPO</p>
-                            </div>
-
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-
-                  </div>
-                </div>
-
-                <div class="u-col u-col-33p33">
-                  <div style="padding: 0px;border-top: 2px solid #CCC;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 2px solid #CCC;border-radius: 0px;">
-
-                    <table style="font-family:'Cabin',sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
-                      <tbody>
-                        <tr>
-                          <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:'Cabin',sans-serif;" align="left">
-
-                            <div style="line-height: 140%; text-align: left; word-wrap: break-word;">
-                              <p style="font-size: 14px; line-height: 140%;">Cantidad</p>
-                            </div>
-
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-
-                  </div>
-                </div>
-
-                <div class="u-col u-col-33p33">
-                  <div style="padding: 0px;border-top: 2px solid #CCC;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 2px solid #CCC;border-radius: 0px;">
-
-                    <table style="font-family:'Cabin',sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
-                      <tbody>
-                        <tr>
-                          <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:'Cabin',sans-serif;" align="left">
-
-                            <div style="line-height: 140%; text-align: left; word-wrap: break-word;">
-                              <p style="font-size: 14px; line-height: 140%;">Subtotal</p>
-                            </div>
-
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </div>
-
-          <div style="padding: 0px;">
-            <div style="max-width: 600px;margin: 0 auto;">
-              <div class="u-row">
-
-                <div class="u-col u-col-100">
-                  <div style="padding: 0px;border-top: 2px solid #000000;border-left: 0px solid transparent;border-right: 0px solid transparent;border-bottom: 2px solid #000000;border-radius: 0px;">
-
-                    <table style="font-family:'Cabin',sans-serif;" role="presentation" cellpadding="0" cellspacing="0" width="100%" border="0">
-                      <tbody>
-                        <tr>
-                          <td style="overflow-wrap:break-word;word-break:break-word;padding:10px;font-family:'Cabin',sans-serif;" align="left">
-
-                            <div style="line-height: 140%; text-align: left; word-wrap: break-word;">
-                              <p style="font-size: 14px; line-height: 140%; text-align: right;">TOTAL</p>
-                            </div>
-
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-
-                  </div>
-                </div>
-
-              </div>
-            </div>
-          </div>
-
+bottonTemplate ="""
           <div style="padding: 0px;">
             <div style="max-width: 600px;margin: 0 auto;background-color: #ffffff;">
               <div class="u-row">

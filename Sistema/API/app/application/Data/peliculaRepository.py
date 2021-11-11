@@ -19,10 +19,14 @@ session = db.session
 def pelicula_create(pelicula):
         session.add(pelicula)
         session.commit()
+        session.flush()
 
 def pelicula_update(pelicula):
+    print(pelicula.id)
     currentPelicula = session.query(Pelicula).filter(Pelicula.id == pelicula.id).first()
+    print(currentPelicula.genero)
     currentPelicula.formatos = pelicula.formatos
+    currentPelicula.genero = pelicula.genero
     currentPelicula.fechaEstreno = pelicula.fechaEstreno
     currentPelicula.duracion = pelicula.duracion
     currentPelicula.sinopsis = pelicula.sinopsis
@@ -34,6 +38,7 @@ def pelicula_update(pelicula):
     currentPelicula.imagen = None if pelicula.imagen == None else pelicula.imagen
     session.add(currentPelicula)
     session.commit()
+    session.flush()
 
 def query_pelicula():
     pelicula = session.query(Pelicula).all()
