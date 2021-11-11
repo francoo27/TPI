@@ -39,7 +39,8 @@ def compra():
                 ticketId = ticketService.create_ticket(asientoId,e['precioId'],email,nombre)
                 ticketIdList.append(ticketId)
                 cont += 1
-        compraService.compra(funcionId,ticketIdList,email,nombre)
+        compra = compraService.compra(funcionId,ticketIdList,email,nombre)
+        sendmail(email,compra)
     except ValueError as e :
         print(e)
         return Response(mimetype="application/json",status=HTTPStatus.INTERNAL_SERVER_ERROR,response=json.dumps({"message":str(e)}))
