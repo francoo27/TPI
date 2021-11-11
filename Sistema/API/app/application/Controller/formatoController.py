@@ -42,7 +42,6 @@ def formato_create():
     try:
         data = formatoSchema.load(json_data)
     except Exception as e :
-        print(e)
         return {e: "Error"}, 422
     try:
         formatoService.formato_create(data)

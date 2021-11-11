@@ -13,11 +13,13 @@ export class HomeComponent {
     peliculas: IPelicula[] = [];
     images: IDataCarousel[] = [
         {
-            "previewImageSrc": "http://192.168.0.10:5000/api/img/2",
-            "thumbnailImageSrc": "http://192.168.0.10:5000/api/img/2",
+            "previewImageSrc": "http://192.168.0.10:5000/api/img/2.jpeg",
+            "thumbnailImageSrc": "http://192.168.0.10:5000/api/img/2.jpeg",
             "alt": "Description for Image 1",
             "title": "Title 1"
         }
+    ];
+    buffer: IDataCarousel[] = [
     ];
 
     responsiveOptions:any[] = [
@@ -40,23 +42,29 @@ export class HomeComponent {
     ngOnInit() {
         this.peliculaService.query().subscribe(res => {
             this.peliculas = res.body!
-            this.peliculas.forEach(p=>{
-                this.images= [...this.images, ...[{
-                    previewImageSrc:SERVER_API_URL_IMAGE+'2',
-                    thumbnailImageSrc:SERVER_API_URL_IMAGE+'2',
-                    alt:p.sinopsis,
-                    title:p.tituloPais
-                } as IDataCarousel ]]
-                console.log(this.images)
-            });
+            // this.peliculas.forEach(p=>{
+            //     // this.images.push({
+            //     //     previewImageSrc:this.getImageSrc(p.imagen!),
+            //     //     thumbnailImageSrc:"",
+            //     //     alt:p.sinopsis,
+            //     //     title:p.tituloPais
+            //     // } as IDataCarousel )
+            //     this.images.push(       {
+            //         "previewImageSrc": this.getImageSrc(p.imagen!),
+            //         "thumbnailImageSrc": "http://192.168.0.10:5000/api/img/2.jpeg",
+            //         "alt": p.sinopsis!,
+            //         "title": p.tituloPais!
+            //     })
+            // });
         } );
+        // console.log(this.images)
+        // this.images.push(       {
+        //     "previewImageSrc": this.getImageSrc('2.jpeg'),
+        //     "thumbnailImageSrc": "http://192.168.0.10:5000/api/img/2.jpeg",
+        //     "alt": "",
+        //     "title":" p.tituloPais!"
+        // })
 
-        this.images.push(       {
-            "previewImageSrc": "http://192.168.0.10:5000/api/img/2",
-            "thumbnailImageSrc": "http://192.168.0.10:5000/api/img/2",
-            "alt": "Description for Image 1",
-            "title": "Title 1"
-        })
     }
 
     getImageSrc(img:string):string{

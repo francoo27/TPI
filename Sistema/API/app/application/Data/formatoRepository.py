@@ -7,14 +7,23 @@ from config import DevConfig
 from ..Shared import db
 formatoSchema = FormatoSchema()
 
+# session = SessionManager.getInstance()
+engine = create_engine(DevConfig.SQLALCHEMY_DATABASE_URI, echo=True)
+
+# # create a Session
+# Session = sessionmaker(bind=engine)
+# session = Session()
+Session = sessionmaker(engine)
 session = db.session
 
 def get_formato(id):    
     formato = session.query(Formato).filter(Formato.id == id).first()
     return formato
 
-def get_formato_by_name(name):
-    return session.query(Formato).filter(Formato.nombre == name).first()
+def get_formato_by_name(nombre):
+    a = session.query(Formato).filter(Formato.nombre == nombre).first()
+    print(a.nombre)
+    return a
 
 def query_formato():
     formato = session.query(Formato).all()

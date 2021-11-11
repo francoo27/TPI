@@ -23,7 +23,10 @@
                 <td>{{funcion.fechaInicio}}</td>
                 <td>{{funcion.horaInicio}}</td>
                 <td>
-                    <button pButton class="p-button-rounded" type="submit" [routerLink]="['/funcion/'+funcion.id+'/edit']" icon="pi pi-pencil" title="Editar"></button>
+                    <button pButton class="p-button-rounded p-button-warning" type="submit" (click)="delete(funcion.id)" icon="pi pi-times" title="Eliminar"></button>
+                    <ng-container *ngIf="funcion.cancelada == null || funcion.cancelada == undefined ">
+                        <button pButton class="p-button-rounded p-button-danger" type="submit" (click)="cancel(funcion.id)" icon="pi" title="Cancelar">C</button>
+                    </ng-container>
                 </td>
             </tr>
         </ng-template>

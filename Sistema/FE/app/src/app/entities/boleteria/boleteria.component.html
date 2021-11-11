@@ -53,7 +53,7 @@
                         </div>
                     </ng-container>
                 </p-accordionTab>
-                <p-accordionTab header="Seleccion de Asiento" [disabled]="!isPrecioSelected()">
+                <p-accordionTab header="Seleccion de Asiento" [disabled]="!isPrecioSelected() || !canElegirAsiento()">
                     <h5>Seleccione asientos</h5>
                     <div class="p-grid" *ngFor="let item of asientosSeleccionables">
                         <div class="p-col" *ngFor="let a of item">

@@ -8,7 +8,10 @@ def query_formato():
     return formatoRepository.query_formato()
 
 def formato_create(formato):
-    if formatoRepository.get_formato_by_name(formato.nombre) is not None:
+    print(formato.nombre)
+    a = formatoRepository.get_formato_by_name(formato.nombre)
+    print(a)
+    if a is not None:
         raise ValueError('Ya existe un formato con ese nombre')
     formatoRepository.formato_create(formato)
     

@@ -8,11 +8,11 @@
         </div>
         <div class="p-field p-col-3 p-md-3">
             <label for="clasificacion">Clasificacion</label>
-            <p-dropdown  [options]="tecnologiasProyeccion" [(ngModel)]="tecnologiaProyeccion" (ngModelChange)="changeNombre()" optionLabel="nombre" name="clasificacion" placeholder="Seleccione una Tecnologia de Proyeccion" [required]="true" [showClear]="true"></p-dropdown>
+            <p-dropdown  [options]="tecnologiasProyeccion" [(ngModel)]="formato.tecnologiaProyeccion" (ngModelChange)="changeNombre()" optionLabel="nombre" name="clasificacion" placeholder="Seleccione una Tecnologia de Proyeccion" [required]="true" [showClear]="true"></p-dropdown>
         </div>
         <div class="p-field p-col-3 p-md-3">
             <label for="genero">Genero</label>
-            <p-dropdown  [options]="audios" [(ngModel)]="audio" optionLabel="nombre" name="formato" (ngModelChange)="changeNombre()" placeholder="Seleccione un Audio" [required]="true" [showClear]="true"></p-dropdown>
+            <p-dropdown  [options]="audios" [(ngModel)]="formato.audio" optionLabel="nombre" name="formato" (ngModelChange)="changeNombre()" placeholder="Seleccione un Audio" [required]="true" [showClear]="true"></p-dropdown>
         </div>
     </div>
     <div class="">

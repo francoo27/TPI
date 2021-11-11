@@ -46,11 +46,15 @@ def query_funcion():
 
 
 def query_ByPeliculaAndFormato(peliculaId,fomatoId):
-    funcion = session.query(Funcion).filter(Funcion.id_pelicula == peliculaId and Funcion.id_formato == fomatoId ).filter(Funcion.fechaInicio == datetime.now().date() and Funcion.horaInicio > datetime.now().time() or Funcion.fechaInicio > datetime.now().date()).all()
+    funcion = session.query(Funcion).filter(Funcion.cancelada == None).filter(Funcion.id_pelicula == peliculaId and Funcion.id_formato == fomatoId ).filter(Funcion.fechaInicio == datetime.now().date() and Funcion.horaInicio > datetime.now().time() or Funcion.fechaInicio > datetime.now().date()).all()
     return funcion
 
 def funcion_delete(id):
     session.query(Funcion).filter(Funcion.id == id).delete()
+    session.commit()
+
+def funcion_cancel(id):
+    session.execute(f"UPDATE `car_db`.`funcion` SET cancelada = 1  WHERE funcion.id = {id} ")
     session.commit()
 
 def funcion_can_create(fechaInicio, horaInicio):

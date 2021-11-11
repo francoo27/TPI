@@ -1,14 +1,14 @@
 <div class="card">
-  <form  #form="ngForm">
+  <form  #form="ngForm" (ngSubmit)="login()">
     <div class="p-fluid p-formgrid p-grid  p-jc-center">
       <div class="p-col-4 p-md-4" style="margin-top: 5em;">
         <div class="p-field">
           <label for="email">Email</label>
-          <input id="email" type="email" name="email" required pInputText> 
+          <input id="email" type="email" name="email" [(ngModel)]="email" required pInputText> 
         </div>
         <div class="p-field">
           <label for="password">Contraseña</label>
-          <input id="password" type="password" name="password" required pInputText > 
+          <input id="password" type="password" [(ngModel)]="password" name="password" required pInputText > 
         </div>
         <div class="p-grid p-jc-end">
           <div class="p-col-3 p-md-3">

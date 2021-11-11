@@ -11,6 +11,7 @@ class Usuario(BaseModel):
     admin = db.Column(db.Boolean)
     gerente = db.Column(db.Boolean)
     email = db.Column(db.String(256))
+    token = db.Column(db.String(256))
 
 class UsuarioSchema(ma.SQLAlchemyAutoSchema):
     class Meta:

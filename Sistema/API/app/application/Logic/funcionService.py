@@ -19,4 +19,7 @@ def funcion_update(funcion):
 
 def funcion_delete(id):
     funcionRepository.funcion_delete(id)
+
+def funcion_cancel(id):
+    funcionRepository.funcion_cancel(id)
     

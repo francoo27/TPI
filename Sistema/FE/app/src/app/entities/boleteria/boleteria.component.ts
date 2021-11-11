@@ -91,6 +91,18 @@ export class BoleteriaComponent implements OnInit {
                 x['cantidad'] = !isNaN(val) ? val : 0;
             }
         })
+        if (this.calculateTotalPrecioSelected() > this.asientosSeleccionables.reduce((a, b) => a + b.length, 0) - this.nodisp.length ){
+            this.messageService.add({
+                severity: "info",
+                summary: "INFORMACION",
+                detail: "Debe reducir la cantidad de tickets a comprar"
+                });
+        }
+
+    }
+
+    canElegirAsiento(){
+       return this.calculateTotalPrecioSelected() <= this.asientosSeleccionables.reduce((a, b) => a + b.length, 0) - this.nodisp.length 
     }
 
     calculateSubtotal(item:any) {

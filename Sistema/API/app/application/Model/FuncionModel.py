@@ -10,7 +10,7 @@ class Funcion(BaseModel):
     nombre = db.Column(db.String(128))
     fechaInicio = db.Column(db.Date(), nullable=True)
     horaInicio = db.Column(db.Time(), nullable=True)
-
+    cancelada = db.Column(db.Boolean(), nullable=True)
     id_pelicula = db.Column(db.Integer, db.ForeignKey('pelicula.id'),nullable=False)
     pelicula = db.relationship("Pelicula", backref=db.backref("pelicula", uselist=False),lazy='subquery')
 

@@ -67,11 +67,11 @@ class EntityManager():
         session.add(Audio(nombre = 'Portugues (Subtitulado)'))
         twoD   = TecnologiaProyeccion(nombre = '2D')
         threeD = TecnologiaProyeccion(nombre = '3D')
-        session.add(twoD)
-        session.add(threeD)
+        # session.add(twoD)
+        # session.add(threeD)
         formato = Formato(nombre = f'{twoD.nombre} {espanol.nombre}',audio = espanol , tecnologiaProyeccion = twoD) # BORRAR CUANDO SE ELIMINEN LAS ENTIDADES PARA TESTEAR
         # session.add(Formato(nombre = f'{twoD.nombre} {espanol.nombre}',audio = espanol , tecnologiaProyeccion = twoD))
-        session.add(formato)
+        # session.add(formato)
         asientos = [
                 Asiento(columna=1,fila=1,nombre="A-1",adaptado=True),
                 Asiento(columna=2,fila=1,nombre="A-2",adaptado=True),
@@ -177,20 +177,20 @@ class EntityManager():
         session.add(Genero(nombre='Suspenso'))
         session.add(genero)
         # session.add(Genero(nombre='comedia')) BORRAR CUANDO SE ELIMINEN LAS ENTIDADES PARA TESTEAR
-        pelicula = Pelicula(
-            tituloOriginal = 'Original',
-            tituloPais = 'Pais',
-            fechaEstreno = date.today(),
-            duracion=108,
-            sinopsis='sinopsis',
-            formatos = [formato],
-            clasificacion = clasificacion,
-            genero = genero,
-            pais = pais )
-        session.add(pelicula)
+        # pelicula = Pelicula(
+        #     tituloOriginal = 'Original',
+        #     tituloPais = 'Pais',
+        #     fechaEstreno = date.today(),
+        #     duracion=108,
+        #     sinopsis='sinopsis',
+        #     formatos = [formato],
+        #     clasificacion = clasificacion,
+        #     genero = genero,
+        #     pais = pais )
+        # session.add(pelicula)
 
-        funcion = Funcion(nombre="TEST Nombre Funcion",pelicula=pelicula,sala=sala,formato=formato,fechaInicio=datetime.now().date(),horaInicio=datetime.now().time())
-        session.add(funcion)
+        # funcion = Funcion(nombre="TEST Nombre Funcion",pelicula=pelicula,sala=sala,formato=formato,fechaInicio=datetime.now().date(),horaInicio=datetime.now().time())
+        # session.add(funcion)
         adulto = TipoPrecio(nombre="Adulto",codigo="ADULTO")
         nino =TipoPrecio(nombre="Niños",codigo="NINO")
         jubi =TipoPrecio(nombre="Jubilado",codigo="JUBILADO")
@@ -198,5 +198,5 @@ class EntityManager():
         session.add(Precio(nombre="A",codigo="A",valor=150,tipoPrecio=nino,activo=True))
         session.add(Precio(nombre="B",codigo="B",valor=300,tipoPrecio=adulto,activo=True))
         session.add(Precio(nombre="C",codigo="C",valor=200,tipoPrecio=jubi,activo=True))
-        session.add(Compra(email="asdas@asdasd.com",funcion=funcion))
+        # session.add(Compra(email="asdas@asdasd.com",funcion=funcion))
         session.commit()

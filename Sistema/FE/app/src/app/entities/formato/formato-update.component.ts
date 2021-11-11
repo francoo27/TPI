@@ -58,7 +58,7 @@ export class FormatoUpdateComponent implements OnInit {
     }
 
     changeNombre(){
-        this.formato.nombre = this.audio == undefined || this.tecnologiaProyeccion == undefined ? "" : this.tecnologiaProyeccion.nombre + " " + this.audio.nombre; 
+        this.formato.nombre = this.formato.audio == undefined || this.formato.tecnologiaProyeccion == undefined ? "" : this.formato.tecnologiaProyeccion.nombre + " " + this.formato.audio.nombre;
     }
 
     save() {

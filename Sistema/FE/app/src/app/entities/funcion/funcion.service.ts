@@ -33,4 +33,12 @@ export class FuncionService {
     queryByPeliculaAndFormato(peliculaId:number,formatoId:number): Observable<EntityArrayResponseType> {
         return this.http.get<IFuncion[]>(`${this.resourceUrl}/pelicula/${peliculaId}/formato/${formatoId}`, { params: {}/*options*/, observe: 'response' });
     }
+
+    delete(id: number): Observable<EntityResponseType> {
+        return this.http.delete<IFuncion>(`${this.resourceUrl}/${id}`, { observe: 'response' });
+    }
+
+    cancel(id: number): Observable<EntityResponseType> {
+        return this.http.delete<IFuncion>(`${this.resourceUrl}/${id}/cancel`, { observe: 'response' });
+    }
 }

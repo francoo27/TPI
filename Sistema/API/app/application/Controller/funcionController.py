@@ -88,10 +88,24 @@ def funcion_update(id):
 
 @funcion_bp.route('/api/funcion/<id>', methods=['DELETE'])
 def funcion_delete(id):
-    funcionService.funcion_delete(id)
+    try:
+        funcionService.funcion_delete(id)
+    except:
+        return {"message": "Error"}, 422
     return Response(headers=dict({
   "HeaderExample": "HeaderContent"
 }),mimetype="application/json")
+
+@funcion_bp.route('/api/funcion/<id>/cancel', methods=['DELETE'])
+def funcion_cancel(id):
+    try:
+        funcionService.funcion_cancel(id)
+    except:
+        return {"message": "Error"}, 422
+    # funcionService.funcion_update(data)
+    return Response(headers=dict({
+        "HeaderExample": "HeaderContent"
+        }),mimetype="application/json")
 
 
 @funcion_bp.route('/api/funcion/pelicula/<peliculaId>/formato/<formatoId>', methods=['GET'])

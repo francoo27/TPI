@@ -5,7 +5,7 @@ from email.mime.text import MIMEText
 gmail_user = 'cinearventassistema@gmail.com'
 gmail_password = 'cinear123'
 
-def sendmail():
+def sendmail(to):
     sent_from = gmail_user
     to = ['cinearventassistema@gmail.com']
     subject = 'OMG Super Important Message'
