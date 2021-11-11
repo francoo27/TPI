@@ -36,8 +36,9 @@ def login_user():
         return {'WWW.Authentication': 'Basic realm: "login required"'} , 401
 
     token = authorizationRepository.login(data['email'],data['password'])
+    print(token)
     if token is None:
-        abort(401)
+        return Response(mimetype="application/json",status=HTTPStatus.ACCEPTED,response=json.dumps({"token":""}))
     return Response(mimetype="application/json",status=HTTPStatus.ACCEPTED,response=json.dumps({"token":token}))
 
 @authorization_bp.route('/api/authorization/logout', methods=['POST'])  

@@ -25,7 +25,7 @@ def get_usuario_byName(nombre):
     return usuario
 
 def login(email,password):
-    usuario = session.query(Usuario).filter(Usuario.email == email and Usuario.password == password).first()
+    usuario = session.query(Usuario).filter(Usuario.email == email).filter(Usuario.password == password).first()
     token = None
     if usuario is not None:
         usuario.token = str(uuid.uuid4())
