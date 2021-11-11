@@ -12,7 +12,7 @@
         </div>
         <div class="p-grid p-jc-end">
           <div class="p-col-3 p-md-3">
-              <button pButton type="button" class="p-button-secondary" label="Volver"></button>
+              <button pButton type="button" class="p-button-secondary" (click)="previousState()" label="Volver"></button>
           </div>
           <div class="p-col-3 p-md-3">
               <button pButton type="submit" label="Ingresar" [disabled]="!form.valid"></button>
@@ -22,3 +22,4 @@
     </div>
   </form>
 </div>
+<p-toast></p-toast>

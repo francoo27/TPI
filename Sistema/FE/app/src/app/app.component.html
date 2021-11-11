@@ -2,5 +2,18 @@
   <ng-template pTemplate="start">
     <a href="/"><img src="../assets/favicon.ico" height="40" class="p-mr-2"></a>
   </ng-template>
+  <ng-template pTemplate="end">
+    <div class="p-grid" *ngIf="email">
+      <div class="p-col-12">
+              <p-button label="{{email}}" icon="pi pi-users" styleClass="p-button-warning" badgeClass="p-badge-danger"></p-button>
+              <button pButton class="p-button-rounded p-button-info" type="submit" (click)="logout()" icon="pi pi-power-off" title="Logout"></button>
+      </div>
+  </div>
+  <div class="p-grid" *ngIf="email == undefined">
+    <div class="p-col-12">
+          <p-button label="Login" icon="pi pi-users" styleClass="p-button-warning"  [routerLink]="['/login']" badgeClass="p-badge-danger" title="Login"></p-button>
+    </div>
+  </div>
+  </ng-template>
 </p-menubar>
 <router-outlet></router-outlet>

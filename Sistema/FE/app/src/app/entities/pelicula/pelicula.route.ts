@@ -8,6 +8,7 @@ import { IPelicula, Pelicula } from './pelicula.model';
 import { PeliculaService } from './pelicula.service';
 import { PeliculaDetailComponent } from './pelicula-detail.component';
 import { PeliculaComponent } from './pelicula.component';
+import { CanActivateAuth} from '../../auth/canActivateAuth'
 
 @Injectable({ providedIn: 'root' })
 export class PeliculaResolve implements Resolve<IPelicula> {
@@ -25,7 +26,8 @@ export class PeliculaResolve implements Resolve<IPelicula> {
 export const peliculaRoute: Routes = [
     {
         path: '',
-        component: PeliculaComponent
+        component: PeliculaComponent,
+        canActivate:[CanActivateAuth]
     },
     {
         path: ':id/view',
@@ -35,7 +37,8 @@ export const peliculaRoute: Routes = [
         },
         data: {
             pageTitle: 'Pelicula'
-        }
+        },
+        canActivate:[CanActivateAuth]
     },
     {
         path: ':id/edit',

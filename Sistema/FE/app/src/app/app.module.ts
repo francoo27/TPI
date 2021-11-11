@@ -13,6 +13,7 @@ import {MenubarModule} from 'primeng/menubar';
 import { CineArFormModule } from './entities/cineArForm.module';
 import { CineArAuthModule } from './auth/auth.module';
 import { CommonModule } from '@angular/common';
+import {BadgeModule} from 'primeng/badge';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { CommonModule } from '@angular/common';
     ToastModule,
     MenubarModule,
     CineArFormModule,
-    CineArAuthModule
+    CineArAuthModule,
+    BadgeModule
   ],
   providers: [],
   bootstrap: [AppComponent]

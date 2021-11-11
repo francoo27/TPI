@@ -10,6 +10,7 @@ import { MessageService } from "primeng/api";
 import { CineArFormModule } from "../cineArForm.module";
 import { peliculaRoute } from "./pelicula.route";
 import { CommonModule } from '@angular/common';
+import { CanActivateAuth } from "src/app/auth/canActivateAuth";
 
 const ENTITY_STATES = [...peliculaRoute]
 @NgModule({
@@ -21,7 +22,7 @@ const ENTITY_STATES = [...peliculaRoute]
         ],
     entryComponents: [],
     schemas: [CUSTOM_ELEMENTS_SCHEMA],
-    providers: [MessageService]
+    providers: [MessageService,CanActivateAuth]
 })
 
 export class CineArPeliculaModule{}

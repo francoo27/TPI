@@ -16,7 +16,7 @@ paisesSchema = PaisSchema(many=True)
 
 
 @pais_bp.route('/api/pais/<id>', methods=['GET'])
-@authorize
+# @authorize
 def get_pais(id):
     pais =  paisService.get_pais(id)
     output = paisSchema.dump(pais)
